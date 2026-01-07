@@ -46,7 +46,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            /* Imagem atualizada: Crianças treinando Jiu-Jitsu em grupo no tatame */
+            /* Imagem de fundo */
             background: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
         }
 
@@ -79,22 +79,17 @@
             animation: fadeInDown 1s ease;
         }
 
-        /* NOVO ESTILO DO LOGO (Substitui a imagem quebrada) */
-        .logo-placeholder {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #1a1d24, #0f1115);
-            border: 2px solid var(--primary-orange);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 4rem;
-            color: var(--primary-orange);
+        /* ESTILO ATUALIZADO PARA A IMAGEM DO LOGO */
+        .logo-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Mantém o formato circular */
+            border: 3px solid var(--primary-orange);
             box-shadow: 0 0 30px var(--primary-glow);
             margin-bottom: 15px;
-            position: relative;
-            text-shadow: 0 0 10px rgba(243, 125, 29, 0.5);
+            object-fit: cover; /* Garante que a imagem preencha o círculo */
+            object-position: center;
+            background-color: #fff; /* Fundo branco caso a imagem tenha transparência */
         }
 
         .status-badge {
@@ -380,10 +375,7 @@
     <div class="container">
         
         <div class="logo-area">
-            <!-- LOGO SUBSTITUÍDO: Rei do Xadrez Estilizado -->
-            <div class="logo-placeholder">
-                <i class="fas fa-chess-king"></i>
-            </div>
+            <img src="Logo_The Kings.jpg" alt="Logo The Kings" class="logo-img">
             
             <div id="statusBadge" class="status-badge">
                 <span class="status-dot"></span>
@@ -398,7 +390,6 @@
 
         <div class="links-group">
             
-            <!-- MENU 1: ÁREA DO ALUNO (DROPDOWN) -->
             <div class="menu-wrapper" id="menu-aluno">
                 <div class="link-card featured" onclick="toggleMenu('menu-aluno')">
                     <div class="link-content">
@@ -411,30 +402,24 @@
                     <i class="fas fa-chevron-down arrow-icon"></i>
                 </div>
                 <div class="submenu">
-                    <!-- Link iOS -->
                     <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="submenu-link">
                         <i class="fab fa-apple submenu-icon"></i> App Aluno iOS
                     </a>
-                    <!-- Link Android -->
                     <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno&pcampaignid=web_share" target="_blank" class="submenu-link">
                         <i class="fab fa-android submenu-icon"></i> App Aluno Android
                     </a>
-                    <!-- Plano de Aula -->
                     <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit?utm_content=DAGKabE1yH4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="submenu-link">
                         <i class="fas fa-book-open submenu-icon"></i> Plano de Aula 2026
                     </a>
-                    <!-- Regras -->
                     <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" class="submenu-link">
                         <i class="fas fa-trophy submenu-icon"></i> Regras de Competições
                     </a>
-                    <!-- Segurança -->
                     <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM?usp=drive_link" target="_blank" class="submenu-link">
                         <i class="fas fa-shield-alt submenu-icon"></i> Segurança Digital e Física
                     </a>
                 </div>
             </div>
 
-            <!-- MENU 2: GRUPOS WHATSAPP (DROPDOWN) -->
             <div class="menu-wrapper" id="menu-whats">
                 <div class="link-card" onclick="toggleMenu('menu-whats')">
                     <div class="link-content">
@@ -456,7 +441,6 @@
                 </div>
             </div>
 
-            <!-- GRADE DE HORÁRIOS (Link Direto) -->
             <a href="https://wa.me/p/7441470569286902/5511951945648" target="_blank" class="link-card">
                 <div class="link-content">
                     <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
@@ -468,7 +452,6 @@
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </a>
 
-            <!-- XADREZ (Substituindo Como Chegar) -->
             <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="link-card">
                 <div class="link-content">
                     <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
@@ -480,7 +463,6 @@
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </a>
 
-            <!-- CLUBE+ (Antigo Matrícula Online) -->
             <a href="https://wa.me/5511951945648?text=Quero%20fazer%20parte%20do%20Clube%20%2B%20Vantagens" target="_blank" class="link-card">
                 <div class="link-content">
                     <div class="icon-box"><i class="fas fa-star"></i></div>
