@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Kings - Área do Aluno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-orange: #f37d1d;
+            --primary-glow: rgba(243, 125, 29, 0.6);
+            --dark-bg: #0f1115;
+            --glass-bg: rgba(30, 34, 45, 0.7);
+            --glass-bg-hover: rgba(45, 50, 65, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-white: #ffffff;
+            --text-gray: #b0b3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Imagem atualizada: Crianças treinando Jiu-Jitsu em grupo no tatame */
+            background: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, rgba(15, 17, 21, 0.85) 0%, rgba(15, 17, 21, 0.95) 60%, #0f1115 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            padding-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-area {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInDown 1s ease;
+        }
+
+        /* NOVO ESTILO DO LOGO (Substitui a imagem quebrada) */
+        .logo-placeholder {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a1d24, #0f1115);
+            border: 2px solid var(--primary-orange);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            color: var(--primary-orange);
+            box-shadow: 0 0 30px var(--primary-glow);
+            margin-bottom: 15px;
+            position: relative;
+            text-shadow: 0 0 10px rgba(243, 125, 29, 0.5);
+        }
+
+        .status-badge {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--glass-border);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            transform: translateY(-5px);
+            animation: fadeIn 1.5s ease;
+            transition: all 0.3s ease;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #4cd964;
+            box-shadow: 0 0 8px #4cd964;
+            animation: pulse-green 2s infinite;
+        }
+
+        .status-closed .status-dot {
+            background-color: #ff3b30;
+            box-shadow: 0 0 8px #ff3b30;
+            animation: none;
+        }
+
+        .header-text h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .header-text span {
+            color: var(--primary-orange);
+        }
+
+        .header-text p {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 35px;
+            font-weight: 400;
+        }
+
+        /* --- ESTILOS DOS MENUS E LINKS --- */
+        .links-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        /* Container do Menu Expansível */
+        .menu-wrapper {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease backwards;
+        }
+
+        .link-card {
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Estado "Featured" (Destaque Laranja) */
+        .link-card.featured {
+            background: linear-gradient(135deg, #f37d1d 0%, #d35f00 100%);
+            border: none;
+            box-shadow: 0 8px 25px rgba(243, 125, 29, 0.3);
+        }
+        
+        /* Ajuste para quando o menu featured está aberto */
+        .menu-wrapper.open .link-card.featured {
+            border-radius: 16px 16px 0 0; /* Canto reto embaixo quando aberto */
+        }
+
+        /* Hover states */
+        .link-card:not(.featured):hover {
+            background-color: var(--glass-bg-hover);
+            transform: translateY(-2px);
+        }
+
+        .link-card.featured:hover {
+            transform: scale(1.02);
+        }
+
+        /* Conteúdo interno do Card */
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            text-align: left;
+        }
+
+        .icon-box {
+            font-size: 1.4rem;
+            color: var(--primary-orange);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .link-card.featured .icon-box {
+            color: #fff;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .link-text {
+            font-weight: 500;
+            font-size: 1.05rem;
+            display: block;
+        }
+        
+        .link-subtext {
+            display: block;
+            font-size: 0.75rem;
+            color: #aaa;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        .link-card.featured .link-text,
+        .link-card.featured .link-subtext {
+            color: #fff;
+        }
+
+        /* Ícone de Seta/Chevron */
+        .arrow-icon {
+            color: #555;
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+
+        .link-card.featured .arrow-icon {
+            color: #fff;
+        }
+
+        /* Rotação da seta quando menu aberto */
+        .menu-wrapper.open .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        /* --- SUBMENU STYLES --- */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 0 0 16px 16px;
+        }
+
+        .menu-wrapper.open .submenu {
+            max-height: 500px; /* Altura suficiente para o conteúdo */
+            border: 1px solid var(--glass-border);
+            border-top: none;
+        }
+
+        .submenu-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #ddd;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.2s;
+            font-size: 0.95rem;
+            gap: 12px;
+        }
+
+        .submenu-link:last-child {
+            border-bottom: none;
+        }
+
+        .submenu-link:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--primary-orange);
+            padding-left: 25px; /* Efeito de deslize */
+        }
+
+        .submenu-icon {
+            font-size: 0.8rem;
+            width: 20px;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            color: #666;
+            font-size: 0.8rem;
+            width: 100%;
+        }
+
+        .social-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            padding: 15px;
+            border-radius: 50px;
+            display: inline-flex;
+            gap: 20px;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            color: var(--text-white);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .social-link:hover {
+            color: var(--primary-orange);
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-3px);
+        }
+
+        /* Animações */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(76, 217, 100, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="bg-gradient"></div>
+
+    <div class="container">
+        
+        <div class="logo-area">
+            <!-- LOGO SUBSTITUÍDO: Rei do Xadrez Estilizado -->
+            <div class="logo-placeholder">
+                <i class="fas fa-chess-king"></i>
+            </div>
+            
+            <div id="statusBadge" class="status-badge">
+                <span class="status-dot"></span>
+                <span id="statusText">Verificando...</span>
+            </div>
+
+            <div class="header-text">
+                <h1>The Kings <span>BJJ</span></h1>
+                <p>Área do Aluno • Jiu-Jitsu & Performance</p>
+            </div>
+        </div>
+
+        <div class="links-group">
+            
+            <!-- MENU 1: ÁREA DO ALUNO (DROPDOWN) -->
+            <div class="menu-wrapper" id="menu-aluno">
+                <div class="link-card featured" onclick="toggleMenu('menu-aluno')">
+                    <div class="link-content">
+                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                        <div>
+                            <span class="link-text">Área do Aluno</span>
+                            <span class="link-subtext">Apps, Planos e Regras (Toque para abrir)</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="submenu">
+                    <!-- Link iOS -->
+                    <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="submenu-link">
+                        <i class="fab fa-apple submenu-icon"></i> App Aluno iOS
+                    </a>
+                    <!-- Link Android -->
+                    <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno&pcampaignid=web_share" target="_blank" class="submenu-link">
+                        <i class="fab fa-android submenu-icon"></i> App Aluno Android
+                    </a>
+                    <!-- Plano de Aula -->
+                    <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit?utm_content=DAGKabE1yH4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="submenu-link">
+                        <i class="fas fa-book-open submenu-icon"></i> Plano de Aula 2026
+                    </a>
+                    <!-- Regras -->
+                    <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" class="submenu-link">
+                        <i class="fas fa-trophy submenu-icon"></i> Regras de Competições
+                    </a>
+                    <!-- Segurança -->
+                    <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM?usp=drive_link" target="_blank" class="submenu-link">
+                        <i class="fas fa-shield-alt submenu-icon"></i> Segurança Digital e Física
+                    </a>
+                </div>
+            </div>
+
+            <!-- MENU 2: GRUPOS WHATSAPP (DROPDOWN) -->
+            <div class="menu-wrapper" id="menu-whats">
+                <div class="link-card" onclick="toggleMenu('menu-whats')">
+                    <div class="link-content">
+                        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+                        <div>
+                            <span class="link-text">Grupos do WhatsApp</span>
+                            <span class="link-subtext">Comunidade e Avisos</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-down arrow-icon"></i>
+                </div>
+                <div class="submenu">
+                    <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" class="submenu-link">
+                        <i class="fas fa-users submenu-icon"></i> Grupo Aberto
+                    </a>
+                    <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" class="submenu-link">
+                        <i class="fas fa-bullhorn submenu-icon"></i> Grupo de Avisos (Pais)
+                    </a>
+                </div>
+            </div>
+
+            <!-- GRADE DE HORÁRIOS (Link Direto) -->
+            <a href="https://wa.me/p/7441470569286902/5511951945648" target="_blank" class="link-card">
+                <div class="link-content">
+                    <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
+                    <div>
+                        <span class="link-text">Grade de Horários</span>
+                        <span class="link-subtext">Ver catálogo no WhatsApp</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- XADREZ (Substituindo Como Chegar) -->
+            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="link-card">
+                <div class="link-content">
+                    <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
+                    <div>
+                        <span class="link-text">Aprenda Xadrez</span>
+                        <span class="link-subtext">Desenvolva sua estratégia</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- CLUBE+ (Antigo Matrícula Online) -->
+            <a href="https://wa.me/5511951945648?text=Quero%20fazer%20parte%20do%20Clube%20%2B%20Vantagens" target="_blank" class="link-card">
+                <div class="link-content">
+                    <div class="icon-box"><i class="fas fa-star"></i></div>
+                    <div>
+                        <span class="link-text">Faça Parte do Clube+</span>
+                        <span class="link-subtext">Benefícios e Vantagens</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </a>
+
+        </div>
+
+        <footer>
+            <div class="social-container">
+                <a href="https://www.instagram.com/thekingsjw/#" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/thekingsjw" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/5511951945648" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p style="opacity: 0.5;">&copy; 2024 The Kings BJJ.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Função para abrir/fechar os menus
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            
+            // Fecha outros menus abertos (opcional, para manter limpo)
+            const allMenus = document.querySelectorAll('.menu-wrapper');
+            allMenus.forEach(m => {
+                if (m.id !== menuId && m.classList.contains('open')) {
+                    m.classList.remove('open');
+                }
+            });
+
+            menu.classList.toggle('open');
+        }
+
+        // ==========================================
+        // CONFIGURAÇÃO DOS HORÁRIOS (MANTIDA)
+        // ==========================================
+        const scheduleConfig = {
+            1: ['07:00', '12:00', '18:30', '20:00'], 
+            2: ['07:00', '12:00', '18:30', '20:00'], 
+            3: ['07:00', '12:00', '18:30', '20:00'], 
+            4: ['07:00', '12:00', '18:30', '20:00'], 
+            5: ['07:00', '12:00', '18:30'], 
+            6: ['10:00'], 
+            0: [] 
+        };
+
+        const minutesBeforeOpen = 10;
+        const classDurationMinutes = 90;
+
+        function checkStatus() {
+            const now = new Date();
+            const day = now.getDay();
+            const todayClasses = scheduleConfig[day] || [];
+            let isOpen = false;
+            const currentTotalMinutes = (now.getHours() * 60) + now.getMinutes();
+
+            for (let timeStr of todayClasses) {
+                const [h, m] = timeStr.split(':').map(Number);
+                const classStartMinutes = (h * 60) + m;
+                const openMinutes = classStartMinutes - minutesBeforeOpen;
+                const closeMinutes = classStartMinutes + classDurationMinutes;
+
+                if (currentTotalMinutes >= openMinutes && currentTotalMinutes < closeMinutes) {
+                    isOpen = true;
+                    break;
+                }
+            }
+
+            const badge = document.getElementById('statusBadge');
+            const text = document.getElementById('statusText');
+
+            if (isOpen) {
+                badge.classList.remove('status-closed');
+                text.innerText = "Aberto agora (Aula)";
+            } else {
+                badge.classList.add('status-closed');
+                text.innerText = "Fechado agora";
+            }
+        }
+
+        checkStatus();
+        setInterval(checkStatus, 60000);
+    </script>
+
+</body>
+</html>
