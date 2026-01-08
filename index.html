@@ -46,7 +46,6 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            /* Imagem de fundo */
             background: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
         }
 
@@ -79,17 +78,16 @@
             animation: fadeInDown 1s ease;
         }
 
-        /* ESTILO ATUALIZADO PARA A IMAGEM DO LOGO */
         .logo-img {
             width: 150px;
             height: 150px;
-            border-radius: 50%; /* Mantém o formato circular */
+            border-radius: 50%;
             border: 3px solid var(--primary-orange);
             box-shadow: 0 0 30px var(--primary-glow);
             margin-bottom: 15px;
-            object-fit: cover; /* Garante que a imagem preencha o círculo */
+            object-fit: cover;
             object-position: center;
-            background-color: #fff; /* Fundo branco caso a imagem tenha transparência */
+            background-color: #fff;
         }
 
         .status-badge {
@@ -107,6 +105,7 @@
             transform: translateY(-5px);
             animation: fadeIn 1.5s ease;
             transition: all 0.3s ease;
+            max-width: 90%; /* Limita a largura para não quebrar em telas pequenas */
         }
 
         .status-dot {
@@ -116,6 +115,7 @@
             background-color: #4cd964;
             box-shadow: 0 0 8px #4cd964;
             animation: pulse-green 2s infinite;
+            flex-shrink: 0; /* Impede que a bolinha amasse */
         }
 
         .status-closed .status-dot {
@@ -153,7 +153,6 @@
             width: 100%;
         }
 
-        /* Container do Menu Expansível */
         .menu-wrapper {
             width: 100%;
             border-radius: 16px;
@@ -180,19 +179,16 @@
             width: 100%;
         }
 
-        /* Estado "Featured" (Destaque Laranja) */
         .link-card.featured {
             background: linear-gradient(135deg, #f37d1d 0%, #d35f00 100%);
             border: none;
             box-shadow: 0 8px 25px rgba(243, 125, 29, 0.3);
         }
         
-        /* Ajuste para quando o menu featured está aberto */
         .menu-wrapper.open .link-card.featured {
-            border-radius: 16px 16px 0 0; /* Canto reto embaixo quando aberto */
+            border-radius: 16px 16px 0 0;
         }
 
-        /* Hover states */
         .link-card:not(.featured):hover {
             background-color: var(--glass-bg-hover);
             transform: translateY(-2px);
@@ -202,7 +198,6 @@
             transform: scale(1.02);
         }
 
-        /* Conteúdo interno do Card */
         .link-content {
             display: flex;
             align-items: center;
@@ -247,7 +242,6 @@
             color: #fff;
         }
 
-        /* Ícone de Seta/Chevron */
         .arrow-icon {
             color: #555;
             font-size: 0.9rem;
@@ -258,12 +252,10 @@
             color: #fff;
         }
 
-        /* Rotação da seta quando menu aberto */
         .menu-wrapper.open .arrow-icon {
             transform: rotate(180deg);
         }
 
-        /* --- SUBMENU STYLES --- */
         .submenu {
             max-height: 0;
             overflow: hidden;
@@ -273,7 +265,7 @@
         }
 
         .menu-wrapper.open .submenu {
-            max-height: 500px; /* Altura suficiente para o conteúdo */
+            max-height: 500px;
             border: 1px solid var(--glass-border);
             border-top: none;
         }
@@ -297,7 +289,7 @@
         .submenu-link:hover {
             background: rgba(255,255,255,0.05);
             color: var(--primary-orange);
-            padding-left: 25px; /* Efeito de deslize */
+            padding-left: 25px;
         }
 
         .submenu-icon {
@@ -307,7 +299,6 @@
             opacity: 0.7;
         }
 
-        /* Footer */
         footer {
             margin-top: 50px;
             color: #666;
@@ -344,7 +335,6 @@
             transform: translateY(-3px);
         }
 
-        /* Animações */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -396,7 +386,7 @@
                         <div class="icon-box"><i class="fas fa-user-circle"></i></div>
                         <div>
                             <span class="link-text">Área do Aluno</span>
-                            <span class="link-subtext">Apps, Planos e Regras (Toque para abrir)</span>
+                            <span class="link-subtext">Apps, Planos e Regras</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down arrow-icon"></i>
@@ -446,115 +436,4 @@
                     <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
                     <div>
                         <span class="link-text">Grade de Horários</span>
-                        <span class="link-subtext">Ver catálogo no WhatsApp</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
-                    <div>
-                        <span class="link-text">Aprenda Xadrez</span>
-                        <span class="link-subtext">Desenvolva sua estratégia</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://wa.me/5511951945648?text=Quero%20fazer%20parte%20do%20Clube%20%2B%20Vantagens" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-star"></i></div>
-                    <div>
-                        <span class="link-text">Faça Parte do Clube+</span>
-                        <span class="link-subtext">Benefícios e Vantagens</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-        </div>
-
-        <footer>
-            <div class="social-container">
-                <a href="https://www.instagram.com/thekingsjw/#" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/thekingsjw" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://wa.me/5511951945648" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
-            </div>
-            <p style="opacity: 0.5;">&copy; 2024 The Kings BJJ.</p>
-        </footer>
-
-    </div>
-
-    <script>
-        // Função para abrir/fechar os menus
-        function toggleMenu(menuId) {
-            const menu = document.getElementById(menuId);
-            
-            // Fecha outros menus abertos (opcional, para manter limpo)
-            const allMenus = document.querySelectorAll('.menu-wrapper');
-            allMenus.forEach(m => {
-                if (m.id !== menuId && m.classList.contains('open')) {
-                    m.classList.remove('open');
-                }
-            });
-
-            menu.classList.toggle('open');
-        }
-
-        // ==========================================
-        // CONFIGURAÇÃO DOS HORÁRIOS (MANTIDA)
-        // ==========================================
-        const scheduleConfig = {
-            1: ['07:00', '12:00', '18:30', '20:00'], 
-            2: ['07:00', '12:00', '18:30', '20:00'], 
-            3: ['07:00', '12:00', '18:30', '20:00'], 
-            4: ['07:00', '12:00', '18:30', '20:00'], 
-            5: ['07:00', '12:00', '18:30'], 
-            6: ['10:00'], 
-            0: [] 
-        };
-
-        const minutesBeforeOpen = 10;
-        const classDurationMinutes = 90;
-
-        function checkStatus() {
-            const now = new Date();
-            const day = now.getDay();
-            const todayClasses = scheduleConfig[day] || [];
-            let isOpen = false;
-            const currentTotalMinutes = (now.getHours() * 60) + now.getMinutes();
-
-            for (let timeStr of todayClasses) {
-                const [h, m] = timeStr.split(':').map(Number);
-                const classStartMinutes = (h * 60) + m;
-                const openMinutes = classStartMinutes - minutesBeforeOpen;
-                const closeMinutes = classStartMinutes + classDurationMinutes;
-
-                if (currentTotalMinutes >= openMinutes && currentTotalMinutes < closeMinutes) {
-                    isOpen = true;
-                    break;
-                }
-            }
-
-            const badge = document.getElementById('statusBadge');
-            const text = document.getElementById('statusText');
-
-            if (isOpen) {
-                badge.classList.remove('status-closed');
-                text.innerText = "Aberto agora (Aula)";
-            } else {
-                badge.classList.add('status-closed');
-                text.innerText = "Fechado agora";
-            }
-        }
-
-        checkStatus();
-        setInterval(checkStatus, 60000);
-    </script>
-
-</body>
-</html>
-
-
+                        <span class="link-subtext
