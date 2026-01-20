@@ -1,560 +1,75 @@
-<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Kings - Academia de Artes Marciais</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<a href="https://maps.app.goo.gl/placeholder" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="link-content">
+                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <span class="link-text">Localização</span>
+                        <span class="link-subtext">Traçar rota no Maps</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </a>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'kings-black': '#111111', // Preto Fosco Principal
-                        'kings-gunmetal': '#1a1a1a', // Cinza Chumbo (Fundos secundários)
-                        'kings-gold': '#D4AF37', // Ouro Envelhecido (Acentos)
-                        'kings-light': '#E5E5E5', // Texto Claro
-                    },
-                    fontFamily: {
-                        'sans': ['Open Sans', 'sans-serif'],
-                        'heading': ['Montserrat', 'sans-serif'],
-                    }
+        </div> <footer>
+            <div class="social-container">
+                <a href="https://instagram.com/thekingskw" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/5511951945648" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:contato@thekings.com.br" class="social-link"><i class="far fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2024 The Kings Academy. Todos os direitos reservados.</p>
+            <p style="margin-top: 5px; opacity: 0.5; font-size: 0.7rem;">Design by The Kings Tech</p>
+        </footer>
+
+    </div> <script>
+        // 1. Lógica dos Menus Accordion (Abrir/Fechar abas)
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            const allMenus = document.querySelectorAll('.menu-wrapper');
+            
+            // Fecha outros menus abertos para manter o visual limpo e focar na atenção do usuário
+            allMenus.forEach(m => {
+                if (m.id !== menuId) {
+                    m.classList.remove('open');
                 }
+            });
+
+            // Alterna (abre/fecha) o menu clicado
+            menu.classList.toggle('open');
+        }
+
+        // 2. Lógica do Status (Aberto/Fechado) Automático
+        function checkStatus() {
+            const now = new Date();
+            const day = now.getDay(); // 0 = Domingo, 1 = Segunda...
+            const hour = now.getHours();
+
+            const badge = document.getElementById('statusBadge');
+            const text = document.getElementById('statusText');
+
+            // CONFIGURAÇÃO DOS HORÁRIOS:
+            // Regra: Aberto Seg-Sex (06h às 22h) e Sáb (09h às 13h)
+            let isOpen = false;
+
+            if (day >= 1 && day <= 5) { // Segunda a Sexta
+                if (hour >= 6 && hour < 22) isOpen = true;
+            } else if (day === 6) { // Sábado
+                if (hour >= 9 && hour < 13) isOpen = true;
+            }
+
+            // Atualiza o visual do badge
+            if (isOpen) {
+                badge.classList.remove('status-closed');
+                text.innerText = "Aberto Agora";
+                text.style.color = "#4cd964"; // Verde
+            } else {
+                badge.classList.add('status-closed'); // Fica vermelho via CSS
+                text.innerText = "Fechado Agora";
+                text.style.color = "#ff3b30"; // Vermelho
             }
         }
-    </script>
 
-    <style>
-        /* Ajustes Finos de UX */
-        .hero-overlay {
-            background: linear-gradient(to bottom, rgba(17,17,17,0.7), rgba(17,17,17,0.95));
-        }
-        
-        /* Efeito Hover nos Cards */
-        .card-hover {
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            border-color: #D4AF37;
-        }
-
-        /* Botão Dourado Brilhante */
-        .btn-gold {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-        .btn-gold:hover {
-            filter: brightness(1.1);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }
-    </style>
-</head>
-<body class="bg-kings-black text-kings-light font-sans antialiased">
-
-    <nav class="fixed w-full z-50 bg-kings-black/95 border-b border-white/10 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center">
-                    <span class="font-heading font-extrabold text-2xl text-white tracking-wider">
-                        THE <span class="text-kings-gold">KINGS</span>
-                    </span>
-                </div>
-
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#hero" class="text-white hover:text-kings-gold transition font-medium text-sm">Início</a>
-                    <a href="#kids" class="text-white hover:text-kings-gold transition font-medium text-sm">Kids</a>
-                    <a href="#morning" class="text-white hover:text-kings-gold transition font-medium text-sm">Manhã</a>
-                    <a href="#planos" class="text-white hover:text-kings-gold transition font-medium text-sm">Planos</a>
-                    <a href="#uniformes" class="text-white hover:text-kings-gold transition font-medium text-sm">Equipamentos</a>
-                    <a href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20agendar%20uma%20aula%20grátis." target="_blank" class="btn-gold bg-kings-gold text-kings-black font-heading font-bold px-5 py-2 rounded shadow-lg uppercase text-xs tracking-wide">
-                        Agendar Aula Grátis
-                    </a>
-                </div>
-
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-white hover:text-kings-gold focus:outline-none p-2">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-kings-gunmetal border-t border-gray-800 absolute w-full">
-            <div class="px-4 pt-4 pb-6 space-y-2 text-center">
-                <a href="#hero" class="block px-3 py-2 text-white hover:text-kings-gold font-medium border-b border-white/5">Início</a>
-                <a href="#kids" class="block px-3 py-2 text-white hover:text-kings-gold font-medium border-b border-white/5">Kids</a>
-                <a href="#morning" class="block px-3 py-2 text-white hover:text-kings-gold font-medium border-b border-white/5">Treinos da Manhã</a>
-                <a href="#planos" class="block px-3 py-2 text-white hover:text-kings-gold font-medium border-b border-white/5">Planos & Preços</a>
-                <a href="#uniformes" class="block px-3 py-2 text-white hover:text-kings-gold font-medium border-b border-white/5">Uniformes</a>
-                <a href="https://wa.me/5511999999999" class="block mt-6 bg-kings-gold text-kings-black font-bold py-3 rounded uppercase tracking-wider shadow-lg">AGENDAR AULA GRÁTIS</a>
-            </div>
-        </div>
-    </nav>
-
-    <header id="hero" class="relative min-h-screen flex items-center justify-center pt-20">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Artes Marciais Treino" class="w-full h-full object-cover opacity-60">
-            <div class="absolute inset-0 hero-overlay"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center w-full">
-            
-            <div class="mb-12 max-w-4xl mt-10 md:mt-0">
-                <h1 class="font-heading font-extrabold text-4xl md:text-6xl text-white mb-6 leading-tight">
-                    Treine como a <span class="text-kings-gold">Realeza.</span><br>
-                    Lute como um <span class="text-kings-gold">Guerreiro.</span>
-                </h1>
-                <p class="font-sans text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                    Jiu-Jitsu e Muay Thai para toda a família. Ambiente nobre, metodologia exclusiva e resultados reais.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
-                
-                <a href="#kids" class="group bg-kings-gunmetal/80 backdrop-blur border border-white/10 p-6 rounded-lg text-center cursor-pointer card-hover hover:border-kings-gold">
-                    <div class="text-kings-gold text-4xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-child-reaching"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-white mb-2 uppercase">Kids & Teens</h3>
-                    <p class="text-sm text-gray-400">Disciplina e Futuro</p>
-                </a>
-
-                <a href="#morning" class="group bg-kings-gunmetal/80 backdrop-blur border border-white/10 p-6 rounded-lg text-center cursor-pointer card-hover hover:border-kings-gold">
-                    <div class="text-kings-gold text-4xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-white mb-2 uppercase">Treinos da Manhã</h3>
-                    <p class="text-sm text-gray-400">Comece o dia vencendo</p>
-                </a>
-
-                <div class="group bg-kings-gunmetal/80 backdrop-blur border border-white/10 p-6 rounded-lg text-center cursor-pointer card-hover hover:border-kings-gold">
-                    <div class="text-kings-gold text-4xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-hand-fist"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-xl text-white mb-2 uppercase">Adultos & Noite</h3>
-                    <p class="text-sm text-gray-400">Alta Performance</p>
-                </div>
-
-            </div>
-        </div>
-    </header>
-
-    <section id="kids" class="py-20 bg-white text-kings-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                
-                <div class="w-full lg:w-1/2">
-                    <div class="relative rounded-xl overflow-hidden shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Crianças treinando Jiu Jitsu" class="w-full h-auto object-cover transform hover:scale-105 transition duration-500">
-                        <div class="absolute bottom-0 left-0 bg-kings-gold text-kings-black font-bold px-4 py-1 text-sm uppercase">The Kings Kids</div>
-                    </div>
-                </div>
-
-                <div class="w-full lg:w-1/2">
-                    <h2 class="font-heading font-extrabold text-3xl md:text-4xl mb-4 text-kings-black">
-                        Mais que uma Luta: <br>Uma Escola de Caráter para o Seu Filho
-                    </h2>
-                    <p class="font-sans text-gray-600 text-lg mb-8">
-                        Transformamos a energia das crianças em foco, disciplina e autoconfiança.
-                    </p>
-
-                    <ul class="space-y-6 mb-10">
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 bg-kings-black rounded-full p-2 w-10 h-10 flex items-center justify-center text-kings-gold mr-4">
-                                <i class="fas fa-shield-halved"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Confiança Blindada (Anti-Bullying)</h4>
-                                <p class="text-sm text-gray-500">Segurança para se defender e postura para evitar conflitos.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 bg-kings-black rounded-full p-2 w-10 h-10 flex items-center justify-center text-kings-gold mr-4">
-                                <i class="fas fa-user-graduate"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Disciplina e Respeito</h4>
-                                <p class="text-sm text-gray-500">Valores que eles levam do tatame para a casa e escola.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 bg-kings-black rounded-full p-2 w-10 h-10 flex items-center justify-center text-kings-gold mr-4">
-                                <i class="fas fa-heart-pulse"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg">Saúde Longe das Telas</h4>
-                                <p class="text-sm text-gray-500">Atividade física intensa, divertida e socializadora.</p>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20saber%20sobre%20o%20Jiu-Jitsu%20Kids" target="_blank" class="btn-gold inline-flex items-center justify-center bg-kings-black text-white hover:text-kings-gold font-heading font-bold px-8 py-4 rounded-lg shadow-xl uppercase tracking-wider text-sm transition-all group">
-                        <i class="fab fa-whatsapp text-xl mr-2 text-green-400"></i>
-                        Quero Agendar Aula Kids
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="morning" class="py-20 bg-kings-gunmetal border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            
-            <div class="inline-block border border-kings-gold text-kings-gold px-3 py-1 text-xs font-bold uppercase tracking-widest mb-4 rounded-full">
-                Alta Performance
-            </div>
-            
-            <h2 class="font-heading font-extrabold text-3xl md:text-5xl text-white mb-4">
-                Comece o Dia Vencendo: <span class="text-kings-gold">O Clube das 6h</span>
-            </h2>
-            <p class="font-sans text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
-                A rotina ideal para quem busca produtividade máxima antes do trabalho. Treine corpo e mente enquanto a cidade dorme.
-            </p>
-
-            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
-                <div class="bg-kings-black border border-white/10 p-6 rounded-lg w-full md:w-64">
-                    <p class="text-gray-500 text-sm uppercase mb-2">Turma Alpha</p>
-                    <span class="block font-heading font-black text-5xl text-white">06:00</span>
-                    <span class="text-kings-gold text-sm font-bold mt-2 block">Jiu-Jitsu / Funcional</span>
-                </div>
-                <div class="bg-kings-black border border-white/10 p-6 rounded-lg w-full md:w-64">
-                    <p class="text-gray-500 text-sm uppercase mb-2">Turma Bravo</p>
-                    <span class="block font-heading font-black text-5xl text-white">07:00</span>
-                    <span class="text-kings-gold text-sm font-bold mt-2 block">Muay Thai / Boxe</span>
-                </div>
-            </div>
-
-            <div class="flex justify-center gap-8 mb-12 text-gray-300 text-sm md:text-base">
-                <span class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> Produtividade</span>
-                <span class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> Foco Mental</span>
-                <span class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> Metabolismo Acelerado</span>
-            </div>
-
-            <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20treinar%20de%20manhã" target="_blank" class="btn-gold inline-block bg-kings-gold text-kings-black font-heading font-bold px-10 py-4 rounded shadow-lg uppercase tracking-wider hover:scale-105 transition-transform">
-                Garantir Vaga na Manhã
-            </a>
-        </div>
-    </section>
-
-    <section id="planos" class="py-20 bg-kings-black relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
-            <div class="absolute top-[-10%] right-[-5%] w-96 h-96 bg-kings-gold rounded-full blur-[120px]"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <span class="text-kings-gold font-bold tracking-widest uppercase text-sm">Investimento</span>
-                <h2 class="font-heading font-extrabold text-3xl md:text-5xl text-white mt-2">
-                    Escolha o Seu <span class="text-kings-gold">Legado</span>
-                </h2>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-                    Planos flexíveis para quem busca resultados reais. Sem taxas escondidas.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-                <div class="bg-kings-gunmetal border border-white/5 rounded-xl p-8 flex flex-col hover:border-white/20 transition-all group">
-                    <h3 class="text-white font-heading font-bold text-xl mb-2">Mensal</h3>
-                    <p class="text-gray-500 text-sm mb-6">Liberdade total, sem fidelidade.</p>
-                    <div class="mb-6">
-                        <span class="text-3xl text-white font-bold">R$ 250</span>
-                        <span class="text-gray-500 text-sm">/mês</span>
-                    </div>
-                    <ul class="text-gray-400 text-sm space-y-3 mb-8 flex-grow">
-                        <li class="flex items-center"><i class="fas fa-check text-gray-600 mr-2"></i> Acesso total às aulas</li>
-                        <li class="flex items-center"><i class="fas fa-check text-gray-600 mr-2"></i> Pagamento no balcão</li>
-                        <li class="flex items-center"><i class="fas fa-times text-red-900/50 mr-2"></i> Sem trancamento</li>
-                    </ul>
-                    <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20saber%20sobre%20o%20plano%20Mensal" target="_blank" class="w-full block text-center border border-white/20 text-white py-3 rounded hover:bg-white hover:text-kings-black transition font-bold uppercase text-xs tracking-wider">
-                        Assinar Mensal
-                    </a>
-                </div>
-
-                <div class="bg-kings-gunmetal border border-white/5 rounded-xl p-8 flex flex-col hover:border-white/20 transition-all">
-                    <h3 class="text-white font-heading font-bold text-xl mb-2">Semestral</h3>
-                    <p class="text-gray-500 text-sm mb-6">Compromisso com o resultado.</p>
-                    <div class="mb-6">
-                        <span class="text-3xl text-white font-bold">R$ 220</span>
-                        <span class="text-gray-500 text-sm">/mês</span>
-                    </div>
-                    <ul class="text-gray-400 text-sm space-y-3 mb-8 flex-grow">
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> Desconto de 12%</li>
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> 15 dias de trancamento</li>
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> Camiseta The Kings (50% off)</li>
-                    </ul>
-                    <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20saber%20sobre%20o%20plano%20Semestral" target="_blank" class="w-full block text-center border border-white/20 text-white py-3 rounded hover:bg-white hover:text-kings-black transition font-bold uppercase text-xs tracking-wider">
-                        Assinar Semestral
-                    </a>
-                </div>
-
-                <div class="relative bg-gradient-to-b from-kings-gunmetal to-black border border-kings-gold rounded-xl p-8 flex flex-col transform md:-translate-y-4 shadow-2xl shadow-kings-gold/10">
-                    <div class="absolute top-0 right-0 bg-kings-gold text-kings-black text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg uppercase">
-                        Mais Prático
-                    </div>
-                    <h3 class="text-white font-heading font-bold text-xl mb-2 text-kings-gold">Recorrente</h3>
-                    <p class="text-gray-400 text-sm mb-6">Débito automático no cartão.</p>
-                    <div class="mb-6">
-                        <span class="text-4xl text-kings-gold font-bold">R$ 199</span>
-                        <span class="text-gray-500 text-sm">/mês</span>
-                    </div>
-                    <ul class="text-gray-300 text-sm space-y-3 mb-8 flex-grow">
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> <strong class="text-white">Não ocupa o limite</strong></li>
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> Cancelamento facilitado</li>
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> Renovação automática</li>
-                    </ul>
-                    <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20o%20plano%20Recorrente%20(Smart)" target="_blank" class="w-full block text-center bg-kings-gold text-kings-black py-4 rounded hover:brightness-110 transition font-bold uppercase text-sm tracking-wider shadow-lg">
-                        Quero este Plano
-                    </a>
-                </div>
-
-                <div class="bg-kings-gunmetal border border-white/5 rounded-xl p-8 flex flex-col hover:border-kings-gold/50 transition-all">
-                    <h3 class="text-white font-heading font-bold text-xl mb-2">Anual</h3>
-                    <p class="text-gray-500 text-sm mb-6">Para quem veste a camisa.</p>
-                    <div class="mb-6">
-                        <span class="text-3xl text-white font-bold">R$ 180</span>
-                        <span class="text-gray-500 text-sm">/mês</span>
-                    </div>
-                    <ul class="text-gray-400 text-sm space-y-3 mb-8 flex-grow">
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> <strong class="text-white">Maior economia anual</strong></li>
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> 30 dias de trancamento</li>
-                        <li class="flex items-center"><i class="fas fa-check text-kings-gold mr-2"></i> <strong class="text-kings-gold">Kimono ou Luva Grátis</strong></li>
-                    </ul>
-                    <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20aproveitar%20a%20oferta%20do%20Anual" target="_blank" class="w-full block text-center border border-white/20 text-white py-3 rounded hover:bg-white hover:text-kings-black transition font-bold uppercase text-xs tracking-wider">
-                        Assinar Anual
-                    </a>
-                </div>
-
-            </div>
-            
-            <p class="text-center text-gray-600 text-xs mt-8">
-                * Valores sujeitos a alteração. Consulte condições de pagamento no WhatsApp.
-            </p>
-        </div>
-    </section>
-
-    <section id="uniformes" class="py-20 bg-kings-gunmetal border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-heading font-extrabold text-3xl md:text-4xl text-white">
-                    Identidade & <span class="text-kings-gold">Disciplina</span>
-                </h2>
-                <p class="text-gray-400 mt-4 max-w-3xl mx-auto">
-                    O uniforme é o primeiro passo da disciplina. Para garantir a qualidade e a segurança, utilizamos materiais exclusivos.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-                
-                <div class="bg-kings-black border-l-4 border-kings-gold p-8 rounded-r-lg relative overflow-hidden group">
-                    <div class="absolute right-0 top-0 opacity-10 text-9xl text-white transform translate-x-10 -translate-y-10 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-user-ninja"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-2xl text-white mb-4 flex items-center">
-                        <i class="fas fa-certificate text-kings-gold mr-3"></i> Jiu-Jitsu
-                    </h3>
-                    <ul class="space-y-4 text-gray-300 mb-8 relative z-10">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <div>
-                                <strong class="text-white">Kimono Oficial The Kings:</strong>
-                                <p class="text-sm text-gray-500">Venda exclusiva na recepção. Tecido trançado de alta resistência.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <div>
-                                <strong class="text-white">Rashguard da Equipe:</strong>
-                                <p class="text-sm text-gray-500">Uso obrigatório por baixo do kimono ou em treinos No-Gi.</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="bg-white/5 p-4 rounded border border-white/10">
-                        <p class="text-xs text-kings-gold uppercase font-bold mb-1">Nota Importante:</p>
-                        <p class="text-xs text-gray-400">Não permitimos kimonos de outras equipes ou sem os patches oficiais.</p>
-                    </div>
-                </div>
-
-                <div class="bg-kings-black border-l-4 border-red-600 p-8 rounded-r-lg relative overflow-hidden group">
-                    <div class="absolute right-0 top-0 opacity-10 text-9xl text-white transform translate-x-10 -translate-y-10 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-hand-rock"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-2xl text-white mb-4 flex items-center">
-                        <i class="fas fa-fire text-red-600 mr-3"></i> Muay Thai
-                    </h3>
-                    <ul class="space-y-4 text-gray-300 mb-8 relative z-10">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <div>
-                                <strong class="text-white">Kit Oficial de Treino:</strong>
-                                <p class="text-sm text-gray-500">Camiseta Dry-Fit The Kings + Short de Muay Thai Tailandês.</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-info-circle text-blue-400 mt-1 mr-3"></i>
-                            <div>
-                                <strong class="text-white">Equipamentos de Proteção:</strong>
-                                <p class="text-sm text-gray-500">Luvas, caneleiras e bucal (sob encomenda).</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="mt-8 bg-gradient-to-r from-kings-black to-kings-gunmetal border border-kings-gold/30 rounded-xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex-1">
-                    <h4 class="font-heading font-bold text-xl text-kings-gold mb-2">
-                        <i class="fas fa-box-open mr-2"></i> Encomendas & Pagamento
-                    </h4>
-                    <p class="text-gray-300 text-sm">
-                        Facilitamos a aquisição do seu material para você começar com o pé direito.
-                    </p>
-                </div>
-                <div class="flex-shrink-0 flex flex-col sm:flex-row gap-4">
-                    <div class="bg-white/5 px-6 py-3 rounded text-center border border-white/5">
-                        <span class="block text-xs text-gray-400 uppercase">Sob Encomenda</span>
-                        <span class="block font-bold text-white">50% Entrada + 50% Entrega</span>
-                    </div>
-                    <div class="bg-white/5 px-6 py-3 rounded text-center border border-white/5">
-                        <span class="block text-xs text-gray-400 uppercase">Cartão de Crédito</span>
-                        <span class="block font-bold text-white">Parcelamento Total</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="depoimentos" class="py-16 bg-kings-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="flex justify-center mb-12">
-                <div class="flex items-center space-x-2 bg-white/5 px-6 py-3 rounded-full border border-white/10">
-                    <span class="text-yellow-400 text-xl">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </span>
-                    <span class="font-bold text-white ml-2">5.0 no Google</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-kings-gunmetal p-6 rounded-lg border-l-4 border-kings-gold">
-                    <p class="text-gray-300 italic mb-4">"O ambiente é incrível. Meu filho de 6 anos mudou completamente o comportamento em casa, está mais calmo e respeitoso."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-500 rounded-full mr-3 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Avatar">
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-white text-sm">Ricardo Silva</h5>
-                            <span class="text-xs text-gray-500">Pai de Aluno</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-kings-gunmetal p-6 rounded-lg border-l-4 border-kings-gold">
-                    <p class="text-gray-300 italic mb-4">"Treinar às 6 da manhã foi a melhor decisão. A equipe técnica é de altíssimo nível e o respeito no tatame é absoluto."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-500 rounded-full mr-3 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Avatar">
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-white text-sm">Mariana Costa</h5>
-                            <span class="text-xs text-gray-500">Aluna Jiu-Jitsu</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-kings-gunmetal p-6 rounded-lg border-l-4 border-kings-gold">
-                    <p class="text-gray-300 italic mb-4">"Não é só uma academia, é uma família. A estrutura é limpa, organizada e os professores dão atenção individual."</p>
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-gray-500 rounded-full mr-3 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Avatar">
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-white text-sm">André Lucca</h5>
-                            <span class="text-xs text-gray-500">Aluno Muay Thai</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center">
-                <h3 class="font-heading font-bold text-xl mb-6"><i class="fab fa-instagram text-kings-gold mr-2"></i>Siga @thekingskw</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 opacity-70 hover:opacity-100 transition">
-                    <div class="bg-gray-800 h-40 flex items-center justify-center rounded"><i class="fas fa-image text-2xl text-gray-600"></i></div>
-                    <div class="bg-gray-800 h-40 flex items-center justify-center rounded"><i class="fas fa-image text-2xl text-gray-600"></i></div>
-                    <div class="bg-gray-800 h-40 flex items-center justify-center rounded"><i class="fas fa-image text-2xl text-gray-600"></i></div>
-                    <div class="bg-gray-800 h-40 flex items-center justify-center rounded"><i class="fas fa-image text-2xl text-gray-600"></i></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-black border-t border-white/10 pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <div>
-                    <span class="font-heading font-extrabold text-2xl text-white tracking-wider block mb-4">
-                        THE <span class="text-kings-gold">KINGS</span>
-                    </span>
-                    <p class="text-gray-500 text-sm">
-                        Excelência em artes marciais. Formando campeões no tatame e na vida.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Links Rápidos</h4>
-                    <ul class="space-y-2 text-gray-500 text-sm">
-                        <li><a href="#hero" class="hover:text-kings-gold">Início</a></li>
-                        <li><a href="#kids" class="hover:text-kings-gold">Kids Program</a></li>
-                        <li><a href="#morning" class="hover:text-kings-gold">Horários</a></li>
-                        <li><a href="#planos" class="hover:text-kings-gold">Planos</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Localização</h4>
-                    <p class="text-gray-500 text-sm mb-4">
-                        Rua das Palmeiras, 123<br>
-                        Centro, Sua Cidade - SP
-                    </p>
-                    <div class="w-full h-32 bg-gray-800 rounded flex items-center justify-center">
-                        <span class="text-gray-600 text-xs">[MAPA GOOGLE EMBED]</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="border-t border-white/10 pt-8 text-center">
-                <p class="text-gray-600 text-xs">
-                    &copy; 2024 The Kings Academy. Todos os direitos reservados.
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <a href="https://wa.me/5511999999999?text=Olá!%20Vim%20pelo%20site%20e%20quero%20conhecer%20a%20The%20Kings" 
-       target="_blank"
-       class="fixed bottom-6 right-6 z-50 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:bg-green-600 transition-all hover:-translate-y-1 animate-bounce">
-        <i class="fab fa-whatsapp text-4xl"></i>
-    </a>
-
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-
-        // Fechar menu ao clicar em um link
-        menu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-            });
-        });
+        // Roda a verificação assim que carrega e atualiza a cada 60 segundos
+        checkStatus();
+        setInterval(checkStatus, 60000);
     </script>
 </body>
 </html>
