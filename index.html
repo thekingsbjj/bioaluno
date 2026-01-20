@@ -4,31 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Kings - Área do Aluno</title>
-
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://images.unsplash.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline';">
-    
-    <meta http-equiv="X-Frame-Options" content="DENY">
-
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-orange: #f37d1d;
-            --primary-glow: rgba(243, 125, 29, 0.6);
-            --dark-bg: #0f1115;
-            --glass-bg: rgba(30, 34, 45, 0.7);
-            --glass-bg-hover: rgba(45, 50, 65, 0.9);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --primary-orange: #f37d1d; /* Laranja extraído do logo */
+            --secondary-orange: #ff9d4d;
+            --dark-bg: #0f1115; /* Fundo quase preto */
+            --card-bg: #1a1d24; /* Fundo dos botões */
             --text-white: #ffffff;
-            --text-gray: #b0b3b8;
+            --border-color: #333;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -40,423 +32,217 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
-        }
-
-        .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(to bottom, rgba(15, 17, 21, 0.85) 0%, rgba(15, 17, 21, 0.95) 60%, #0f1115 100%);
+            background-image: radial-gradient(circle at top, #2a1a0f 0%, var(--dark-bg) 60%);
         }
 
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 480px; /* Largura ideal para simular mobile em desktop */
             text-align: center;
             padding-bottom: 40px;
-            position: relative;
-            z-index: 1;
         }
 
+        /* Estilo do Logo */
         .logo-area {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
             animation: fadeInDown 1s ease;
         }
 
         .logo-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid var(--primary-orange);
-            box-shadow: 0 0 30px var(--primary-glow);
-            margin-bottom: 15px;
-            object-fit: cover;
-            object-position: center;
-            background-color: #fff;
-        }
-
-        .status-badge {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid var(--glass-border);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            transform: translateY(-5px);
-            animation: fadeIn 1.5s ease;
-            transition: all 0.3s ease;
-            max-width: 95%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #4cd964;
-            box-shadow: 0 0 8px #4cd964;
-            animation: pulse-green 2s infinite;
-            flex-shrink: 0;
-        }
-
-        .status-closed .status-dot {
-            background-color: #ff3b30;
-            box-shadow: 0 0 8px #ff3b30;
-            animation: none;
+            width: 180px;
+            height: auto;
+            filter: drop-shadow(0 0 15px rgba(243, 125, 29, 0.3));
         }
 
         .header-text h1 {
             font-family: 'Teko', sans-serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            line-height: 1;
             margin-bottom: 5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .header-text span {
-            color: var(--primary-orange);
+            background: -webkit-linear-gradient(var(--secondary-orange), var(--primary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header-text p {
-            font-size: 1rem;
-            color: var(--text-gray);
-            margin-bottom: 35px;
-            font-weight: 400;
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 30px;
         }
 
-        /* --- ESTILOS DOS MENUS E LINKS --- */
+        /* Estilo dos Links/Botões */
         .links-group {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 15px;
             width: 100%;
-        }
-
-        .menu-wrapper {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            animation: slideUp 0.5s ease backwards;
         }
 
         .link-card {
-            background-color: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background-color: var(--card-bg);
             color: var(--text-white);
             text-decoration: none;
-            padding: 16px 20px;
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
+            padding: 18px 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
-            cursor: pointer;
-            width: 100%;
+            overflow: hidden;
         }
 
-        .link-card.featured {
-            background: linear-gradient(135deg, #f37d1d 0%, #d35f00 100%);
-            border: none;
-            box-shadow: 0 8px 25px rgba(243, 125, 29, 0.3);
-        }
-        
-        .menu-wrapper.open .link-card.featured {
-            border-radius: 16px 16px 0 0;
-        }
-
-        .link-card:not(.featured):hover {
-            background-color: var(--glass-bg-hover);
-            transform: translateY(-2px);
+        /* Efeito de brilho laranja no hover */
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-orange);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .link-card.featured:hover {
-            transform: scale(1.02);
+        .link-card:hover {
+            transform: translateY(-3px);
+            background-color: #252933;
+            border-color: var(--primary-orange);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .link-card:hover::before {
+            opacity: 1;
         }
 
         .link-content {
             display: flex;
             align-items: center;
-            gap: 18px;
-            text-align: left;
+            gap: 15px;
         }
 
         .icon-box {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--primary-orange);
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .link-card.featured .icon-box {
-            color: #fff;
-            background: rgba(255,255,255,0.2);
+            width: 30px;
+            text-align: center;
         }
 
         .link-text {
             font-weight: 500;
-            font-size: 1.05rem;
-            display: block;
-        }
-        
-        .link-subtext {
-            display: block;
-            font-size: 0.75rem;
-            color: #aaa;
-            font-weight: 400;
-            margin-top: 2px;
-        }
-
-        .link-card.featured .link-text,
-        .link-card.featured .link-subtext {
-            color: #fff;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
 
         .arrow-icon {
             color: #555;
-            font-size: 0.9rem;
-            transition: transform 0.3s;
+            transition: color 0.3s;
         }
 
-        .link-card.featured .arrow-icon {
-            color: #fff;
+        .link-card:hover .arrow-icon {
+            color: var(--text-white);
         }
 
-        .menu-wrapper.open .arrow-icon {
-            transform: rotate(180deg);
-        }
-
-        .submenu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 0 0 16px 16px;
-        }
-
-        .menu-wrapper.open .submenu {
-            max-height: 500px;
-            border: 1px solid var(--glass-border);
-            border-top: none;
-        }
-
-        .submenu-link {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            color: #ddd;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: background 0.2s;
-            font-size: 0.95rem;
-            gap: 12px;
-        }
-
-        .submenu-link:last-child {
-            border-bottom: none;
-        }
-
-        .submenu-link:hover {
-            background: rgba(255,255,255,0.05);
-            color: var(--primary-orange);
-            padding-left: 25px;
-        }
-
-        .submenu-icon {
-            font-size: 0.8rem;
-            width: 20px;
-            text-align: center;
-            opacity: 0.7;
-        }
-
+        /* Rodapé */
         footer {
             margin-top: 50px;
             color: #666;
             font-size: 0.8rem;
-            width: 100%;
         }
 
-        .social-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(5px);
-            padding: 15px;
-            border-radius: 50px;
-            display: inline-flex;
-            gap: 20px;
-            border: 1px solid var(--glass-border);
-            margin-bottom: 20px;
+        .social-links {
+            margin-bottom: 15px;
         }
 
-        .social-link {
-            color: var(--text-white);
+        .social-links a {
+            color: #888;
             font-size: 1.5rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .social-link:hover {
+        .social-links a:hover {
             color: var(--primary-orange);
-            background: rgba(255,255,255,0.05);
-            transform: translateY(-3px);
         }
 
+        /* Animação simples */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0.7); }
-            70% { box-shadow: 0 0 0 6px rgba(76, 217, 100, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-overlay"></div>
-    <div class="bg-gradient"></div>
-
     <div class="container">
         
         <div class="logo-area">
-            <img src="logo.png" alt="Logo The Kings" class="logo-img">
-            
-            <div id="statusBadge" class="status-badge">
-                <span class="status-dot"></span>
-                <span id="statusText">Carregando horários...</span>
-            </div>
+            <img src="Logo_The Kings.jpg" alt="Logo The Kings" class="logo-img">
+        </div>
 
-            <div class="header-text">
-                <h1>The Kings <span>BJJ</span></h1>
-                <p>Área do Aluno • Jiu-Jitsu & Performance</p>
-            </div>
+        <div class="header-text">
+            <h1>Área do Aluno</h1>
+            <p>Acesse todas as ferramentas para o seu treino.</p>
         </div>
 
         <div class="links-group">
             
-            <div class="menu-wrapper" id="menu-aluno">
-                <div class="link-card featured" onclick="toggleMenu('menu-aluno')">
-                    <div class="link-content">
-                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                        <div>
-                            <span class="link-text">Área do Aluno</span>
-                            <span class="link-subtext">Apps, Planos e Regras</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-down arrow-icon"></i>
-                </div>
-                <div class="submenu">
-                    <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" rel="noopener noreferrer" class="submenu-link">
-                        <i class="fab fa-apple submenu-icon"></i> App Aluno iOS
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" class="submenu-link">
-                        <i class="fab fa-android submenu-icon"></i> App Aluno Android
-                    </a>
-                    <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit?utm_content=DAGKabE1yH4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" rel="noopener noreferrer" class="submenu-link">
-                        <i class="fas fa-book-open submenu-icon"></i> Plano de Aula 2026
-                    </a>
-                    <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" rel="noopener noreferrer" class="submenu-link">
-                        <i class="fas fa-trophy submenu-icon"></i> Regras de Competições
-                    </a>
-                    <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM?usp=drive_link" target="_blank" rel="noopener noreferrer" class="submenu-link">
-                        <i class="fas fa-shield-alt submenu-icon"></i> Segurança Digital e Física
-                    </a>
-                </div>
-            </div>
-
-            <div class="menu-wrapper" id="menu-whats">
-                <div class="link-card" onclick="toggleMenu('menu-whats')">
-                    <div class="link-content">
-                        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-                        <div>
-                            <span class="link-text">Grupos do WhatsApp</span>
-                            <span class="link-subtext">Comunidade e Avisos</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-down arrow-icon"></i>
-                </div>
-                <div class="submenu">
-                    <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" rel="noopener noreferrer" class="submenu-link">
-                        <i class="fas fa-users submenu-icon"></i> Grupo Aberto
-                    </a>
-                    <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" rel="noopener noreferrer" class="submenu-link">
-                        <i class="fas fa-bullhorn submenu-icon"></i> Grupo de Avisos (Pais)
-                    </a>
-                </div>
-            </div>
-
-            <a href="https://wa.me/p/7441470569286902/5511951945648" target="_blank" rel="noopener noreferrer" class="link-card">
+            <a href="https://link-do-seu-app.com" target="_blank" class="link-card">
                 <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
-                    <div>
-                        <span class="link-text">Grade de Horários</span>
-                        <span class="link-subtext">Ver catálogo no WhatsApp</span>
-                    </div>
+                    <div class="icon-box"><i class="fas fa-mobile-alt"></i></div>
+                    <span class="link-text">Aplicativo do Aluno</span>
                 </div>
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </a>
 
-            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" rel="noopener noreferrer" class="link-card">
+            <a href="https://link-planos.com" target="_blank" class="link-card">
                 <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
-                    <div>
-                        <span class="link-text">Aprenda Xadrez</span>
-                        <span class="link-subtext">Desenvolva sua estratégia</span>
-                    </div>
+                    <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
+                    <span class="link-text">Planos de Aulas</span>
                 </div>
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </a>
 
-            <a href="
+            <a href="https://link-metodologia.com" target="_blank" class="link-card">
+                <div class="link-content">
+                    <div class="icon-box"><i class="fas fa-dumbbell"></i></div>
+                    <span class="link-text">Nossas Metodologias</span>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://wa.me/seunumerodewhatsapp" target="_blank" class="link-card">
+                <div class="link-content">
+                    <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+                    <span class="link-text">Fale Conosco</span>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <a href="https://maps.google.com" target="_blank" class="link-card">
+                <div class="link-content">
+                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                    <span class="link-text">Como Chegar</span>
+                </div>
+                <i class="fas fa-chevron-right arrow-icon"></i>
+            </a>
+
+        </div>
+
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+            <p>&copy; 2024 The Kings. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
