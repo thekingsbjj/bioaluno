@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Kings - Área do Aluno</title>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>The Kings - Links</title>
+
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- CONFIGURAÇÕES VISUAIS (CSS) --- */
         :root {
-            --primary-orange: #f37d1d; /* Laranja extraído do logo */
-            --secondary-orange: #ff9d4d;
-            --dark-bg: #0f1115; /* Fundo quase preto */
-            --card-bg: #1a1d24; /* Fundo dos botões */
+            --primary-orange: #f37d1d;
+            --primary-glow: rgba(243, 125, 29, 0.6);
+            --dark-bg: #0f1115;
+            --glass-bg: rgba(30, 34, 45, 0.7);
+            --glass-bg-hover: rgba(45, 50, 65, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.08);
             --text-white: #ffffff;
-            --border-color: #333;
+            --text-gray: #b0b3b8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--dark-bg);
@@ -32,217 +34,33 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            background-image: radial-gradient(circle at top, #2a1a0f 0%, var(--dark-bg) 60%);
+            overflow-x: hidden;
         }
 
-        .container {
-            width: 100%;
-            max-width: 480px; /* Largura ideal para simular mobile em desktop */
-            text-align: center;
-            padding-bottom: 40px;
+        /* Fundo com Imagem e Gradiente */
+        .bg-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+        }
+        .bg-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: linear-gradient(to bottom, rgba(15, 17, 21, 0.85) 0%, rgba(15, 17, 21, 0.95) 60%, #0f1115 100%);
         }
 
-        /* Estilo do Logo */
+        .container { width: 100%; max-width: 480px; text-align: center; padding-bottom: 40px; position: relative; z-index: 1; }
+
+        /* --- LOGO E CABEÇALHO --- */
         .logo-area {
-            margin-top: 40px;
-            margin-bottom: 10px;
+            margin-top: 30px; margin-bottom: 15px;
+            display: flex; flex-direction: column; align-items: center;
             animation: fadeInDown 1s ease;
         }
 
         .logo-img {
-            width: 180px;
-            height: auto;
-            filter: drop-shadow(0 0 15px rgba(243, 125, 29, 0.3));
-        }
-
-        .header-text h1 {
-            font-family: 'Teko', sans-serif;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            background: -webkit-linear-gradient(var(--secondary-orange), var(--primary-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-text p {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 30px;
-        }
-
-        /* Estilo dos Links/Botões */
-        .links-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .link-card {
-            background-color: var(--card-bg);
-            color: var(--text-white);
-            text-decoration: none;
-            padding: 18px 25px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Efeito de brilho laranja no hover */
-        .link-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary-orange);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .link-card:hover {
-            transform: translateY(-3px);
-            background-color: #252933;
-            border-color: var(--primary-orange);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-
-        .link-card:hover::before {
-            opacity: 1;
-        }
-
-        .link-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .icon-box {
-            font-size: 1.5rem;
-            color: var(--primary-orange);
-            width: 30px;
-            text-align: center;
-        }
-
-        .link-text {
-            font-weight: 500;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-        }
-
-        .arrow-icon {
-            color: #555;
-            transition: color 0.3s;
-        }
-
-        .link-card:hover .arrow-icon {
-            color: var(--text-white);
-        }
-
-        /* Rodapé */
-        footer {
-            margin-top: 50px;
-            color: #666;
-            font-size: 0.8rem;
-        }
-
-        .social-links {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-orange);
+            box-shadow: 0 0 30px var(--primary-glow);
             margin-bottom: 15px;
-        }
-
-        .social-links a {
-            color: #888;
-            font-size: 1.5rem;
-            margin: 0 10px;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: var(--primary-orange);
-        }
-
-        /* Animação simples */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        
-        <div class="logo-area">
-            <img src="Logo_The Kings.jpg" alt="Logo The Kings" class="logo-img">
-        </div>
-
-        <div class="header-text">
-            <h1>Área do Aluno</h1>
-            <p>Acesse todas as ferramentas para o seu treino.</p>
-        </div>
-
-        <div class="links-group">
-            
-            <a href="https://link-do-seu-app.com" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-mobile-alt"></i></div>
-                    <span class="link-text">Aplicativo do Aluno</span>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://link-planos.com" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-calendar-check"></i></div>
-                    <span class="link-text">Planos de Aulas</span>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://link-metodologia.com" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-dumbbell"></i></div>
-                    <span class="link-text">Nossas Metodologias</span>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://wa.me/seunumerodewhatsapp" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-                    <span class="link-text">Fale Conosco</span>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://maps.google.com" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
-                    <span class="link-text">Como Chegar</span>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-        </div>
-
-        <footer>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-            </div>
-            <p>&copy; 2024 The Kings. Todos os direitos reservados.</p>
-        </footer>
-
-    </div>
-
-</body>
-</html>
+            object-fit: cover;
+            background-color: #fff; /* Fundo branco
