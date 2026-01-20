@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Kings - Área do Aluno</title>
+    <title>The Kings - Links</title>
+
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* --- CONFIGURAÇÕES VISUAIS (CSS) --- */
         :root {
             --primary-orange: #f37d1d;
             --primary-glow: rgba(243, 125, 29, 0.6);
@@ -19,12 +23,7 @@
             --text-gray: #b0b3b8;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             background-color: var(--dark-bg);
@@ -36,335 +35,185 @@
             min-height: 100vh;
             padding: 20px;
             overflow-x: hidden;
-            position: relative;
         }
 
+        /* Fundo com Imagem e Gradiente */
         .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            /* Imagem de fundo */
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
         }
-
         .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: linear-gradient(to bottom, rgba(15, 17, 21, 0.85) 0%, rgba(15, 17, 21, 0.95) 60%, #0f1115 100%);
         }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-            padding-bottom: 40px;
-            position: relative;
-            z-index: 1;
-        }
+        .container { width: 100%; max-width: 480px; text-align: center; padding-bottom: 40px; position: relative; z-index: 1; }
 
+        /* --- LOGO E CABEÇALHO --- */
         .logo-area {
-            margin-top: 30px;
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            margin-top: 30px; margin-bottom: 15px;
+            display: flex; flex-direction: column; align-items: center;
             animation: fadeInDown 1s ease;
         }
 
-        /* ESTILO ATUALIZADO PARA A IMAGEM DO LOGO */
         .logo-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; /* Mantém o formato circular */
+            width: 150px; height: 150px;
+            border-radius: 50%;
             border: 3px solid var(--primary-orange);
             box-shadow: 0 0 30px var(--primary-glow);
             margin-bottom: 15px;
-            object-fit: cover; /* Garante que a imagem preencha o círculo */
-            object-position: center;
-            background-color: #fff; /* Fundo branco caso a imagem tenha transparência */
+            object-fit: cover;
+            background-color: #fff;
         }
 
+        /* Badge de Status (Aberto/Fechado) */
         .status-badge {
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
+            padding: 8px 20px; border-radius: 20px;
+            font-size: 0.9rem; font-weight: 500;
             border: 1px solid var(--glass-border);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            display: inline-flex; align-items: center; gap: 10px;
             margin-bottom: 15px;
             transform: translateY(-5px);
-            animation: fadeIn 1.5s ease;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #4cd964;
-            box-shadow: 0 0 8px #4cd964;
+            width: 10px; height: 10px; border-radius: 50%;
+            background-color: #4cd964; box-shadow: 0 0 8px #4cd964;
             animation: pulse-green 2s infinite;
         }
-
         .status-closed .status-dot {
-            background-color: #ff3b30;
-            box-shadow: 0 0 8px #ff3b30;
-            animation: none;
+            background-color: #ff3b30; box-shadow: 0 0 8px #ff3b30; animation: none;
         }
 
         .header-text h1 {
-            font-family: 'Teko', sans-serif;
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            line-height: 1;
-            margin-bottom: 5px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            font-family: 'Teko', sans-serif; font-size: 3rem;
+            text-transform: uppercase; letter-spacing: 2px; line-height: 1;
+            margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
+        .header-text span { color: var(--primary-orange); }
+        .header-text p { font-size: 1rem; color: var(--text-gray); margin-bottom: 35px; }
 
-        .header-text span {
-            color: var(--primary-orange);
-        }
+        /* --- MENUS E LINKS --- */
+        .links-group { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
-        .header-text p {
-            font-size: 1rem;
-            color: var(--text-gray);
-            margin-bottom: 35px;
-            font-weight: 400;
-        }
-
-        /* --- ESTILOS DOS MENUS E LINKS --- */
-        .links-group {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            width: 100%;
-        }
-
-        /* Container do Menu Expansível */
         .menu-wrapper {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
+            width: 100%; border-radius: 16px; overflow: hidden;
             transition: all 0.3s ease;
             animation: slideUp 0.5s ease backwards;
         }
 
         .link-card {
             background-color: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: var(--text-white);
-            text-decoration: none;
-            padding: 16px 20px;
-            border-radius: 16px;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            color: var(--text-white); text-decoration: none;
+            padding: 16px 20px; border-radius: 16px;
             border: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            cursor: pointer;
-            width: 100%;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: all 0.3s; cursor: pointer; width: 100%;
         }
 
-        /* Estado "Featured" (Destaque Laranja) */
+        /* Destaque (Botão Laranja) */
         .link-card.featured {
             background: linear-gradient(135deg, #f37d1d 0%, #d35f00 100%);
-            border: none;
-            box-shadow: 0 8px 25px rgba(243, 125, 29, 0.3);
+            border: none; box-shadow: 0 8px 25px rgba(243, 125, 29, 0.3);
         }
-        
-        /* Ajuste para quando o menu featured está aberto */
-        .menu-wrapper.open .link-card.featured {
-            border-radius: 16px 16px 0 0; /* Canto reto embaixo quando aberto */
-        }
+        .menu-wrapper.open .link-card.featured { border-radius: 16px 16px 0 0; }
 
-        /* Hover states */
-        .link-card:not(.featured):hover {
-            background-color: var(--glass-bg-hover);
-            transform: translateY(-2px);
-        }
+        .link-card:not(.featured):hover { background-color: var(--glass-bg-hover); transform: translateY(-2px); }
+        .link-card.featured:hover { transform: scale(1.02); }
 
-        .link-card.featured:hover {
-            transform: scale(1.02);
-        }
-
-        /* Conteúdo interno do Card */
-        .link-content {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            text-align: left;
-        }
+        .link-content { display: flex; align-items: center; gap: 18px; text-align: left; }
 
         .icon-box {
-            font-size: 1.4rem;
-            color: var(--primary-orange);
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            transition: all 0.3s;
+            font-size: 1.4rem; color: var(--primary-orange);
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05); border-radius: 8px;
         }
+        .link-card.featured .icon-box { color: #fff; background: rgba(255,255,255,0.2); }
 
-        .link-card.featured .icon-box {
-            color: #fff;
-            background: rgba(255,255,255,0.2);
-        }
+        .link-text { font-weight: 500; font-size: 1.05rem; display: block; }
+        .link-subtext { display: block; font-size: 0.75rem; color: #aaa; margin-top: 2px; }
+        .link-card.featured .link-text, .link-card.featured .link-subtext { color: #fff; }
 
-        .link-text {
-            font-weight: 500;
-            font-size: 1.05rem;
-            display: block;
-        }
-        
-        .link-subtext {
-            display: block;
-            font-size: 0.75rem;
-            color: #aaa;
-            font-weight: 400;
-            margin-top: 2px;
-        }
+        .arrow-icon { color: #555; font-size: 0.9rem; transition: transform 0.3s; }
+        .link-card.featured .arrow-icon { color: #fff; }
+        .menu-wrapper.open .arrow-icon { transform: rotate(180deg); }
 
-        .link-card.featured .link-text,
-        .link-card.featured .link-subtext {
-            color: #fff;
-        }
-
-        /* Ícone de Seta/Chevron */
-        .arrow-icon {
-            color: #555;
-            font-size: 0.9rem;
-            transition: transform 0.3s;
-        }
-
-        .link-card.featured .arrow-icon {
-            color: #fff;
-        }
-
-        /* Rotação da seta quando menu aberto */
-        .menu-wrapper.open .arrow-icon {
-            transform: rotate(180deg);
-        }
-
-        /* --- SUBMENU STYLES --- */
+        /* Submenus (Área que abre) */
         .submenu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 0 0 16px 16px;
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
+            background: rgba(0, 0, 0, 0.4); border-radius: 0 0 16px 16px;
         }
-
         .menu-wrapper.open .submenu {
-            max-height: 500px; /* Altura suficiente para o conteúdo */
-            border: 1px solid var(--glass-border);
-            border-top: none;
+            max-height: 1000px; /* Aumentado para caber a grade */
+            border: 1px solid var(--glass-border); border-top: none;
         }
 
         .submenu-link {
-            display: flex;
-            align-items: center;
-            padding: 12px 20px;
-            color: #ddd;
-            text-decoration: none;
+            display: flex; align-items: center; padding: 12px 20px;
+            color: #ddd; text-decoration: none;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: background 0.2s;
-            font-size: 0.95rem;
-            gap: 12px;
+            transition: background 0.2s; font-size: 0.95rem; gap: 12px;
+        }
+        .submenu-link:last-child { border-bottom: none; }
+        .submenu-link:hover { background: rgba(255,255,255,0.05); color: var(--primary-orange); padding-left: 25px; }
+        .submenu-icon { font-size: 0.8rem; width: 20px; text-align: center; opacity: 0.7; }
+
+        /* --- ESTILO DA GRADE INTELIGENTE --- */
+        .class-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 15px;
+            border-left: 3px solid transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
         }
 
-        .submenu-link:last-child {
-            border-bottom: none;
+        .class-time { font-weight: 700; color: #fff; font-size: 1.1rem; width: 60px; }
+        .class-name { color: #aaa; font-size: 0.9rem; flex-grow: 1; text-align: left; }
+
+        /* QUANDO A AULA ESTIVER ROLANDO (Classe ativada pelo JS) */
+        .class-item.live-now {
+            background: linear-gradient(90deg, rgba(76, 217, 100, 0.15) 0%, rgba(0,0,0,0) 100%);
+            border-left: 3px solid #4cd964; /* Verde Neon */
+            padding-left: 20px;
         }
 
-        .submenu-link:hover {
-            background: rgba(255,255,255,0.05);
-            color: var(--primary-orange);
-            padding-left: 25px; /* Efeito de deslize */
-        }
+        .class-item.live-now .class-time { color: #4cd964; transform: scale(1.1); }
+        .class-item.live-now .class-name { color: #fff; font-weight: bold; }
 
-        .submenu-icon {
-            font-size: 0.8rem;
-            width: 20px;
-            text-align: center;
-            opacity: 0.7;
+        /* Badge "Rolando" */
+        .live-badge {
+            display: none;
+            font-size: 0.7rem; font-weight: bold; text-transform: uppercase;
+            color: #111; background: #4cd964;
+            padding: 2px 8px; border-radius: 4px;
+            animation: pulse-badge 1.5s infinite;
         }
+        .class-item.live-now .live-badge { display: inline-block; }
 
-        /* Footer */
-        footer {
-            margin-top: 50px;
-            color: #666;
-            font-size: 0.8rem;
-            width: 100%;
-        }
-
+        /* Rodapé */
+        footer { margin-top: 50px; color: #666; font-size: 0.8rem; width: 100%; }
         .social-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(5px);
-            padding: 15px;
-            border-radius: 50px;
-            display: inline-flex;
-            gap: 20px;
-            border: 1px solid var(--glass-border);
-            margin-bottom: 20px;
+            background: var(--glass-bg); backdrop-filter: blur(5px);
+            padding: 15px; border-radius: 50px;
+            display: inline-flex; gap: 20px;
+            border: 1px solid var(--glass-border); margin-bottom: 20px;
         }
-
         .social-link {
-            color: var(--text-white);
-            font-size: 1.5rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            color: var(--text-white); font-size: 1.5rem;
+            transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border-radius: 50%; text-decoration: none;
         }
-
-        .social-link:hover {
-            color: var(--primary-orange);
-            background: rgba(255,255,255,0.05);
-            transform: translateY(-3px);
-        }
+        .social-link:hover { color: var(--primary-orange); background: rgba(255,255,255,0.05); transform: translateY(-3px); }
 
         /* Animações */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0.7); }
-            70% { box-shadow: 0 0 0 6px rgba(76, 217, 100, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0); }
-        }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0.7); } 70% { box-shadow: 0 0 0 6px rgba(76, 217, 100, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 217, 100, 0); } }
+        @keyframes pulse-badge { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
@@ -396,7 +245,7 @@
                         <div class="icon-box"><i class="fas fa-user-circle"></i></div>
                         <div>
                             <span class="link-text">Área do Aluno</span>
-                            <span class="link-subtext">Apps, Planos e Regras (Toque para abrir)</span>
+                            <span class="link-subtext">Apps, Planos e Regras</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down arrow-icon"></i>
@@ -405,169 +254,85 @@
                     <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="submenu-link">
                         <i class="fab fa-apple submenu-icon"></i> App Aluno iOS
                     </a>
-                    <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno&pcampaignid=web_share" target="_blank" class="submenu-link">
+                    <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" class="submenu-link">
                         <i class="fab fa-android submenu-icon"></i> App Aluno Android
                     </a>
-                    <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit?utm_content=DAGKabE1yH4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" target="_blank" class="submenu-link">
+                    <a href="#" class="submenu-link">
                         <i class="fas fa-book-open submenu-icon"></i> Plano de Aula 2026
                     </a>
-                    <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" class="submenu-link">
-                        <i class="fas fa-trophy submenu-icon"></i> Regras de Competições
-                    </a>
-                    <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM?usp=drive_link" target="_blank" class="submenu-link">
-                        <i class="fas fa-shield-alt submenu-icon"></i> Segurança Digital e Física
+                    <a href="#" class="submenu-link">
+                        <i class="fas fa-shield-alt submenu-icon"></i> Segurança & Regras
                     </a>
                 </div>
             </div>
 
-            <div class="menu-wrapper" id="menu-whats">
-                <div class="link-card" onclick="toggleMenu('menu-whats')">
+            <div class="menu-wrapper" id="menu-horarios">
+                <div class="link-card" onclick="toggleMenu('menu-horarios')">
                     <div class="link-content">
-                        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+                        <div class="icon-box"><i class="fas fa-clock"></i></div>
                         <div>
-                            <span class="link-text">Grupos do WhatsApp</span>
-                            <span class="link-subtext">Comunidade e Avisos</span>
+                            <span class="link-text">Grade de Horários</span>
+                            <span class="link-subtext">Ver turmas e horários</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down arrow-icon"></i>
                 </div>
-                <div class="submenu">
-                    <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" class="submenu-link">
-                        <i class="fas fa-users submenu-icon"></i> Grupo Aberto
-                    </a>
-                    <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" class="submenu-link">
-                        <i class="fas fa-bullhorn submenu-icon"></i> Grupo de Avisos (Pais)
-                    </a>
-                </div>
-            </div>
-
-            <a href="https://wa.me/p/7441470569286902/5511951945648" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-calendar-alt"></i></div>
-                    <div>
-                        <span class="link-text">Grade de Horários</span>
-                        <span class="link-subtext">Ver catálogo no WhatsApp</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
-                    <div>
-                        <span class="link-text">Aprenda Xadrez</span>
-                        <span class="link-subtext">Desenvolva sua estratégia</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-            <a href="https://wa.me/5511951945648?text=Quero%20fazer%20parte%20do%20Clube%20%2B%20Vantagens" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-star"></i></div>
-                    <div>
-                        <span class="link-text">Faça Parte do Clube+</span>
-                        <span class="link-subtext">Benefícios e Vantagens</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right arrow-icon"></i>
-            </a>
-
-        </div>
-
-        <footer>
-            <div class="social-container">
-                <a href="https://www.instagram.com/thekingsjw/#" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/thekingsjw" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://wa.me/5511951945648" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
-            </div>
-            <p style="opacity: 0.5;">&copy; 2024 The Kings BJJ.</p>
-        </footer>
-
-    </div>
-
-    <script>
-        // Função Menu Accordion
-        function toggleMenu(menuId) {
-            const menu = document.getElementById(menuId);
-            const allMenus = document.querySelectorAll('.menu-wrapper');
-            allMenus.forEach(m => { if (m.id !== menuId) m.classList.remove('open'); });
-            menu.classList.toggle('open');
-        }
-
-        // --- LÓGICA DE STATUS COM A NOVA GRADE ---
-        function checkStatus() {
-            const now = new Date();
-            const day = now.getDay(); // 0=Dom, 1=Seg, 2=Ter, 3=Qua, 4=Qui, 5=Sex, 6=Sáb
-            const hour = now.getHours();
-            
-            const badge = document.getElementById('statusBadge');
-            const statusText = document.getElementById('statusText');
-            const dot = document.querySelector('.status-dot');
-
-            let message = "Fechado Agora";
-            let isOpen = false;
-            let color = "#ff3b30"; // Vermelho
-
-            // REGRA GERAL DE ABERTURA (Considerando 08h as 22h dia de semana)
-            if (day >= 1 && day <= 5 && hour >= 8 && hour < 22) isOpen = true;
-
-            // LÓGICA ESPECÍFICA DAS AULAS
-            if (isOpen) {
-                color = "#4cd964"; // Verde
-                message = "Academia Aberta"; // Padrão se não tiver aula específica
-
-                // --- SEGUNDA (1) E QUARTA (3) ---
-                if (day === 1 || day === 3) {
-                    if (hour === 8) message = "Rolando: JJ Kids";
-                    else if (hour === 9) message = "Rolando: JJ Juv/Adulto";
-                    else if (hour === 18) message = "Rolando: Muay Thai";
-                    else if (hour === 19) message = "Rolando: JJ Kids";
-                    else if (hour === 20) message = "Rolando: JJ Juv/Adulto";
-                    else if (hour === 21) message = "Rolando: Boxe";
-                }
                 
-                // --- SEXTA (5) - DIA DE NOGI ---
-                else if (day === 5) {
-                    if (hour === 8) message = "Rolando: NoGi Kids";
-                    else if (hour === 9) message = "Rolando: NoGi Juv/Adulto";
-                    else if (hour === 18) message = "Rolando: Muay Thai";
-                    else if (hour === 19) message = "Rolando: NoGi Kids";
-                    else if (hour === 20) message = "Rolando: NoGi Juv/Adulto";
-                    else if (hour === 21) message = "Rolando: Boxe";
-                }
+                <div class="submenu">
+                    <div style="padding: 10px 15px; background: rgba(255,255,255,0.02);">
+                        <span style="color: var(--primary-orange); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
+                            Segundas e Quartas
+                        </span>
+                    </div>
+                    <div class="class-item" data-days="1,3" data-hour="8">
+                        <span class="class-time">08:00</span> <span class="class-name">Jiu-Jitsu Kids</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="1,3" data-hour="9">
+                        <span class="class-time">09:00</span> <span class="class-name">JJ Juv/Adulto</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="1,3" data-hour="18">
+                        <span class="class-time">18:00</span> <span class="class-name">Muay Thai</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="1,3" data-hour="19">
+                        <span class="class-time">19:00</span> <span class="class-name">Jiu-Jitsu Kids</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="1,3" data-hour="20">
+                        <span class="class-time">20:00</span> <span class="class-name">JJ Juv/Adulto</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="1,3" data-hour="21">
+                        <span class="class-time">21:00</span> <span class="class-name">Boxe</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
 
-                // --- TERÇA (2) E QUINTA (4) ---
-                else if (day === 2 || day === 4) {
-                    // Como só tem aula a noite, deixamos "Aberto" durante o dia ou ajustamos se a academia abre mais tarde
-                    if (hour === 20) message = "Rolando: Muay Thai Kids";
-                    else if (hour === 21) message = "Rolando: MT Juv/Adulto";
-                    else message = "Aberto • Treino Livre";
-                }
-            }
+                    <div style="padding: 10px 15px; background: rgba(255,255,255,0.02); margin-top: 5px;">
+                        <span style="color: var(--primary-orange); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
+                            Sexta-Feira (NoGi)
+                        </span>
+                    </div>
+                    <div class="class-item" data-days="5" data-hour="8">
+                        <span class="class-time">08:00</span> <span class="class-name">NoGi Kids</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="5" data-hour="9">
+                        <span class="class-time">09:00</span> <span class="class-name">NoGi Juv/Adulto</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="5" data-hour="18">
+                        <span class="class-time">18:00</span> <span class="class-name">Muay Thai</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="5" data-hour="19">
+                        <span class="class-time">19:00</span> <span class="class-name">NoGi Kids</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="5" data-hour="20">
+                        <span class="class-time">20:00</span> <span class="class-name">NoGi Juv/Adulto</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="5" data-hour="21">
+                        <span class="class-time">21:00</span> <span class="class-name">Boxe</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
 
-            // ATUALIZA A TELA
-            statusText.innerText = message;
-            statusText.style.color = color;
-            
-            if (isOpen) {
-                badge.classList.remove('status-closed');
-                dot.style.backgroundColor = color;
-                dot.style.boxShadow = `0 0 8px ${color}`;
-            } else {
-                badge.classList.add('status-closed');
-                dot.style.backgroundColor = color;
-                dot.style.boxShadow = `0 0 8px ${color}`;
-            }
-        }
-
-        checkStatus();
-        setInterval(checkStatus, 60000);
-    </script>
-
-</body>
-</html>
-
-
-
+                    <div style="padding: 10px 15px; background: rgba(255,255,255,0.02); margin-top: 5px;">
+                        <span style="color: var(--primary-orange); font-size: 0.75rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">
+                            Terças e Quintas
+                        </span>
+                    </div>
+                    <div class="class-item" data-days="2,4" data-hour="20">
+                        <span class="class-time">20:00</span> <span class="class-name">Muay Thai Kids</span> <span class="live-badge">🔥 Rolando!</span>
+                    </div>
+                    <div class="class-item" data-days="2,4" data-hour="
