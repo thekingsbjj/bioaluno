@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Teko:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
+        /* --- ESTILO SEGURO --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -30,20 +31,30 @@
         }
 
         /* LOGO */
-        .logo-container { width: 100%; display: flex; justify-content: center; margin: 20px 0 15px 0; }
-        .logo-img { width: 130px; height: 130px; border-radius: 50%; border: 3px solid #f37d1d; object-fit: cover; background: #fff; display: block; }
+        .logo-img {
+            width: 130px; height: 130px; border-radius: 50%;
+            border: 3px solid #f37d1d; object-fit: cover; background: #fff;
+            margin: 20px auto 15px auto; display: block;
+        }
 
-        /* HEADER */
+        /* CABEÇALHO */
         h1 { font-family: 'Teko', sans-serif; font-size: 2.5rem; line-height: 1; margin-bottom: 5px; text-transform: uppercase; }
         h1 span { color: #f37d1d; }
         p.subtitle { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
 
-        /* STATUS */
+        /* BADGE DE STATUS */
         .badge-container { margin-bottom: 15px; }
-        .badge { display: inline-block; padding: 6px 16px; background: rgba(0,0,0,0.6); border-radius: 20px; font-size: 0.85rem; border: 1px solid #333; }
-        .dot { height: 8px; width: 8px; background-color: #f37d1d; border-radius: 50%; display: inline-block; margin-right: 6px; }
+        .badge {
+            display: inline-block; padding: 6px 16px;
+            background: rgba(0,0,0,0.6); border-radius: 20px;
+            font-size: 0.85rem; border: 1px solid #333;
+        }
+        .dot {
+            height: 8px; width: 8px; background-color: #f37d1d;
+            border-radius: 50%; display: inline-block; margin-right: 6px;
+        }
 
-        /* BOTÕES */
+        /* BOTÕES PRINCIPAIS */
         .menu-btn {
             background: #1e222d; border: 1px solid #333;
             padding: 16px; margin-bottom: 12px; border-radius: 12px;
@@ -56,23 +67,42 @@
         .btn-title { display: block; font-weight: bold; font-size: 1rem; }
         .btn-desc { display: block; font-size: 0.75rem; color: #aaa; }
         
-        .menu-btn.gold { background: linear-gradient(90deg, rgba(243, 125, 29, 0.15) 0%, rgba(0,0,0,0.1) 100%); border: 1px solid #f37d1d; }
+        /* BOTÃO CLUBE+ (DESTAQUE) */
+        .menu-btn.gold {
+            background: linear-gradient(90deg, rgba(243, 125, 29, 0.15) 0%, rgba(0,0,0,0.1) 100%);
+            border: 1px solid #f37d1d;
+        }
         .menu-btn.gold .icon-box, .menu-btn.gold .btn-title { color: #f37d1d; }
 
         /* SUBMENUS */
-        .submenu { display: none; background: rgba(0,0,0,0.8); border: 1px solid #333; border-top: none; border-radius: 0 0 12px 12px; margin-top: -14px; margin-bottom: 15px; text-align: left; }
+        .submenu {
+            display: none; background: rgba(0,0,0,0.5); border: 1px solid #333; border-top: none;
+            border-radius: 0 0 12px 12px; margin-top: -14px; margin-bottom: 15px; text-align: left;
+        }
         .submenu.show { display: block; }
-        .sub-link { display: flex; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #ddd; text-decoration: none; font-size: 0.9rem; }
 
-        /* CLUBE+ STYLES */
+        .sub-link {
+            display: flex; justify-content: space-between; padding: 14px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05); color: #ddd; text-decoration: none; font-size: 0.9rem;
+        }
+
+        /* PREÇOS CLUBE+ */
         .price-box { background: rgba(255,255,255,0.05); padding: 15px; margin: 15px; border-radius: 8px; }
         .price-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; align-items: center; }
         .strike { text-decoration: line-through; color: #666; font-size: 0.8rem; }
         .green-price { color: #4cd964; font-weight: bold; font-size: 1.1rem; }
-        .cta-btn { display: block; text-align: center; background: #25D366; color: #fff; font-weight: bold; padding: 12px; border-radius: 6px; text-decoration: none; margin: 15px; text-transform: uppercase; }
+        
+        .cta-btn {
+            display: block; text-align: center; background: #25D366; color: #fff;
+            font-weight: bold; padding: 12px; border-radius: 6px; text-decoration: none; margin: 15px;
+            text-transform: uppercase; font-size: 0.9rem;
+        }
 
-        /* GRADE */
-        .class-row { display: flex; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        /* GRADE DE HORÁRIOS */
+        .class-row {
+            display: flex; justify-content: space-between; padding: 12px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
         .class-row.active { border-left: 4px solid #4cd964; background: rgba(76,217,100,0.1); }
         .class-row.active .time { color: #4cd964; font-weight: bold; }
         .live-tag { display: none; background: #4cd964; color: #000; font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
@@ -85,160 +115,205 @@
 <body>
 
     <div class="container">
-        <div class="logo-container">
-            <img src="logo.png" alt="Logo The Kings" class="logo-img">
-        </div>
+        
+        <img src="logo.png" alt="Logo The Kings" class="logo-img" onerror="this.style.display='none'">
         
         <div class="badge-container">
             <div class="badge">
-                <span class="dot"></span> <span id="status-text">Iniciando...</span>
+                <span class="dot"></span> <span id="status-text">Carregando...</span>
             </div>
         </div>
 
         <h1>The Kings <span>BJJ</span></h1>
         <p class="subtitle">Área do Aluno & Performance</p>
 
-        <div class="menu-btn" onclick="toggle('menu-aluno')">
-            <div class="btn-content">
-                <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                <div>
-                    <span class="btn-title">Área do Aluno</span>
-                    <span class="btn-desc">Apps, Aulas e Regras</span>
-                </div>
-            </div>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        <div id="menu-aluno" class="submenu">
-            <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="sub-link"><span>App iOS</span> <i class="fab fa-apple"></i></a>
-            <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" class="sub-link"><span>App Android</span> <i class="fab fa-android"></i></a>
-            <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit" target="_blank" class="sub-link"><span>Plano de Aula 2026</span> <i class="fas fa-book-open"></i></a>
-            <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" class="sub-link"><span>Regras de Competições</span> <i class="fas fa-trophy"></i></a>
-            <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM" target="_blank" class="sub-link"><span>Segurança Digital</span> <i class="fas fa-shield-alt"></i></a>
-        </div>
-
-        <div class="menu-btn" onclick="toggle('menu-grade')">
-            <div class="btn-content">
-                <div class="icon-box"><i class="fas fa-clock"></i></div>
-                <div>
-                    <span class="btn-title">Grade de Horários</span>
-                    <span class="btn-desc">Ver turmas</span>
-                </div>
-            </div>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        <div id="menu-grade" class="submenu">
-            <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold;">SEGUNDAS E QUARTAS</div>
-            <div class="class-row" data-d="1,3" data-h="8"><span class="time">08:00</span><span>JJ Kids</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="1,3" data-h="9"><span class="time">09:00</span><span>JJ Adulto</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="1,3" data-h="18"><span class="time">18:00</span><span>Muay Thai</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="1,3" data-h="19"><span class="time">19:00</span><span>JJ Kids</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="1,3" data-h="20"><span class="time">20:00</span><span>JJ Adulto</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="1,3" data-h="21"><span class="time">21:00</span><span>Boxe</span><span class="live-tag">ROLANDO</span></div>
-            <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold;">SEXTA-FEIRA</div>
-            <div class="class-row" data-d="5" data-h="8"><span class="time">08:00</span><span>NoGi Kids</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="5" data-h="9"><span class="time">09:00</span><span>NoGi Adulto</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="5" data-h="18"><span class="time">18:00</span><span>Muay Thai</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="5" data-h="19"><span class="time">19:00</span><span>NoGi Kids</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="5" data-h="20"><span class="time">20:00</span><span>NoGi Adulto</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="5" data-h="21"><span class="time">21:00</span><span>Boxe</span><span class="live-tag">ROLANDO</span></div>
-            <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold;">TERÇAS E QUINTAS</div>
-            <div class="class-row" data-d="2,4" data-h="20"><span class="time">20:00</span><span>Muay Thai Kids</span><span class="live-tag">ROLANDO</span></div>
-            <div class="class-row" data-d="2,4" data-h="21"><span class="time">21:00</span><span>Muay Thai Adulto</span><span class="live-tag">ROLANDO</span></div>
-        </div>
-
-        <div class="menu-btn gold" onclick="toggle('menu-clube')">
-            <div class="btn-content">
-                <div class="icon-box"><i class="fas fa-crown"></i></div>
-                <div>
-                    <span class="btn-title">Seja Clube+</span>
-                    <span class="btn-desc">Vantagens exclusivas do Plano Anual</span>
-                </div>
-            </div>
-            <i class="fas fa-chevron-down" style="color:#f37d1d"></i>
-        </div>
-        <div id="menu-clube" class="submenu">
-            <div style="padding:20px;">
-                <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Voucher Amigo (1 mês grátis p/ presente)</p>
-                <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Passe Livre Total (Todas Modalidades)</p>
-                <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Trancamento por até 60 dias</p>
-                <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Possibilidade de Transferência*</p>
-                <div class="price-box">
-                    <div class="price-row"><span>Mensalista (Tudo)</span> <span class="strike">R$ 199,90</span></div>
-                    <div class="price-row" style="margin-top:10px; border-top:1px dashed #444; padding-top:10px;">
-                        <span style="color:#fff; font-weight:bold;">CLUBE+ KIDS</span> <span class="green-price">R$ 79,90</span>
-                    </div>
-                    <div class="price-row">
-                        <span style="color:#fff; font-weight:bold;">CLUBE+ ADULTO</span> <span class="green-price">R$ 99,90</span>
+        <div class="links-group">
+            
+            <div class="menu-btn" onclick="toggle('menu-aluno')">
+                <div class="btn-content">
+                    <div class="icon-box"><i class="fas fa-user-circle"></i></div>
+                    <div>
+                        <span class="btn-title">Área do Aluno</span>
+                        <span class="btn-desc">Apps, Aulas e Regras</span>
                     </div>
                 </div>
-                <a href="https://wa.me/5511951945648?text=Ola! Quero economizar no Clube+" target="_blank" class="cta-btn">Quero Economizar Agora</a>
+                <i class="fas fa-chevron-down"></i>
             </div>
-        </div>
+            <div id="menu-aluno" class="submenu">
+                <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="sub-link"><span>App iOS</span> <i class="fab fa-apple"></i></a>
+                <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" class="sub-link"><span>App Android</span> <i class="fab fa-android"></i></a>
+                <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit" target="_blank" class="sub-link"><span>Plano de Aula 2026</span> <i class="fas fa-book-open"></i></a>
+                <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" class="sub-link"><span>Regras de Competições</span> <i class="fas fa-trophy"></i></a>
+                <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM" target="_blank" class="sub-link"><span>Segurança Digital</span> <i class="fas fa-shield-alt"></i></a>
+            </div>
 
-        <div class="menu-btn" onclick="toggle('menu-whats')">
-            <div class="btn-content">
-                <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-                <div>
-                    <span class="btn-title">Grupos WhatsApp</span>
-                    <span class="btn-desc">Comunidade e Avisos Pais</span>
+            <div class="menu-btn" onclick="toggle('menu-grade')">
+                <div class="btn-content">
+                    <div class="icon-box"><i class="fas fa-clock"></i></div>
+                    <div>
+                        <span class="btn-title">Grade de Horários</span>
+                        <span class="btn-desc">Ver turmas</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="menu-grade" class="submenu">
+                <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold; margin-top:5px;">SEGUNDAS E QUARTAS</div>
+                <div class="class-row" data-d="1,3" data-h="8"><span class="time">08:00</span><span>JJ Kids</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="1,3" data-h="9"><span class="time">09:00</span><span>JJ Adulto</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="1,3" data-h="18"><span class="time">18:00</span><span>Muay Thai</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="1,3" data-h="19"><span class="time">19:00</span><span>JJ Kids</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="1,3" data-h="20"><span class="time">20:00</span><span>JJ Adulto</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="1,3" data-h="21"><span class="time">21:00</span><span>Boxe</span><span class="live-tag">ROLANDO</span></div>
+                
+                <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold; margin-top:5px;">SEXTA-FEIRA</div>
+                <div class="class-row" data-d="5" data-h="8"><span class="time">08:00</span><span>NoGi Kids</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="5" data-h="9"><span class="time">09:00</span><span>NoGi Adulto</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="5" data-h="18"><span class="time">18:00</span><span>Muay Thai</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="5" data-h="19"><span class="time">19:00</span><span>NoGi Kids</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="5" data-h="20"><span class="time">20:00</span><span>NoGi Adulto</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="5" data-h="21"><span class="time">21:00</span><span>Boxe</span><span class="live-tag">ROLANDO</span></div>
+
+                <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold; margin-top:5px;">TERÇAS E QUINTAS</div>
+                <div class="class-row" data-d="2,4" data-h="20"><span class="time">20:00</span><span>Muay Thai Kids</span><span class="live-tag">ROLANDO</span></div>
+                <div class="class-row" data-d="2,4" data-h="21"><span class="time">21:00</span><span>Muay Thai Adulto</span><span class="live-tag">ROLANDO</span></div>
+            </div>
+
+            <div class="menu-btn gold" onclick="toggle('menu-clube')">
+                <div class="btn-content">
+                    <div class="icon-box"><i class="fas fa-crown"></i></div>
+                    <div>
+                        <span class="btn-title">Seja Clube+</span>
+                        <span class="btn-desc">Vantagens exclusivas do Plano Anual</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down" style="color:#f37d1d"></i>
+            </div>
+            <div id="menu-clube" class="submenu">
+                <div style="padding:20px;">
+                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Voucher Amigo (1 mês grátis p/ presente)</p>
+                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Passe Livre Total (Todas Modalidades)</p>
+                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Trancamento por até 60 dias</p>
+                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Possibilidade de Transferência*</p>
+                    
+                    <div class="price-box">
+                        <div class="price-row"><span>Mensalista (Tudo)</span> <span class="strike">R$ 199,90</span></div>
+                        <div class="price-row" style="margin-top:10px; border-top:1px dashed #444; padding-top:10px;">
+                            <span style="color:#fff; font-weight:bold;">CLUBE+ KIDS</span>
+                            <span class="green-price">R$ 79,90</span>
+                        </div>
+                        <div class="price-row">
+                            <span style="color:#fff; font-weight:bold;">CLUBE+ ADULTO</span>
+                            <span class="green-price">R$ 99,90</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/5511951945648?text=Olá!%20Quero%20migrar%20para%20o%20Clube%2B%20e%20economizar." class="cta-btn">Quero Economizar Agora</a>
                 </div>
             </div>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        <div id="menu-whats" class="submenu">
-            <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" class="sub-link"><span>Grupo Aberto</span> <i class="fas fa-users"></i></a>
-            <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" class="sub-link"><span>Grupo de Avisos - Pais</span> <i class="fas fa-bullhorn"></i></a>
-        </div>
 
-        <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="menu-btn">
-            <div class="btn-content"><div class="icon-box"><i class="fas fa-chess-knight"></i></div><span class="btn-title">Aprenda Xadrez</span></div>
-        </a>
+            <div class="menu-btn" onclick="toggle('menu-whats')">
+                <div class="btn-content">
+                    <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
+                    <div>
+                        <span class="btn-title">Grupos WhatsApp</span>
+                        <span class="btn-desc">Comunidade e Avisos Pais</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="menu-whats" class="submenu">
+                <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" class="sub-link"><span>Grupo Aberto</span> <i class="fas fa-users"></i></a>
+                <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" class="sub-link"><span>Grupo de Avisos - Pais</span> <i class="fas fa-bullhorn"></i></a>
+            </div>
 
-        <a href="https://maps.app.goo.gl/placeholder" target="_blank" class="menu-btn">
-            <div class="btn-content"><div class="icon-box"><i class="fas fa-map-marker-alt"></i></div><span class="btn-title">Localização (Maps)</span></div>
-        </a>
+            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="menu-btn">
+                <div class="btn-content">
+                    <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
+                    <span class="btn-title">Aprenda Xadrez</span>
+                </div>
+            </a>
+
+            <a href="https://maps.app.goo.gl/placeholder" target="_blank" class="menu-btn">
+                <div class="btn-content">
+                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
+                    <span class="btn-title">Localização (Maps)</span>
+                </div>
+            </a>
+
+        </div>
 
         <footer>
             <div class="socials">
                 <a href="https://instagram.com/thekingskw" target="_blank"><i class="fab fa-instagram"></i></a>
                 <a href="https://wa.me/5511951945648" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <p style="margin-top:15px;">© 2026 The Kings Academy</p>
+            <p style="margin-top:15px;">© 2024 The Kings Academy</p>
         </footer>
+
     </div>
 
     <script>
         function toggle(id) {
             var el = document.getElementById(id);
             var all = document.querySelectorAll('.submenu');
-            for(var i=0; i<all.length; i++) { if(all[i].id !== id) all[i].classList.remove('show'); }
+            for(var i=0; i<all.length; i++) {
+                if(all[i].id !== id) all[i].classList.remove('show');
+            }
             if(el) el.classList.toggle('show');
         }
 
         function update() {
             try {
-                var now = new Date(); var d = now.getDay(); var h = now.getHours();
-                var textEl = document.getElementById('status-text'); var dotEl = document.querySelector('.dot');
-                var isOpen = false; var label = "Fechado Agora"; var color = "#ff3b30";
+                var now = new Date();
+                var d = now.getDay(); 
+                var h = now.getHours();
+                
+                var textEl = document.getElementById('status-text');
+                var dotEl = document.querySelector('.dot');
+                
+                var isOpen = false;
+                var label = "Fechado Agora";
+                var color = "#ff3b30";
+
                 if(d >= 1 && d <= 5 && h >= 8 && h < 22) isOpen = true;
+
                 var rows = document.querySelectorAll('.class-row');
                 for(var i=0; i<rows.length; i++) {
-                    var row = rows[i]; row.classList.remove('active');
+                    var row = rows[i];
+                    row.classList.remove('active');
+                    
                     var dArr = row.getAttribute('data-d').split(',').map(Number);
                     var hVal = parseInt(row.getAttribute('data-h'));
+
                     if(dArr.includes(d) && hVal === h) {
                         row.classList.add('active');
                         var nameSpan = row.querySelectorAll('span')[1];
-                        if(nameSpan) label = "Acontecendo: " + nameSpan.innerText;
-                        isOpen = true; color = "#4cd964";
+                        if(nameSpan) label = "Rolando: " + nameSpan.innerText;
+                        isOpen = true;
+                        color = "#4cd964";
                     }
                 }
-                if(isOpen && label === "Fechado Agora") { label = "Academia Aberta"; color = "#4cd964"; }
-                if(textEl) { textEl.innerText = label; textEl.style.color = color; }
+
+                if(isOpen && label === "Fechado Agora") {
+                    label = "Academia Aberta";
+                    color = "#4cd964";
+                }
+
+                if(textEl) {
+                    textEl.innerText = label;
+                    textEl.style.color = color;
+                }
                 if(dotEl) dotEl.style.backgroundColor = color;
-            } catch(e) { console.error(e); }
+
+            } catch(e) {
+                if(document.getElementById('status-text')) {
+                    document.getElementById('status-text').innerText = "Bem-vindo";
+                }
+            }
         }
-        update(); setInterval(update, 60000);
+
+        update();
+        setInterval(update, 60000);
     </script>
 </body>
 </html>
