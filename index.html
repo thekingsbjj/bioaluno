@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- ESTILO VISUAL --- */
+        /* --- ESTILO VISUAL (CSS) --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
@@ -40,7 +40,7 @@
         }
         .status-dot {
             width: 10px; height: 10px; border-radius: 50%;
-            background-color: #f37d1d; box-shadow: 0 0 8px #f37d1d;
+            background-color: #f37d1d; box-shadow: 0 0 8px #f37d1d; transition: all 0.5s;
         }
 
         .header-text h1 { font-family: 'Teko', sans-serif; font-size: 3rem; margin-bottom: 0; text-transform: uppercase; letter-spacing: 2px; line-height: 1; }
@@ -51,7 +51,7 @@
         .links-group { display: flex; flex-direction: column; gap: 15px; width: 100%; }
 
         .link-card {
-            background-color: rgba(30, 34, 45, 0.85); color: #fff; text-decoration: none;
+            background-color: rgba(30, 34, 45, 0.9); color: #fff; text-decoration: none;
             padding: 16px 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex; align-items: center; justify-content: space-between;
             cursor: pointer; width: 100%; margin-bottom: 0;
@@ -59,10 +59,10 @@
         
         .link-card.featured { background: linear-gradient(135deg, #f37d1d 0%, #d35f00 100%); border: none; }
         
-        /* ESTILO CLUBE+ (Dourado/Premium) */
+        /* ESTILO CLUBE+ */
         .link-card.clube-plus {
             border: 1px solid #f37d1d;
-            background: linear-gradient(90deg, rgba(243, 125, 29, 0.1) 0%, rgba(0,0,0,0) 100%);
+            background: linear-gradient(90deg, rgba(243, 125, 29, 0.15) 0%, rgba(0,0,0,0.3) 100%);
         }
         .link-card.clube-plus .icon-box { color: #f37d1d; }
         .link-card.clube-plus .link-text { color: #f37d1d; }
@@ -78,7 +78,7 @@
         /* SUBMENUS */
         .menu-wrapper { width: 100%; overflow: hidden; border-radius: 12px; transition: all 0.3s; }
         .submenu {
-            display: none; background: rgba(0, 0, 0, 0.5);
+            display: none; background: rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255,255,255,0.1); border-top: none; border-radius: 0 0 12px 12px;
         }
         .menu-wrapper.open .submenu { display: block; animation: openMenu 0.3s ease; }
@@ -90,241 +90,13 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        /* GRADE */
-        .class-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 15px; border-left: 4px solid transparent;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .class-time { font-weight: bold; color: #fff; width: 60px; }
-        .class-name { color: #ccc; flex-grow: 1; text-align: left; }
+        /* CLUBE+ CONTENT */
+        .cp-content { padding: 20px; text-align: left; }
+        .cp-benefit { display: flex; align-items: start; gap: 10px; margin-bottom: 12px; font-size: 0.9rem; color: #ddd; }
+        .cp-check { color: #f37d1d; margin-top: 2px; }
         
-        /* ROLANDO AGORA */
-        .class-item.live-now { background: rgba(76, 217, 100, 0.1); border-left: 4px solid #4cd964; }
-        .class-item.live-now .class-time { color: #4cd964; }
-        .class-item.live-now .class-name { color: #fff; font-weight: bold; }
-        .live-badge {
-            display: none; font-size: 0.7rem; font-weight: bold;
-            background: #4cd964; color: #000; padding: 2px 6px; border-radius: 4px;
+        .cp-price-box {
+            background: rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; margin-top: 15px; border: 1px solid rgba(255,255,255,0.1);
         }
-        .class-item.live-now .live-badge { display: inline-block; }
-
-        footer { margin-top: 40px; color: #666; font-size: 0.8rem; }
-        .social-links { display: flex; gap: 20px; justify-content: center; margin-bottom: 10px; font-size: 1.5rem; }
-        .social-links a { color: #fff; }
-
-        @keyframes openMenu { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <div class="logo-area">
-            <img src="logo.png" alt="Logo The Kings" class="logo-img" onerror="this.style.display='none'">
-            
-            <div id="statusBadge" class="status-badge">
-                <span class="status-dot"></span>
-                <span id="statusText">The Kings Academy</span>
-            </div>
-
-            <div class="header-text">
-                <h1>The Kings <span>BJJ</span></h1>
-                <p>Área do Aluno & Performance</p>
-            </div>
-        </div>
-
-        <div class="links-group">
-            
-            <div class="menu-wrapper" id="menu-aluno">
-                <div class="link-card featured" onclick="toggleMenu('menu-aluno')">
-                    <div class="link-content">
-                        <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                        <div>
-                            <span class="link-text">Área do Aluno</span>
-                            <span class="link-subtext">Apps, Aulas e Regras</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="submenu">
-                    <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="submenu-link">
-                        <span><i class="fab fa-apple" style="width:20px;text-align:center"></i> App Aluno iOS</span> 
-                        <i class="fas fa-external-link-alt" style="font-size:0.8rem;opacity:0.5"></i>
-                    </a>
-                    
-                    <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" class="submenu-link">
-                        <span><i class="fab fa-android" style="width:20px;text-align:center"></i> App Aluno Android</span> 
-                        <i class="fas fa-external-link-alt" style="font-size:0.8rem;opacity:0.5"></i>
-                    </a>
-                    
-                    <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit" target="_blank" class="submenu-link">
-                        <span><i class="fas fa-book-open" style="width:20px;text-align:center"></i> Plano de Aula 2026</span> 
-                        <i class="fas fa-external-link-alt" style="font-size:0.8rem;opacity:0.5"></i>
-                    </a>
-                    
-                    <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" class="submenu-link">
-                        <span><i class="fas fa-trophy" style="width:20px;text-align:center"></i> Regras de Competições</span> 
-                        <i class="fas fa-external-link-alt" style="font-size:0.8rem;opacity:0.5"></i>
-                    </a>
-
-                    <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM" target="_blank" class="submenu-link">
-                        <span><i class="fas fa-shield-alt" style="width:20px;text-align:center"></i> Segurança Digital & Física</span> 
-                        <i class="fas fa-external-link-alt" style="font-size:0.8rem;opacity:0.5"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="menu-wrapper" id="menu-horarios">
-                <div class="link-card" onclick="toggleMenu('menu-horarios')">
-                    <div class="link-content">
-                        <div class="icon-box"><i class="fas fa-clock"></i></div>
-                        <div>
-                            <span class="link-text">Grade de Horários</span>
-                            <span class="link-subtext">Ver turmas</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                
-                <div class="submenu">
-                    <div style="padding: 10px 15px; opacity: 0.7; font-size: 0.8rem; font-weight: bold;">SEGUNDAS E QUARTAS</div>
-                    <div class="class-item" data-d="1,3" data-h="8"> <span class="class-time">08:00</span> <span class="class-name">JJ Kids</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="1,3" data-h="9"> <span class="class-time">09:00</span> <span class="class-name">JJ Adulto</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="1,3" data-h="18"> <span class="class-time">18:00</span> <span class="class-name">Muay Thai</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="1,3" data-h="19"> <span class="class-time">19:00</span> <span class="class-name">JJ Kids</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="1,3" data-h="20"> <span class="class-time">20:00</span> <span class="class-name">JJ Adulto</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="1,3" data-h="21"> <span class="class-time">21:00</span> <span class="class-name">Boxe</span> <span class="live-badge">ROLANDO</span> </div>
-
-                    <div style="padding: 10px 15px; opacity: 0.7; font-size: 0.8rem; font-weight: bold; margin-top: 5px;">SEXTA-FEIRA</div>
-                    <div class="class-item" data-d="5" data-h="8"> <span class="class-time">08:00</span> <span class="class-name">NoGi Kids</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="5" data-h="9"> <span class="class-time">09:00</span> <span class="class-name">NoGi Adulto</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="5" data-h="18"> <span class="class-time">18:00</span> <span class="class-name">Muay Thai</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="5" data-h="19"> <span class="class-time">19:00</span> <span class="class-name">NoGi Kids</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="5" data-h="20"> <span class="class-time">20:00</span> <span class="class-name">NoGi Adulto</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="5" data-h="21"> <span class="class-time">21:00</span> <span class="class-name">Boxe</span> <span class="live-badge">ROLANDO</span> </div>
-
-                    <div style="padding: 10px 15px; opacity: 0.7; font-size: 0.8rem; font-weight: bold; margin-top: 5px;">TERÇAS E QUINTAS</div>
-                    <div class="class-item" data-d="2,4" data-h="20"> <span class="class-time">20:00</span> <span class="class-name">Muay Thai Kids</span> <span class="live-badge">ROLANDO</span> </div>
-                    <div class="class-item" data-d="2,4" data-h="21"> <span class="class-time">21:00</span> <span class="class-name">Muay Thai Adulto</span> <span class="live-badge">ROLANDO</span> </div>
-                </div>
-            </div>
-
-            <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20saber%20as%20vantagens%20do%20Clube%2B%20e%20plano%20anual." target="_blank" class="link-card clube-plus">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-crown"></i></div>
-                    <div>
-                        <span class="link-text">Seja Clube+</span>
-                        <span class="link-subtext">Vantagens exclusivas do Anual</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right" style="color: #f37d1d;"></i>
-            </a>
-
-            <div class="menu-wrapper" id="menu-whats">
-                <div class="link-card" onclick="toggleMenu('menu-whats')">
-                    <div class="link-content">
-                        <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-                        <div>
-                            <span class="link-text">Grupos WhatsApp</span>
-                            <span class="link-subtext">Comunidade e Avisos</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="submenu">
-                    <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" class="submenu-link">
-                        <span>Grupo Aberto</span> <i class="fas fa-users"></i>
-                    </a>
-                    <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" class="submenu-link">
-                        <span>Grupo de Avisos - Pais</span> <i class="fas fa-bullhorn"></i>
-                    </a>
-                </div>
-            </div>
-
-            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
-                    <div>
-                        <span class="link-text">Aprenda Xadrez</span>
-                        <span class="link-subtext">Estratégia</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right" style="font-size: 0.8rem; color: #555;"></i>
-            </a>
-
-            <a href="https://maps.app.goo.gl/placeholder" target="_blank" class="link-card">
-                <div class="link-content">
-                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
-                    <div>
-                        <span class="link-text">Localização</span>
-                        <span class="link-subtext">Abrir no Maps</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-right" style="font-size: 0.8rem; color: #555;"></i>
-            </a>
-
-        </div>
-
-        <footer>
-            <div class="social-links">
-                <a href="https://instagram.com/thekingskw"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/5511999999999"><i class="fab fa-whatsapp"></i></a>
-            </div>
-            <p>© 2024 The Kings Academy</p>
-        </footer>
-    </div>
-
-    <script>
-        function toggleMenu(id) {
-            var menu = document.getElementById(id);
-            var others = document.querySelectorAll('.menu-wrapper');
-            others.forEach(function(m) { if(m.id !== id) m.classList.remove('open'); });
-            if(menu) menu.classList.toggle('open');
-        }
-
-        function updateStatus() {
-            try {
-                var now = new Date();
-                var day = now.getDay();
-                var hour = now.getHours();
-
-                var badgeText = document.getElementById('statusText');
-                var dot = document.querySelector('.status-dot');
-                
-                var isOpen = false;
-                var currentActivity = "Fechado Agora";
-                var color = "#ff3b30";
-
-                if (day >= 1 && day <= 5 && hour >= 8 && hour < 22) {
-                    isOpen = true;
-                    currentActivity = "Academia Aberta";
-                    color = "#4cd964";
-                }
-
-                var items = document.querySelectorAll('.class-item');
-                items.forEach(function(item) {
-                    item.classList.remove('live-now');
-                    var d = item.getAttribute('data-d').split(',').map(Number);
-                    var h = parseInt(item.getAttribute('data-h'));
-                    if (d.includes(day) && h === hour) {
-                        item.classList.add('live-now');
-                        currentActivity = "Rolando: " + item.querySelector('.class-name').innerText;
-                        isOpen = true; color = "#4cd964";
-                    }
-                });
-
-                if(badgeText) {
-                    badgeText.innerText = currentActivity;
-                    badgeText.style.color = color;
-                }
-                if(dot) {
-                    dot.style.backgroundColor = color;
-                    dot.style.boxShadow = "0 0 8px " + color;
-                }
-            } catch (e) { console.error(e); }
-        }
-        updateStatus();
-        setInterval(updateStatus, 60000);
-    </script>
-</body>
-</html>
+        .cp-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .cp-row:last-child { border-bottom:
