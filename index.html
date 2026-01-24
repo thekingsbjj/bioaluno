@@ -2,318 +2,984 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Kings - Bio do Aluno</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <title>The Kings Academy | Jiu-Jitsu & Desenvolvimento</title>
     
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Teko:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- ESTILO SEGURO --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #f37d1d;
+            --primary-glow: rgba(243, 125, 29, 0.4);
+            --dark: #121212;
+            --dark-card: #1e1e1e;
+            --white: #ffffff;
+            --gray-bg: #f8f9fa;
+            --success: #00b894;
+            --warning: #f1c40f;
+            --danger: #ff7675;
+            
+            /* CORES METODOLOGIA */
+            --met-blue: #3498db;   /* Criar */
+            --met-yellow: #f1c40f; /* Alinhar */
+            --met-green: #2ecc71;  /* Desconstruir */
+            --met-red: #e74c3c;    /* Revisão */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        body {
-            background-color: #0f1115;
-            background-image: linear-gradient(to bottom, rgba(15, 17, 21, 0.95), #0f1115), url('https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=1470&auto=format&fit=crop');
-            background-size: cover;
-            background-attachment: fixed;
-            font-family: 'Roboto', sans-serif;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
+        html { font-size: 16px; } 
+        body { background-color: var(--white); font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6; overflow-x: hidden; }
 
-        .container {
-            width: 100%;
-            max-width: 450px;
-            margin: 0 auto;
-            padding-bottom: 50px;
-        }
+        h1, h2, h3 { line-height: 1.2; }
+        p { font-size: 0.95rem; color: #666; }
 
-        /* LOGO */
-        .logo-img {
-            width: 130px; height: 130px; border-radius: 50%;
-            border: 3px solid #f37d1d; object-fit: cover; background: #fff;
-            margin: 20px auto 15px auto; display: block;
+        .btn { 
+            padding: 14px 30px; border-radius: 10px; font-weight: 700; 
+            text-decoration: none; transition: 0.2s; display: inline-flex; 
+            justify-content: center; align-items: center; text-align: center;
+            font-size: 0.9rem; cursor: pointer;
         }
+        .btn-primary { background: var(--primary); color: white; border: none; box-shadow: 0 4px 15px rgba(243, 125, 29, 0.3); }
+        .btn-outline { border: 2px solid var(--dark); color: var(--dark); }
+        .btn-success { background: var(--success); color: white; border: none; box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3); }
 
-        /* CABEÇALHO */
-        h1 { font-family: 'Teko', sans-serif; font-size: 2.5rem; line-height: 1; margin-bottom: 5px; text-transform: uppercase; }
-        h1 span { color: #f37d1d; }
-        p.subtitle { color: #888; font-size: 0.9rem; margin-bottom: 25px; }
+        /* --- BARRA DE STATUS --- */
+        .top-status-bar { 
+            background: var(--dark); color: white; padding: 10px 0; text-align: center; 
+            font-size: 0.75rem; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .live-dot { height: 8px; width: 8px; border-radius: 50%; background: #555; transition: 0.3s; }
+        .live-dot.active { background: var(--success); box-shadow: 0 0 10px var(--success); animation: pulse 1.5s infinite; }
+        .live-dot.opening { background: var(--warning); box-shadow: 0 0 10px var(--warning); animation: pulse 1.5s infinite; }
+        .live-dot.closed { background: var(--danger); }
 
-        /* BADGE DE STATUS */
-        .badge-container { margin-bottom: 15px; }
-        .badge {
-            display: inline-block; padding: 6px 16px;
-            background: rgba(0,0,0,0.6); border-radius: 20px;
-            font-size: 0.85rem; border: 1px solid #333;
+        /* --- NAVEGAÇÃO --- */
+        nav { 
+            background: var(--white); padding: 12px 5%; display: flex; justify-content: space-between; 
+            align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.04); height: 70px;
         }
-        .dot {
-            height: 8px; width: 8px; background-color: #f37d1d;
-            border-radius: 50%; display: inline-block; margin-right: 6px;
-        }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); }
+        .nav-logo img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary); }
+        .nav-logo span { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1rem; }
+        .nav-actions { display: flex; gap: 10px; }
 
-        /* BOTÕES PRINCIPAIS */
-        .menu-btn {
-            background: #1e222d; border: 1px solid #333;
-            padding: 16px; margin-bottom: 12px; border-radius: 12px;
-            display: flex; align-items: center; justify-content: space-between;
-            cursor: pointer; text-decoration: none; color: #fff;
+        /* --- HERO --- */
+        .hero { 
+            padding: 60px 5% 40px; text-align: center; 
+            background: radial-gradient(circle at 50% 0%, rgba(243, 125, 29, 0.12), transparent); 
         }
+        .hero h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 5vw, 3rem); text-transform: uppercase; margin-bottom: 15px; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { max-width: 600px; margin: 0 auto 30px; font-size: 0.95rem; line-height: 1.5; }
+        .hero-btns { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;}
+
+        /* SEÇÃO TÍTULO */
+        .section-header { text-align: center; margin-top: 40px; margin-bottom: 30px; }
+        .section-header h2 { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; color: var(--dark); text-transform: uppercase; position: relative; display: inline-block; }
+        .section-header h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--primary); margin: 8px auto 0; }
+
+        /* --- CARDS PRINCIPAIS --- */
+        .guides-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); 
+            gap: 20px; padding: 0 5%; margin-bottom: 60px;
+        }
+        .special-card { 
+            background: white; 
+            border: 2px solid var(--primary);
+            border-radius: 16px; padding: 25px; 
+            display: block; text-decoration: none; color: inherit; 
+            box-shadow: 0 4px 15px rgba(243, 125, 29, 0.1);
+            position: relative; cursor: pointer; transition: 0.3s;
+        }
+        .special-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(243, 125, 29, 0.2); }
+        .special-card i { font-size: 2rem; color: var(--primary); margin-bottom: 15px; display: block; }
+        .special-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; margin-bottom: 8px; }
+        .link-text { color: var(--primary); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; display: block; margin-top: 15px; }
+
+        /* --- PAINEL ALUNO --- */
+        .student-panel { background: #151515; color: white; padding: 60px 0; position: relative; }
+        .student-panel::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), #d35400); }
+        .panel-split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 0 5%; align-items: stretch; }
+        .student-panel h4 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; margin-bottom: 20px; color: #fff; }
         
-        .btn-content { display: flex; align-items: center; gap: 15px; text-align: left; }
-        .icon-box { color: #f37d1d; font-size: 1.3rem; width: 25px; text-align: center; }
-        .btn-title { display: block; font-weight: bold; font-size: 1rem; }
-        .btn-desc { display: block; font-size: 0.75rem; color: #aaa; }
+        .tools-box { margin-bottom: 30px; }
+        .tool-label { font-size: 0.75rem; text-transform: uppercase; color: #888; letter-spacing: 1px; margin-bottom: 10px; display: block; font-weight: 700; }
+        .app-grid { display: flex; gap: 10px; }
+        .app-btn { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        .app-btn:hover { background: rgba(255,255,255,0.1); }
+
+        .points-highlight {
+            background: linear-gradient(145deg, rgba(243, 125, 29, 0.15), rgba(0,0,0,0.2));
+            border: 1px solid rgba(243, 125, 29, 0.3); border-radius: 15px; padding: 25px; margin-bottom: 30px;
+        }
+        .points-main { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+        .big-points { font-size: 3rem; font-weight: 800; color: var(--primary); line-height: 1; }
+        .points-label { font-size: 0.8rem; font-weight: 700; color: white; line-height: 1.2; text-transform: uppercase; }
+        .points-desc { font-size: 0.85rem; color: #ddd; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .app-warning { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; font-size: 0.8rem; display: flex; gap: 10px; align-items: start; color: #eee; margin-bottom: 15px; border-left: 3px solid var(--primary); }
+
+        .whatsapp-compact { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; border-radius: 10px; text-decoration: none; background: #25D366; color: white; font-weight: 700; font-size: 0.8rem; gap: 5px; transition: 0.3s; }
+        .whatsapp-compact.parents { background: transparent; border: 1px solid #25D366; color: #25D366; }
         
-        /* BOTÃO CLUBE+ (DESTAQUE) */
-        .menu-btn.gold {
-            background: linear-gradient(90deg, rgba(243, 125, 29, 0.15) 0%, rgba(0,0,0,0.1) 100%);
-            border: 1px solid #f37d1d;
-        }
-        .menu-btn.gold .icon-box, .menu-btn.gold .btn-title { color: #f37d1d; }
+        .docs-list a { display: block; padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); color: #ddd; text-decoration: none; font-size: 0.9rem; transition: 0.3s; cursor: pointer; }
+        .docs-list a:hover { color: var(--primary); padding-left: 5px; }
+        .docs-list i { margin-right: 10px; color: var(--primary); width: 20px; text-align: center; }
 
-        /* SUBMENUS */
-        .submenu {
-            display: none; background: rgba(0,0,0,0.5); border: 1px solid #333; border-top: none;
-            border-radius: 0 0 12px 12px; margin-top: -14px; margin-bottom: 15px; text-align: left;
+        /* CLUBE+ CARD */
+        .clube-card { 
+            background: linear-gradient(145deg, #222, #1a1a1a); border: 2px solid var(--primary); 
+            border-radius: 20px; padding: 30px 25px; display: flex; flex-direction: column; justify-content: space-between; flex:1;
         }
-        .submenu.show { display: block; }
+        .best-choice { align-self: flex-end; background: var(--primary); color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: inline-block; }
+        .clube-title { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: white; margin-bottom: 0; }
+        .clube-subtitle { color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-bottom: 20px; display: block; letter-spacing: 1px; }
+        .benefit-list { list-style: none; padding: 0; margin: 20px 0; }
+        .benefit-list li { margin-bottom: 8px; display: flex; gap: 10px; font-size: 0.9rem; color: #ddd; align-items: start; }
+        .price-display { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; text-align: center; margin-bottom: 20px; margin-top: 20px;}
+        .big-price { font-size: 1.6rem; font-weight: 800; color: white; display: block; line-height: 1.2; }
+        .baby-note { background: rgba(243, 125, 29, 0.1); color: #f39c12; padding: 10px; border-radius: 8px; font-size: 0.8rem; margin-bottom: 20px; border-left: 3px solid #f39c12; }
+        .legal-text { font-size: 0.65rem; color: #666; margin-top: 15px; line-height: 1.4; text-align: center; }
 
-        .sub-link {
-            display: flex; justify-content: space-between; padding: 14px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.05); color: #ddd; text-decoration: none; font-size: 0.9rem;
+        /* --- XADREZ --- */
+        .chess-section { 
+            margin: 0 5% 60px; border-radius: 20px; overflow: hidden; background: #222; color: white; 
+            display: flex; flex-wrap: wrap; box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
         }
+        .chess-img { width: 100%; height: 250px; background: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=1471&auto=format&fit=crop') center/cover; }
+        .chess-content { padding: 30px; flex: 1; min-width: 300px; }
+        .chess-content h3 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; margin-bottom: 15px; color: var(--primary); }
+        .btn-chess { border: 1px solid var(--primary); color: white; padding: 12px 0; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; display: block; width: 100%; text-align: center; }
 
-        /* PREÇOS CLUBE+ */
-        .price-box { background: rgba(255,255,255,0.05); padding: 15px; margin: 15px; border-radius: 8px; }
-        .price-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; align-items: center; }
-        .strike { text-decoration: line-through; color: #666; font-size: 0.8rem; }
-        .green-price { color: #4cd964; font-weight: bold; font-size: 1.1rem; }
+        /* --- MODALS --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); overflow-y: auto; padding: 10px; animation: fadeIn 0.3s; }
+        .modal-content { background-color: #fff; margin: 20px auto; padding: 25px; border-radius: 20px; max-width: 600px; position: relative; color: #333; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .close-modal { position: absolute; right: 20px; top: 15px; font-size: 2rem; cursor: pointer; color: #aaa; background: none; border: none; }
+        .modal-body h4 { color: var(--primary); font-family: 'Montserrat', sans-serif; margin-top: 25px; margin-bottom: 10px; font-size: 1.1rem; border-bottom: 2px solid #f1f1f1; padding-bottom: 5px; }
+        .modal-body ul { list-style: none; padding-left: 0; }
+        .modal-body li { margin-bottom: 10px; font-size: 0.9rem; padding-left: 15px; position: relative; line-height: 1.5; }
+        .modal-body li::before { content: '•'; color: var(--primary); position: absolute; left: 0; font-weight: bold; }
+        .modal-body strong { color: #000; font-weight: 700; }
+
+        /* ESTILOS CLUBE+ POPUP */
+        .clube-popup-header { background: linear-gradient(145deg, #222, #1a1a1a); margin: -25px -25px 20px; padding: 30px; border-radius: 20px 20px 0 0; color: white; text-align: center; border-bottom: 4px solid var(--primary); }
+        .clube-popup-header h2 { font-family: 'Montserrat', sans-serif; margin-bottom: 5px; }
+        .clube-benefits { list-style: none; padding: 0; }
+        .clube-benefits li { display: flex; gap: 10px; margin-bottom: 12px; font-size: 0.95rem; align-items: start; }
+        .clube-benefits i { color: var(--success); margin-top: 4px; }
         
-        .cta-btn {
-            display: block; text-align: center; background: #25D366; color: #fff;
-            font-weight: bold; padding: 12px; border-radius: 6px; text-decoration: none; margin: 15px;
-            text-transform: uppercase; font-size: 0.9rem;
-        }
+        .price-highlight-box { text-align:center; background:#f8f9fa; padding:20px; border-radius:12px; margin:20px 0; border: 2px solid var(--primary); }
+        .price-kids { display:block; font-size:2.5rem; font-weight:900; color:var(--primary); line-height: 1.1; margin-top:5px; }
+        .price-adult { display:block; font-size:1.4rem; font-weight:700; color:#444; margin-top: 5px; }
+        .price-label { text-transform:uppercase; font-size:0.8rem; font-weight:700; letter-spacing:1px; color:#888; }
+        .price-note { font-size:0.7rem; color:#888; display: block; margin-top: 15px; font-style: italic; }
 
-        /* GRADE DE HORÁRIOS */
-        .class-row {
-            display: flex; justify-content: space-between; padding: 12px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .class-row.active { border-left: 4px solid #4cd964; background: rgba(76,217,100,0.1); }
-        .class-row.active .time { color: #4cd964; font-weight: bold; }
-        .live-tag { display: none; background: #4cd964; color: #000; font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
-        .class-row.active .live-tag { display: inline-block; }
+        /* ESTILOS GRADE */
+        .class-list { list-style: none; margin-top: 15px; padding: 0; }
+        .class-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; align-items: center; }
+        .class-item.active { color: var(--primary); font-weight: 800; border-bottom: 2px solid var(--primary); }
+        .live-tag { display: inline-block; background: var(--primary); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.6rem; margin-left: 8px; }
+        .full-grade-group { margin-bottom: 20px; }
+        .full-grade-title { font-weight: 800; color: var(--primary); font-size: 0.85rem; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 10px; display: block; }
+        .full-grade-times { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .time-badge { background: #f8f9fa; padding: 8px; border-radius: 6px; font-size: 0.8rem; text-align: center; font-weight: 600; color: #333; }
 
-        footer { margin-top: 40px; color: #555; font-size: 0.8rem; }
-        .socials a { color: #fff; font-size: 1.5rem; margin: 0 15px; text-decoration: none; }
+        /* LISTA DE REGRAS TATAME */
+        .rules-list-item { margin-bottom: 20px; border-left: 3px solid var(--primary); padding-left: 15px; }
+        .rules-list-item strong { color: var(--primary); display: block; font-size: 0.95rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+        .rules-sub-list { list-style: none; padding: 0; }
+        .rules-sub-list li { margin-bottom: 5px; font-size: 0.85rem; color: #555; position: relative; padding-left: 15px; line-height: 1.4; }
+        .rules-sub-list li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
+        .rules-sub-list li b { color: #333; }
+
+        /* VESTIMENTAS */
+        .gear-list { display: grid; gap: 15px; margin-bottom: 25px; }
+        .gear-item { background: #f8f9fa; padding: 15px; border-radius: 12px; border-left: 4px solid var(--primary); }
+        .gear-title { font-weight: 800; font-size: 1rem; display: block; margin-bottom: 8px; color: #222; text-transform: uppercase; }
+        .gear-desc { font-size: 0.9rem; color: #555; display: block; margin-bottom: 5px; }
+        .gear-accessories { font-size: 0.8rem; color: #888; font-style: italic; }
+        .visual-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .rule-card { border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; }
+        .rule-img-container { width: 100%; height: 180px; background: #ddd; border-radius: 8px; overflow: hidden; position: relative; margin-bottom: 10px; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: slideFade 8s infinite; }
+        .slide:nth-child(2) { animation-delay: 4s; }
+        .parents-note { background-color: rgba(243, 125, 29, 0.1); border: 1px solid rgba(243, 125, 29, 0.3); border-radius: 12px; padding: 15px; margin: 25px 0; display: flex; gap: 12px; align-items: start; }
+        .price-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85rem; }
+        .price-table td { padding: 12px 5px; border-bottom: 1px solid #eee; }
+        .price-table td:last-child { text-align: right; font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+        /* ESTILO CAMPEONATOS */
+        .comp-card { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; transition: 0.3s; }
+        .comp-card:hover { transform: translateX(5px); border-color: var(--primary); }
+        .comp-date-badge { background: #333; color: white; padding: 8px 12px; border-radius: 8px; text-align: center; font-family: 'Montserrat'; font-weight: 700; min-width: 60px; font-size: 0.8rem; }
+        .comp-date-badge span { display: block; font-size: 1.1rem; }
+        .comp-info { flex: 1; margin: 0 15px; }
+        .comp-title { font-weight: 700; font-size: 0.9rem; color: var(--dark); display: block; }
+        .comp-tag { font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; text-transform: uppercase; }
+        .comp-tag.cbjj { background: rgba(0,0,255,0.1); color: blue; }
+        .comp-tag.fpjj { background: rgba(255,0,0,0.1); color: red; }
+        .comp-tag.soon { background: var(--warning); color: #fff; margin-left: 5px; animation: pulse 2s infinite; }
+
+        /* ESTILO PLANO DE AULA (ABAS & ACORDEÃO) */
+        .modal-tabs { display: flex; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .tab-btn { flex: 1; padding: 15px; text-align: center; background: none; border: none; font-weight: 700; color: #aaa; cursor: pointer; border-bottom: 3px solid transparent; }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-content { display: none; animation: fadeIn 0.3s; }
+        .tab-content.active { display: block; }
+
+        .plan-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
+        .plan-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 5px; }
+        .plan-month { border-left: 4px solid #ddd; padding: 15px; background: #f9f9f9; border-radius: 0 10px 10px 0; margin-bottom: 15px; }
+        .plan-month h5 { margin: 0 0 5px 0; text-transform: uppercase; font-size: 0.9rem; color: #333; }
+        .plan-month p { font-size: 0.85rem; color: #666; margin: 0; line-height: 1.4; }
+        
+        .bc-blue { border-color: var(--met-blue); } .bg-blue { background: var(--met-blue); }
+        .bc-yellow { border-color: var(--met-yellow); } .bg-yellow { background: var(--met-yellow); }
+        .bc-green { border-color: var(--met-green); } .bg-green { background: var(--met-green); }
+        .bc-red { border-color: var(--met-red); } .bg-red { background: var(--met-red); }
+
+        .metodologia-box { margin-bottom: 25px; padding: 15px; background: #fff; border: 1px solid #eee; border-radius: 10px; }
+        .met-title { color: var(--primary); font-weight: 800; font-size: 0.9rem; margin-bottom: 10px; display: block; text-transform: uppercase; }
+        .met-text { font-size: 0.85rem; color: #555; line-height: 1.6; }
+
+        /* ACORDEÃO DE CORES */
+        .color-accordion { margin-bottom: 30px; }
+        details { margin-bottom: 10px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        summary { padding: 15px; font-weight: 800; cursor: pointer; color: white; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '▼'; font-size: 0.8rem; transition: 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
+        .details-content { padding: 20px; background: #fdfdfd; border: 1px solid #eee; border-top: none; font-size: 0.85rem; color: #555; line-height: 1.6; }
+        .details-content strong { color: #333; display: block; margin-top: 10px; margin-bottom: 2px; }
+        .details-content ul { padding-left: 20px; margin-top: 5px; }
+
+        /* CICLO REINÍCIO */
+        .cycle-restart { text-align: center; margin-top: 30px; padding: 20px; opacity: 0.7; }
+        .cycle-restart i { font-size: 1.5rem; color: var(--dark); display: block; margin-bottom: 5px; animation: spin 10s linear infinite; }
+        .cycle-restart span { font-family: 'Montserrat'; font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        footer { background: var(--dark); color: white; padding: 40px 5%; text-align: center; font-size: 0.8rem; }
+        .socials { display: flex; justify-content: center; gap: 25px; font-size: 1.5rem; margin-top: 20px; }
+        .socials a { color: white; transition: 0.3s; }
+        .socials a:hover { color: var(--primary); }
+
+        @keyframes slideFade { 0% { opacity: 0; } 10% { opacity: 1; } 40% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 0; } }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 768px) {
+            .panel-split, .visual-rules { grid-template-columns: 1fr; }
+            .hero-btns .btn { width: 100%; }
+            .comp-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .comp-card .btn { width: 100%; margin-top: 5px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <img src="logo.png" alt="Logo The Kings" class="logo-img" onerror="this.style.display='none'">
-        
-        <div class="badge-container">
-            <div class="badge">
-                <span class="dot"></span> <span id="status-text">Carregando...</span>
-            </div>
+    <div class="top-status-bar">
+        <div class="live-dot" id="top-dot"></div>
+        <span id="top-status-text">Verificando...</span>
+    </div>
+
+    <nav>
+        <a href="#" class="nav-logo">
+            <img src="logo.png" alt="Logo">
+            <span>THE KINGS ACADEMY</span>
+        </a>
+        <div class="nav-actions">
+            <button onclick="openModal('clubeModal')" class="btn btn-success" style="padding: 8px 16px; font-size: 0.75rem;">CLUBE+</button>
+            <a href="https://wa.me/5511951945648" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.75rem;" target="_blank" rel="noopener noreferrer">CONTATO</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Bem-vindo à Família <span>The Kings</span></h1>
+        <p>Formando campeões no tatame e na vida. Princípios cristãos, respeito e disciplina.</p>
+        <div class="hero-btns">
+            <a href="#comecar" class="btn btn-primary">COMEÇAR JORNADA</a>
+            <a href="#aluno" class="btn btn-outline">ÁREA DO ALUNO</a>
+        </div>
+    </header>
+
+    <div class="section-header" id="comecar">
+        <h2>Primeiros Passos</h2>
+    </div>
+
+    <section class="guides-grid">
+        <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" rel="noopener noreferrer" class="special-card">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>Check-in App</h3>
+            <p>Comece baixando seu aplicativo. Sem check-in, a aula não contabiliza para o grau ou graduação.</p>
+            <span class="link-text">Baixar Agora →</span>
+        </a>
+
+        <div class="special-card" onclick="openModal('tatameRulesModal')">
+            <i class="fas fa-book-reader"></i>
+            <h3>Regras do Tatame</h3>
+            <p>Higiene, vestimentas obrigatórias, etiqueta e conduta dentro da área de luta.</p>
+            <span class="link-text">Ler Regras →</span>
         </div>
 
-        <h1>The Kings <span>BJJ</span></h1>
-        <p class="subtitle">Área do Aluno & Performance</p>
+        <div class="special-card" onclick="openModal('planModal')">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Plano de Aula 2026</h3>
+            <p>Acesse o cronograma oficial de ensino e técnicas do ano.</p>
+            <span class="link-text">Ver Plano →</span>
+        </div>
 
-        <div class="links-group">
+        <div class="special-card" onclick="openModal('scheduleModal')">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>Grade de Horários</h3>
+            <p>Visualize as aulas de hoje e o cronograma completo por modalidade.</p>
+            <span class="link-text">Ver Grade →</span>
+        </div>
+    </section>
+
+    <section class="chess-section">
+        <div class="chess-img"></div>
+        <div class="chess-content">
+            <h3>Mentalidade & Xadrez</h3>
+            <p>O Jiu-Jitsu é o xadrez humano. Desenvolva paciência e estratégia em família.</p>
+            <p style="font-size:0.9rem; color:#aaa; margin-bottom:20px;"><strong>Desafio:</strong> Aprenda um movimento novo com seu filho hoje.</p>
+            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" rel="noopener noreferrer" class="btn-chess">Aprenda como jogar xadrez</a>
+        </div>
+    </section>
+
+    <section class="student-panel" id="aluno">
+        <div class="panel-split">
+            <div class="left-col">
+                <h4>Ferramentas do Aluno</h4>
+                <div class="tools-box">
+                    <span class="tool-label">FERRAMENTAS</span>
+                    <div class="app-grid">
+                        <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" rel="noopener noreferrer" class="app-btn"><i class="fab fa-apple"></i> Check-in iOS</a>
+                        <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" rel="noopener noreferrer" class="app-btn"><i class="fab fa-android"></i> Check-in Android</a>
+                    </div>
+                    <button onclick="openModal('calendarModal')" class="app-btn" style="width:100%; margin-top:10px; background:rgba(243, 125, 29, 0.2); border-color:var(--primary); color:var(--primary);"><i class="fas fa-calendar-star"></i> Campeonatos 2026</button>
+                </div>
+
+                <div class="points-highlight">
+                    <span class="tool-label" style="color:rgba(255,255,255,0.7); margin-bottom:5px;">CLUBE DE VANTAGENS</span>
+                    <div class="points-main">
+                        <div class="big-points">60</div>
+                        <div class="points-label">PONTOS POR<br>AMIGO</div>
+                    </div>
+                    <div class="points-desc">Ganhe <strong>+10</strong> indicando no App e <strong>+50</strong> na matrícula.</div>
+                    <div class="app-warning">
+                        <i class="fas fa-exclamation-circle" style="color:#f1c40f"></i>
+                        <span>Use o botão <strong>"Indicar Amigo"</strong> no App.</span>
+                    </div>
+                    <button class="btn" style="color:#aaa; text-decoration:underline; background:none; border:none; padding:0; cursor:pointer;" onclick="openModal('rulesModal')">+ Ler Regulamento Completo & Resgates</button>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <h4>Documentos & Comunidade</h4>
+                <div class="tools-box">
+                    <span class="tool-label">WHATSAPP</span>
+                    <div class="app-grid" style="margin-bottom:20px;">
+                        <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" rel="noopener noreferrer" class="whatsapp-compact">
+                            <i class="fab fa-whatsapp"></i> Grupo Geral
+                        </a>
+                        <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" rel="noopener noreferrer" class="whatsapp-compact parents">
+                            <i class="fab fa-whatsapp"></i> Avisos Pais
+                        </a>
+                    </div>
+                </div>
+
+                <div class="tools-box">
+                    <span class="tool-label">DOCUMENTOS</span>
+                    <div class="docs-list" style="background:rgba(255,255,255,0.05); border-radius:10px;">
+                        <a href="#" onclick="openModal('competitionModal'); return false;"><i class="fas fa-trophy"></i> Regras de Campeonatos</a>
+                        <a href="#" onclick="openModal('tatameRulesModal'); return false;"><i class="fas fa-tshirt"></i> Regras de Vestimentas</a>
+                        <a href="#" style="color:#999; cursor:not-allowed;"><i class="fas fa-book"></i> Regras de Conduta (Em Breve)</a>
+                        <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM" target="_blank" rel="noopener noreferrer"><i class="fas fa-shield-alt"></i> The Kings x Bullying</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <img src="logo.png" alt="Logo" style="width:50px; border-radius:50%; border:2px solid var(--primary); margin-bottom:15px;">
+        <p>THE KINGS ACADEMY © 2026</p>
+        <div class="socials">
+            <a href="https://instagram.com/thekingskw" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/5511951945648" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
+
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('scheduleModal')">×</button>
+            <h2 style="font-family:'Montserrat'; margin-bottom:10px;">Grade de Horários</h2>
             
-            <div class="menu-btn" onclick="toggle('menu-aluno')">
-                <div class="btn-content">
-                    <div class="icon-box"><i class="fas fa-user-circle"></i></div>
-                    <div>
-                        <span class="btn-title">Área do Aluno</span>
-                        <span class="btn-desc">Apps, Aulas e Regras</span>
-                    </div>
+            <div style="background:#f8f9fa; padding:10px; border-radius:10px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="live-dot" id="modal-dot"></div>
+                    <span id="modal-status-text" style="font-weight:700; font-size:0.8rem; text-transform:uppercase;"></span>
                 </div>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-            <div id="menu-aluno" class="submenu">
-                <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="sub-link"><span>App iOS</span> <i class="fab fa-apple"></i></a>
-                <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" class="sub-link"><span>App Android</span> <i class="fab fa-android"></i></a>
-                <a href="https://www.canva.com/design/DAGKabE1yH4/-h9GRK_nLQHt4qsbbTrJIg/edit" target="_blank" class="sub-link"><span>Plano de Aula 2026</span> <i class="fas fa-book-open"></i></a>
-                <a href="https://thekingscontrabullying.my.canva.site/regras-competicoes" target="_blank" class="sub-link"><span>Regras de Competições</span> <i class="fas fa-trophy"></i></a>
-                <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM" target="_blank" class="sub-link"><span>Segurança Digital</span> <i class="fas fa-shield-alt"></i></a>
+                <span id="day-display" style="color:var(--primary); font-weight:800; font-size:0.85rem;"></span>
             </div>
 
-            <div class="menu-btn" onclick="toggle('menu-grade')">
-                <div class="btn-content">
-                    <div class="icon-box"><i class="fas fa-clock"></i></div>
-                    <div>
-                        <span class="btn-title">Grade de Horários</span>
-                        <span class="btn-desc">Ver turmas</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-            <div id="menu-grade" class="submenu">
-                <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold; margin-top:5px;">SEGUNDAS E QUARTAS</div>
-                <div class="class-row" data-d="1,3" data-h="8"><span class="time">08:00</span><span>JJ Kids</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="1,3" data-h="9"><span class="time">09:00</span><span>JJ Adulto</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="1,3" data-h="18"><span class="time">18:00</span><span>Muay Thai</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="1,3" data-h="19"><span class="time">19:00</span><span>JJ Kids</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="1,3" data-h="20"><span class="time">20:00</span><span>JJ Adulto</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="1,3" data-h="21"><span class="time">21:00</span><span>Boxe</span><span class="live-tag">ROLANDO</span></div>
-                
-                <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold; margin-top:5px;">SEXTA-FEIRA</div>
-                <div class="class-row" data-d="5" data-h="8"><span class="time">08:00</span><span>NoGi Kids</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="5" data-h="9"><span class="time">09:00</span><span>NoGi Adulto</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="5" data-h="18"><span class="time">18:00</span><span>Muay Thai</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="5" data-h="19"><span class="time">19:00</span><span>NoGi Kids</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="5" data-h="20"><span class="time">20:00</span><span>NoGi Adulto</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="5" data-h="21"><span class="time">21:00</span><span>Boxe</span><span class="live-tag">ROLANDO</span></div>
+            <ul class="class-list" id="today-list" style="margin-bottom:25px;"></ul>
 
-                <div style="padding:10px 20px; font-size:0.7rem; color:#888; font-weight:bold; margin-top:5px;">TERÇAS E QUINTAS</div>
-                <div class="class-row" data-d="2,4" data-h="20"><span class="time">20:00</span><span>Muay Thai Kids</span><span class="live-tag">ROLANDO</span></div>
-                <div class="class-row" data-d="2,4" data-h="21"><span class="time">21:00</span><span>Muay Thai Adulto</span><span class="live-tag">ROLANDO</span></div>
+            <div style="border-top:1px solid #eee; padding-top:20px;">
+                <label class="tool-label" style="color:#333;">VISUALIZAR GRADE COMPLETA (TEXTO):</label>
+                <select id="modalScheduleSelect" onchange="updateModalView()" style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: 'Poppins'; font-weight:600;">
+                    <option value="today">Aulas de Hoje (Automático)</option>
+                    <option value="jiujitsu">Jiu-Jitsu (Semana Completa)</option>
+                    <option value="muaythai">Muay Thai (Semana Completa)</option>
+                    <option value="boxe">Boxe (Semana Completa)</option>
+                </select>
             </div>
 
-            <div class="menu-btn gold" onclick="toggle('menu-clube')">
-                <div class="btn-content">
-                    <div class="icon-box"><i class="fas fa-crown"></i></div>
-                    <div>
-                        <span class="btn-title">Seja Clube+</span>
-                        <span class="btn-desc">Vantagens exclusivas do Plano Anual</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-down" style="color:#f37d1d"></i>
-            </div>
-            <div id="menu-clube" class="submenu">
-                <div style="padding:20px;">
-                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Voucher Amigo (1 mês grátis p/ presente)</p>
-                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Passe Livre Total (Todas Modalidades)</p>
-                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Trancamento por até 60 dias</p>
-                    <p style="color:#ddd; margin-bottom:8px; font-size:0.85rem;"><i class="fas fa-check" style="color:#f37d1d; margin-right:8px;"></i> Possibilidade de Transferência*</p>
-                    
-                    <div class="price-box">
-                        <div class="price-row"><span>Mensalista (Tudo)</span> <span class="strike">R$ 199,90</span></div>
-                        <div class="price-row" style="margin-top:10px; border-top:1px dashed #444; padding-top:10px;">
-                            <span style="color:#fff; font-weight:bold;">CLUBE+ KIDS</span>
-                            <span class="green-price">R$ 79,90</span>
-                        </div>
-                        <div class="price-row">
-                            <span style="color:#fff; font-weight:bold;">CLUBE+ ADULTO</span>
-                            <span class="green-price">R$ 99,90</span>
-                        </div>
-                    </div>
-                    <a href="https://wa.me/5511951945648?text=Olá!%20Quero%20migrar%20para%20o%20Clube%2B%20e%20economizar." class="cta-btn">Quero Economizar Agora</a>
-                </div>
-            </div>
-
-            <div class="menu-btn" onclick="toggle('menu-whats')">
-                <div class="btn-content">
-                    <div class="icon-box"><i class="fab fa-whatsapp"></i></div>
-                    <div>
-                        <span class="btn-title">Grupos WhatsApp</span>
-                        <span class="btn-desc">Comunidade e Avisos Pais</span>
-                    </div>
-                </div>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-            <div id="menu-whats" class="submenu">
-                <a href="https://chat.whatsapp.com/INs7OCVwJ2K3LOlhTUvjs7" target="_blank" class="sub-link"><span>Grupo Aberto</span> <i class="fas fa-users"></i></a>
-                <a href="https://chat.whatsapp.com/BeVJMKmNtIPLiE66ECHix8" target="_blank" class="sub-link"><span>Grupo de Avisos - Pais</span> <i class="fas fa-bullhorn"></i></a>
-            </div>
-
-            <a href="https://thekingsjw.my.canva.site/xadrez" target="_blank" class="menu-btn">
-                <div class="btn-content">
-                    <div class="icon-box"><i class="fas fa-chess-knight"></i></div>
-                    <span class="btn-title">Aprenda Xadrez</span>
-                </div>
-            </a>
-
-            <a href="https://maps.app.goo.gl/placeholder" target="_blank" class="menu-btn">
-                <div class="btn-content">
-                    <div class="icon-box"><i class="fas fa-map-marker-alt"></i></div>
-                    <span class="btn-title">Localização (Maps)</span>
-                </div>
-            </a>
-
+            <div id="modalFullScheduleContainer" style="display:none; margin-top:20px; border:1px solid #eee; padding:15px; border-radius:12px;"></div>
         </div>
+    </div>
 
-        <footer>
-            <div class="socials">
-                <a href="https://instagram.com/thekingskw" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/5511951945648" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <div id="tatameRulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('tatameRulesModal')">×</span>
+            <h2 style="font-family:'Montserrat'; margin-bottom: 20px;">Regras & Vestimentas</h2>
+            
+            <h4 style="margin-top:0;">VESTIMENTAS OBRIGATÓRIAS</h4>
+            <div class="gear-list">
+                <div class="gear-item">
+                    <span class="gear-title">Jiu-Jitsu (Gi)</span>
+                    <span class="gear-desc">Kimono Completo + Faixa.</span>
+                    <span class="gear-accessories">Obrigatório: Rashguard ou Camiseta preta por baixo do Kimono.</span>
+                </div>
+                <div class="gear-item">
+                    <span class="gear-title">NoGi (Sem Kimono)</span>
+                    <span class="gear-desc">Rashguard (ou camiseta preta) + Bermuda Folgada.</span>
+                    <span class="gear-accessories"><strong>Regra de Modéstia:</strong> Não é permitido o uso de roupas coladas (legging/bodies) sem bermuda por cima ou que marquem o corpo.</span>
+                </div>
+                <div class="gear-item">
+                    <span class="gear-title">Muay Thai & Boxe</span>
+                    <span class="gear-desc">Bermuda e Camiseta.</span>
+                    <span class="gear-accessories">Acessórios: Luvas, Bandagem, Protetor Bucal e Caneleira.</span>
+                </div>
             </div>
-            <p style="margin-top:15px;">© 2024 The Kings Academy</p>
-        </footer>
 
+            <h4 style="margin-top:30px;">GUIA VISUAL</h4>
+            <div class="visual-rules">
+                <div class="rule-card" style="border-color:#00b894; background:rgba(0,184,148,0.05);">
+                    <span style="color:#00b894; font-weight:800; font-size:0.75rem; display:block; margin-bottom:5px;">PERMITIDO</span>
+                    <div class="rule-img-container">
+                        <img class="slide" src="https://lh3.googleusercontent.com/pw/AP1GczO3vcpubBqKtHLvKbWYz0sQeM99BUZy6jxu9_jXQzLpkbficV5uJZIy8ga69CaSP6aoH8e0xBjeMMIVZVnzrDOimg3ZWxn6CjzujJQ8BYuRpMaCb6v9gJda51Gjznx8wr9UgJ8F7VHxxmQJ3Ex6ehut=w1673-h913-s-no-gm?authuser=0">
+                        <img class="slide" src="https://lh3.googleusercontent.com/pw/AP1GczNlAehe0mC00b8utQrr1rqu3FOqjwiUaIJbCzPVIdVqut27WG7tHS35-76a5KKQTe6xV9YwMUMNxihzUQxQsFz4NadN_u4-iSEyuvZu1BhmuGAxuY4O7zoL_-CobrdwN32qRmQelyMOrbSxqlNqVpgM=w681-h913-s-no-gm?authuser=0">
+                    </div>
+                </div>
+                <div class="rule-card" style="border-color:#ff7675; background:rgba(255,118,117,0.05);">
+                    <span style="color:#ff7675; font-weight:800; font-size:0.75rem; display:block; margin-bottom:5px;">PROIBIDO</span>
+                    <div class="rule-img-container">
+                        <img class="slide" src="https://lh3.googleusercontent.com/pw/AP1GczM0SqgTMw4sc63k4URslJs-TxXD2DdrfZgYpznfWC3WQfaNEk5SFzKg-UP4r0BknHRkD7Ovz2oftZCMhX31bfzwOfTSCKWOntbtga_Idt-aNJA8135KbLH3AU3rsq-IA9ZLLSlsZSC-zetk5q0eATVP=w684-h396-s-no-gm?authuser=0">
+                        <img class="slide" src="https://lh3.googleusercontent.com/pw/AP1GczOcXQWwagovenUq_xyM4W7MiA2pLKzInUsEr6j-vId8S6PI02tc_mlwCSLFuA7fernuT4Or_oMX8z_zXVtifjFQysxqleCDPhMcU_I7aRCM3sR-7MlKmQZbPuKsrZto2VU6ZQ_c7LyMpROxC3WkM4fr=w361-h363-s-no-gm?authuser=0">
+                    </div>
+                </div>
+            </div>
+
+            <div class="parents-note">
+                <i class="fas fa-user-friends"></i>
+                <div>
+                    <strong>Recado aos Pais:</strong>
+                    <p>Antes de vir para o treino, dê aquela conferida rápida se o uniforme do seu pequeno está completo e adequado.</p>
+                </div>
+            </div>
+
+            <h4 style="margin-top:30px;">CÓDIGO DE CONDUTA</h4>
+            <div class="rules-list-item">
+                <strong><i class="fas fa-hands-wash"></i> 1. Higiene</strong>
+                <ul class="rules-sub-list">
+                    <li><b>Uniforme limpo:</b> Use sempre kimono (gi) ou roupa adequada e higienizada.</li>
+                    <li><b>Unhas curtas:</b> Mantenha unhas das mãos e pés aparadas.</li>
+                    <li><b>Sem calçados:</b> Nunca pise no tatame com tênis ou chinelos. Use chinelos apenas fora da área de luta para transitar.</li>
+                    <li><b>Remova acessórios:</b> Tire brincos, cordões, anéis, piercings, relógios ou qualquer objeto metálico.</li>
+                    <li><b>Cabelos:</b> Cabelos compridos devem estar amarrados, de preferência sem presilhas metálicas.</li>
+                </ul>
+            </div>
+
+            <div class="rules-list-item">
+                <strong><i class="fas fa-door-open"></i> 2. Ao Entrar e Sair</strong>
+                <ul class="rules-sub-list">
+                    <li><b>Cumprimente (Reverência):</b> Faça uma saudação (bow) ao entrar e sair do tatame.</li>
+                    <li><b>Permissão:</b> Se chegar atrasado, aguarde a permissão do professor (Sensei/Mestre) antes de subir no tatame.</li>
+                    <li><b>Ordem:</b> Cumprimente o professor e, em seguida, os alunos por ordem de faixa.</li>
+                </ul>
+            </div>
+
+            <div class="rules-list-item">
+                <strong><i class="fas fa-handshake"></i> 3. Respeito</strong>
+                <ul class="rules-sub-list">
+                    <li><b>Não pise nas faixas:</b> Respeite seu material e o dos colegas.</li>
+                    <li><b>Silêncio e Foco:</b> Evite conversas paralelas e preste atenção às explicações do professor.</li>
+                    <li><b>Hierarquia:</b> Trate faixas pretas e instrutores como Mestre, Sensei ou Professor.</li>
+                    <li><b>Sem comida/bebida:</b> Proibido comer ou beber no tatame.</li>
+                    <li><b>Atenção:</b> Evite atitudes agressivas desnecessárias.</li>
+                </ul>
+            </div>
+
+            <div class="rules-list-item">
+                <strong><i class="fas fa-user-shield"></i> 4. Segurança</strong>
+                <ul class="rules-sub-list">
+                    <li><b>"Tap" (Desistir):</b> Respeite o sinal de desistência do colega imediatamente. Bata no colega, no tatame ou fale "tap".</li>
+                    <li><b>Limpeza:</b> Se suar excessivamente, limpe-se fora. Se houver sangue, limpe o local.</li>
+                    <li><b>Saída:</b> Peça licença ao professor para sair.</li>
+                </ul>
+            </div>
+            
+            <button class="btn btn-primary" onclick="closeModal('tatameRulesModal')" style="width:100%; margin-top:10px;">LI E CONCORDO</button>
+        </div>
+    </div>
+
+    <div id="rulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('rulesModal')">×</span>
+            <h2>Regulamento Clube</h2>
+            <div class="modal-body">
+                <h4>SEÇÃO I: FREQUÊNCIA</h4>
+                <ul>
+                    <li><strong>Obrigatoriedade:</strong> Presença só conta com check-in no App.</li>
+                    <li><strong>Janela:</strong> De 6h antes até 20 min após o início.</li>
+                </ul>
+
+                <h4>SEÇÃO II: ACÚMULO DE PONTOS</h4>
+                <ul>
+                    <li><strong>Indicação no App (Lead):</strong> 10 Pontos (Basta registrar o contato).</li>
+                    <li><strong>Matrícula Efetivada:</strong> 50 Pontos (Quando o amigo fecha).</li>
+                    <li><strong>Check-in realizado:</strong> 1 Ponto por aula.</li>
+                    <li><strong>Adesão Clube+:</strong> 50 Pontos bônus.</li>
+                    <li><strong>Aniversário:</strong> 10 Pontos bônus.</li>
+                </ul>
+
+                <h4>SEÇÃO III: RESGATES</h4>
+                <ul>
+                    <li><strong>Necessaire:</strong> 80 pts (Mín. 1 indicação).</li>
+                    <li><strong>Patch Peito:</strong> 150 pts.</li>
+                    <li><strong>Toalhinha:</strong> 180 pts.</li>
+                    <li><strong>Mensalidade Grátis:</strong> 300 pts (Mín. 2 indicações).</li>
+                    <li><strong>Relógio Laranja:</strong> 300 pts (Mín. 1 indicação).</li>
+                    <li><strong>Mochila:</strong> 500 pts (Mín. 3 indicações).</li>
+                    <li><strong>Kit Mochila + Necessaire:</strong> 580 pts.</li>
+                    <li><strong>15% OFF Anual:</strong> 1678 pts.</li>
+                </ul>
+                <button class="btn btn-primary" onclick="closeModal('rulesModal')" style="width:100%; margin-top:20px;">ENTENDI</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="competitionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('competitionModal')">×</span>
+            <h2 style="font-family:'Montserrat';">Regras de Competição 2026</h2>
+            <p style="font-size:0.8rem; color:#666; margin-bottom:20px;">Diretrizes para atletas The Kings / Brazilian Roots</p>
+
+            <div class="rules-list-item">
+                <strong><i class="fas fa-bus"></i> 1. Custos & Logística</strong>
+                <ul class="rules-sub-list">
+                    <li><b>Despesas do Coach:</b> Para ter um coach, os alunos devem ratear os custos (Passagem, Alimentação, Hospedagem).</li>
+                    <li><b>Locomoção:</b> Inclui trajeto até o destino e deslocamentos internos até o estádio.</li>
+                    <li><b>Divisão:</b> O valor é dividido entre os pais/alunos participantes da mesma competição.</li>
+                </ul>
+            </div>
+
+            <div class="rules-list-item">
+                <strong><i class="fas fa-wallet"></i> 2. Custos do Atleta</strong>
+                <ul class="rules-sub-list">
+                    <li><b>Responsabilidade:</b> Inscrição, taxas de filiação à federação e outros custos são de responsabilidade do próprio aluno.</li>
+                </ul>
+            </div>
+
+            <div class="rules-list-item">
+                <strong><i class="fas fa-user-check"></i> 3. Lutar sem Coach</strong>
+                <ul class="rules-sub-list">
+                    <li><b>Autorização:</b> Permitido apenas com autorização prévia do professor representante.</li>
+                    <li><b>Representação:</b> O aluno deve estar federado e representar a equipe "Brazilian Roots / The King's".</li>
+                    <li><b>Solicitação:</b> Deve ser comunicado antes de efetuar a inscrição.</li>
+                </ul>
+            </div>
+
+            <div class="rules-list-item">
+                <strong><i class="fas fa-tshirt"></i> 4. Uniforme (Kimono/Rash)</strong>
+                <ul class="rules-sub-list">
+                    <li><b>Kimono:</b> Obrigatório possuir o logo da <b>Brazilian Roots</b> em Silk no peito.</li>
+                    <li><b>Rashguard:</b> Deve ser oficial da Brazilian Roots ou The King's.</li>
+                    <li><b>Normas:</b> O uniforme deve estar adequado às regras da federação (CBJJ/IBJJF/FPJJ).</li>
+                </ul>
+            </div>
+            
+            <button class="btn btn-primary" onclick="closeModal('competitionModal')" style="width:100%; margin-top:10px;">ENTENDI AS REGRAS</button>
+        </div>
+    </div>
+
+    <div id="clubeModal" class="modal">
+        <div class="modal-content" style="max-width:450px;">
+            <span class="close-modal" onclick="closeModal('clubeModal')">×</span>
+            <div class="clube-popup-header">
+                <h2>Seja Clube+</h2>
+                <span style="font-size:0.9rem; opacity:0.8;">Condição exclusiva para alunos mensalistas. Preço de 2025 Mantido!</span>
+            </div>
+            
+            <ul class="clube-benefits">
+                <li><i class="fas fa-check-circle"></i> Jiu-Jitsu, NoGi, Muay Thai, Boxe</li>
+                <li><i class="fas fa-check-circle"></i> 1 Mês Grátis p/ Amigo (Voucher)</li>
+                <li><i class="fas fa-check-circle"></i> Trancamento até 60 dias</li>
+            </ul>
+
+            <div style="margin:20px 0;">
+                <div class="baby-note" style="text-align:center;">
+                    <i class="fas fa-info-circle"></i> <strong>Pais/Baby:</strong> Mais barato mesmo treinando só 2 modalidades.
+                </div>
+            </div>
+
+            <div class="price-highlight-box">
+                <span class="price-label">PLANO KIDS (04 a 13 anos)</span>
+                <span class="price-kids">12x R$ 79,90</span>
+                <span style="display:block; font-size:0.8rem; color:#aaa; margin-bottom:15px;">(Valor total anual: R$ 958,80)</span>
+                
+                <hr style="border:0; border-top:1px dashed #ddd; margin:15px 0;">
+                
+                <span class="price-label">PLANO JUVENIL / ADULTO</span>
+                <span class="price-adult">12x R$ 99,90</span>
+                <span style="display:block; font-size:0.8rem; color:#aaa;">(Valor total anual: R$ 1.198,80)</span>
+
+                <span class="price-note">*Plano Anual: Valor total cobrado no limite do cartão, parcelado em 12x sem juros na fatura.</span>
+            </div>
+
+            <a href="https://wa.me/5511951945648?text=Quero%20ser%20Clube%2B" class="btn btn-primary" style="width:100%;" target="_blank" rel="noopener noreferrer">QUERO SER CLUBE+</a>
+        </div>
+    </div>
+
+    <div id="calendarModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('calendarModal')">×</span>
+            <h2 style="font-family:'Montserrat'; margin-bottom: 20px;">Calendário 2026</h2>
+            <p style="font-size:0.85rem; color:#666; margin-bottom:20px;">Principais competições CBJJ e FPJJ.</p>
+            
+            <div id="championshipsList"></div>
+            
+            <p style="font-size:0.7rem; color:#999; margin-top:20px; text-align:center;">*Datas sujeitas a alteração pelas federações.</p>
+        </div>
+    </div>
+
+    <div id="planModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('planModal')">×</span>
+            <h2 style="font-family:'Montserrat'; text-align:center;">Jornada de Aprendizado 2026</h2>
+            
+            <div class="modal-tabs">
+                <button class="tab-btn active" onclick="openPlanTab('cronograma')">CRONOGRAMA</button>
+                <button class="tab-btn" onclick="openPlanTab('metodologia')">METODOLOGIA</button>
+            </div>
+
+            <div id="tab-cronograma" class="tab-content active">
+                <div class="plan-legend">
+                    <span class="plan-badge bg-blue"><i class="fas fa-lightbulb"></i> CRIAR</span>
+                    <span class="plan-badge bg-yellow"><i class="fas fa-ruler-combined"></i> ALINHAR</span>
+                    <span class="plan-badge bg-green"><i class="fas fa-random"></i> DESCONSTRUIR</span>
+                    <span class="plan-badge bg-red"><i class="fas fa-check-double"></i> REVISÃO</span>
+                </div>
+
+                <h4 style="border-bottom:2px solid #333; margin-top:30px;">DE LA RIVA (Jan - Abr)</h4>
+                <div class="plan-month bc-blue"><h5>JANEIRO (Criar)</h5><p>Fundamentos, entrada na guarda, movimentação para De La Riva invertida.</p></div>
+                <div class="plan-month bc-yellow"><h5>FEVEREIRO (Alinhar)</h5><p>Ajustes em transições: Invertida para profunda, preparação para raspagens.</p></div>
+                <div class="plan-month bc-green"><h5>MARÇO (Desconstruir)</h5><p>Erros comuns em raspagens e controle de quadril na profunda.</p></div>
+                <div class="plan-month bc-red"><h5>ABRIL (Revisão)</h5><p>Revisão de movimentos: aplicação de raspagens e transições para lateral.</p></div>
+
+                <h4 style="border-bottom:2px solid #333; margin-top:30px;">GUARDA-ARANHA (Mai - Ago)</h4>
+                <div class="plan-month bc-blue"><h5>MAIO (Criar)</h5><p>Controle com pegadas nas mangas, movimentação e entradas na guarda laçada.</p></div>
+                <div class="plan-month bc-yellow"><h5>JUNHO (Alinhar)</h5><p>Ajustes na transição Aranha x Laçada, foco em raspagens e manutenção.</p></div>
+                <div class="plan-month bc-green"><h5>JULHO (Desconstruir)</h5><p>Erros comuns na guarda laçada: ajuste de postura, manutenção da pegada.</p></div>
+                <div class="plan-month bc-red"><h5>AGOSTO (Revisão)</h5><p>Revisão das guardas: transições, raspagens e controle avançado.</p></div>
+
+                <h4 style="border-bottom:2px solid #333; margin-top:30px;">GUARDA-ABERTA (Set - Dez)</h4>
+                <div class="plan-month bc-blue"><h5>SETEMBRO (Criar)</h5><p>Fundamentos: manutenção, pegadas e movimentações básicas.</p></div>
+                <div class="plan-month bc-yellow"><h5>OUTUBRO (Alinhar)</h5><p>Técnicas de reposição (Kids) e transições para ataques específicos (Adultos).</p></div>
+                <div class="plan-month bc-green"><h5>NOVEMBRO (Desconstruir)</h5><p>Correção de pegadas inconsistentes e defesa sob pressão.</p></div>
+                <div class="plan-month bc-red"><h5>DEZEMBRO (Revisão)</h5><p>Aplicação completa de técnicas básicas e avançadas.</p></div>
+
+                <div class="cycle-restart">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>COMEÇAR DE NOVO..</span>
+                </div>
+            </div>
+
+            <div id="tab-metodologia" class="tab-content">
+                <div class="metodologia-box">
+                    <span class="met-title">FREE MOVIMENT</span>
+                    <p class="met-text">Em vez de focar apenas na memorização de sequências técnicas estáticas (drills), nosso método concentra-se em desenvolver a <strong>habilidade de decisão sob pressão</strong> e a fluidez de movimento em combate real.</p>
+                </div>
+
+                <span class="met-title" style="margin-bottom:5px; display:block;">SISTEMA DE CORES: DISCIPLINA KIDS (4-12 ANOS)</span>
+                <p class="met-text" style="margin-bottom:20px; font-size:0.8rem; background:#f0f0f0; padding:10px; border-radius:5px;">Enquanto todos os alunos seguem o mesmo cronograma técnico, este sistema de cores é uma ferramenta pedagógica exclusiva para avaliar e graduar o <strong>comportamento e a disciplina</strong> das crianças.</p>
+                
+                <div class="color-accordion">
+                    <details class="bg-blue">
+                        <summary>AZUL: CRIAR (Valor: Atenção)</summary>
+                        <div class="details-content">
+                            <strong>Foco técnico:</strong> Fundamentos, movimentos base, repetição técnica.
+                            <strong>Mensagem do Professor:</strong> "Hoje o Azul pede atenção: ouvir, olhar e repetir com capricho."
+                            <strong>Critérios Observáveis:</strong>
+                            <ul>
+                                <li>Olha para o professor quando é chamado</li>
+                                <li>Escuta instruções sem interromper</li>
+                                <li>Repete o movimento conforme orientado</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="bg-yellow">
+                        <summary>AMARELO: ALINHAR (Valor: Disciplina)</summary>
+                        <div class="details-content">
+                            <strong>Foco técnico:</strong> Rotina, regras do tatame, constância e organização.
+                            <strong>Mensagem do Professor:</strong> "Amarelo é fazer certo, mesmo quando é repetitivo ou cansativo."
+                            <strong>Critérios Observáveis:</strong>
+                            <ul>
+                                <li>Cumpre aquecimento e alongamento</li>
+                                <li>Respeita filas e combinados</li>
+                                <li>Mantém postura adequada durante a aula</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="bg-green">
+                        <summary>VERDE: DESCONSTRUIR (Valor: Coragem)</summary>
+                        <div class="details-content">
+                            <strong>Foco técnico:</strong> Novas técnicas, desafios progressivos. O aluno aprende a neutralizar a técnica estudada.
+                            <strong>Mensagem do Professor:</strong> "Verde é tentar, mesmo com medo."
+                            <strong>Critérios Observáveis:</strong>
+                            <ul>
+                                <li>Aceita novos desafios</li>
+                                <li>Não desiste na primeira dificuldade</li>
+                                <li>Entra nas atividades mesmo inseguro</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <details class="bg-red">
+                        <summary>VERMELHO: REVISÃO (Valor: Consciência)</summary>
+                        <div class="details-content">
+                            <strong>Foco técnico:</strong> Revisão técnica, refinamento e aplicação em diferentes cenários de luta.
+                            <strong>Mensagem do Professor:</strong> "Vermelho é saber usar a técnica certa, do jeito certo, no lugar certo."
+                            <strong>Aplicação:</strong>
+                            <ul>
+                                <li>A técnica já aprendida é revisada e aprimorada.</li>
+                                <li>Golpes válidos em campeonatos, mas proibidos na academia, são apenas demonstrados (foco na segurança).</li>
+                            </ul>
+                            <strong>Critérios Observáveis:</strong>
+                            <ul>
+                                <li>Demonstra controle total da técnica.</li>
+                                <li>Entende quando aplicar ou não determinado golpe.</li>
+                                <li>Respeita limites e segurança do parceiro.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+
+                <div class="metodologia-box">
+                    <span class="met-title">PROCESSO DE EVOLUÇÃO</span>
+                    <p class="met-text">Todas as turmas, do básico ao avançado, seguem a mesma técnica e modelo de ensino. <strong>Para iniciantes:</strong> Passam primeiro pelo aprendizado das técnicas fundamentais e, ao atingir o nível adequado, são integrados à metodologia principal.</p>
+                </div>
+
+                <div class="metodologia-box">
+                    <span class="met-title">FAIXAS ETÁRIAS</span>
+                    <ul style="padding-left:20px; font-size:0.85rem; color:#555;">
+                        <li style="margin-bottom:5px;"><strong>4 a 7 anos:</strong> Foco maior em atitude, rotina e participação.</li>
+                        <li style="margin-bottom:5px;"><strong>7 a 12 anos:</strong> Equilíbrio entre técnica, responsabilidade e autonomia.</li>
+                        <li><strong>13+ (Adulto/Jovem):</strong> Aprofundamento técnico com valores já consolidados.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function toggle(id) {
-            var el = document.getElementById(id);
-            var all = document.querySelectorAll('.submenu');
-            for(var i=0; i<all.length; i++) {
-                if(all[i].id !== id) all[i].classList.remove('show');
-            }
-            if(el) el.classList.toggle('show');
+        // --- DADOS E LÓGICA DE GRADE ---
+        const scheduleData = {
+            "1,3": [{h: 8, name: "JJ Kids"}, {h: 9, name: "JJ Adulto"}, {h: 18, name: "Muay Thai"}, {h: 19, name: "JJ Kids"}, {h: 20, name: "JJ Adulto"}, {h: 21, name: "Boxe"}],
+            "2,4": [{h: 19, name: "JJ Baby"}, {h: 20, name: "Muay Thai Kids"}, {h: 21, name: "Muay Thai Adulto"}],
+            "5": [{h: 8, name: "NoGi Kids"}, {h: 9, name: "NoGi Adulto"}, {h: 18, name: "Muay Thai"}, {h: 19, name: "NoGi Kids"}, {h: 20, name: "NoGi Adulto"}, {h: 21, name: "Boxe"}]
+        };
+        const fullScheduleText = {
+            jiujitsu: [
+                { title: "Segunda / Quarta", times: ["08:00 - Kids", "09:00 - Adulto", "19:00 - Kids", "20:00 - Adulto"] },
+                { title: "Terça / Quinta", times: ["19:00 - Baby (3-5 anos)"] },
+                { title: "Sexta (NoGi)", times: ["08:00 - Kids", "09:00 - Adulto", "19:00 - Kids", "20:00 - Adulto"] }
+            ],
+            muaythai: [{ title: "Seg/Qua/Sex", times: ["18:00 - Misto"] }, { title: "Ter/Qui", times: ["20:00 - Kids", "21:00 - Adulto"] }],
+            boxe: [{ title: "Segunda / Quarta / Sexta", times: ["21:00 - Adulto"] }]
+        };
+        const daysMap = ["DOMINGO", "SEGUNDA", "TERÇA", "QUARTA", "QUINTA", "SEXTA", "SÁBADO"];
+
+        // --- CALENDÁRIO INTELIGENTE ---
+        const championships = [
+            { d: new Date("2026-01-31"), t: "Sul Brasileiro (Floripa)", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-02-01"), t: "Kids International (Floripa)", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-02-07"), t: "South American Kids (Rio)", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-02-28"), t: "I Copa Grandes Mestres (SP)", f: "fpjj", url: "https://fpjj.com.br" },
+            { d: new Date("2026-02-28"), t: "Curitiba Summer Open", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-03-01"), t: "I Etapa Paulista No-Gi (SP)", f: "fpjj", url: "https://fpjj.com.br" },
+            { d: new Date("2026-03-14"), t: "I Etapa Circuito Paulista (Barueri)", f: "fpjj", url: "https://fpjj.com.br" },
+            { d: new Date("2026-04-24"), t: "CAMPEONATO BRASILEIRO (Barueri)", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-05-23"), t: "II Etapa Circuito Paulista (Barueri)", f: "fpjj", url: "https://fpjj.com.br" },
+            { d: new Date("2026-06-13"), t: "Brasileiro Infantil (Barueri)", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-06-27"), t: "II Copa Grandes Mestres (Guarujá)", f: "fpjj", url: "https://fpjj.com.br" },
+            { d: new Date("2026-07-18"), t: "São Paulo Open (Barueri)", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-08-15"), t: "III Etapa Circuito Paulista (Barueri)", f: "fpjj", url: "https://fpjj.com.br" },
+            { d: new Date("2026-09-26"), t: "São Paulo BJJ Pro (Barueri)", f: "cbjj", url: "https://cbjj.com.br" },
+            { d: new Date("2026-11-20"), t: "Sul Americano (Barueri)", f: "cbjj", url: "https://cbjj.com.br" }
+        ];
+
+        function renderCalendar() {
+            const list = document.getElementById('championshipsList');
+            const today = new Date(); 
+            let html = "";
+            let count = 0;
+
+            championships.forEach(ev => {
+                const evEnd = new Date(ev.d); 
+                evEnd.setDate(evEnd.getDate() + 1);
+
+                if (evEnd >= today) {
+                    const month = ev.d.toLocaleString('pt-BR', { month: 'short' }).toUpperCase().replace('.', '');
+                    const day = ev.d.getDate();
+                    const isSoon = (ev.d - today) < (30 * 24 * 60 * 60 * 1000); 
+                    const badgeClass = ev.f === 'cbjj' ? 'cbjj' : 'fpjj';
+                    const tagSoon = isSoon ? '<span class="comp-tag soon">EM BREVE</span>' : '';
+
+                    html += `
+                    <div class="comp-card">
+                        <div class="comp-date-badge">${day}<span>${month}</span></div>
+                        <div class="comp-info">
+                            <span class="comp-title">${ev.t} ${tagSoon}</span>
+                            <span class="comp-tag ${badgeClass}">${ev.f.toUpperCase()}</span>
+                        </div>
+                        <a href="${ev.url}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 8px 12px; font-size: 0.7rem;">EDITAL</a>
+                    </div>`;
+                    count++;
+                }
+            });
+
+            if(count === 0) html = "<p style='text-align:center;'>Nenhum campeonato próximo encontrado.</p>";
+            list.innerHTML = html;
         }
 
-        function update() {
-            try {
-                var now = new Date();
-                var d = now.getDay(); 
-                var h = now.getHours();
-                
-                var textEl = document.getElementById('status-text');
-                var dotEl = document.querySelector('.dot');
-                
-                var isOpen = false;
-                var label = "Fechado Agora";
-                var color = "#ff3b30";
+        function updateSchedule() {
+            const now = new Date();
+            const d = now.getDay();
+            const h = now.getHours();
+            const m = now.getMinutes();
+            const currentTotal = (h * 60) + m;
+            const topText = document.getElementById('top-status-text');
+            const topDot = document.getElementById('top-dot');
+            const modalText = document.getElementById('modal-status-text');
+            const modalDot = document.getElementById('modal-dot');
+            const todayList = document.getElementById('today-list');
+            const dayDisp = document.getElementById('day-display');
 
-                if(d >= 1 && d <= 5 && h >= 8 && h < 22) isOpen = true;
+            if(dayDisp) dayDisp.innerText = daysMap[d];
+            if(todayList) todayList.innerHTML = "";
 
-                var rows = document.querySelectorAll('.class-row');
-                for(var i=0; i<rows.length; i++) {
-                    var row = rows[i];
-                    row.classList.remove('active');
-                    
-                    var dArr = row.getAttribute('data-d').split(',').map(Number);
-                    var hVal = parseInt(row.getAttribute('data-h'));
+            let status = "closed";
+            let activeName = "";
+            let statusMessage = "Academia Fechada Agora";
+            let classesToday = [];
 
-                    if(dArr.includes(d) && hVal === h) {
-                        row.classList.add('active');
-                        var nameSpan = row.querySelectorAll('span')[1];
-                        if(nameSpan) label = "Rolando: " + nameSpan.innerText;
-                        isOpen = true;
-                        color = "#4cd964";
-                    }
-                }
+            for (const [key, value] of Object.entries(scheduleData)) {
+                if (key.split(',').map(Number).includes(d)) classesToday = value;
+            }
 
-                if(isOpen && label === "Fechado Agora") {
-                    label = "Academia Aberta";
-                    color = "#4cd964";
-                }
+            if (classesToday.length > 0) {
+                classesToday.forEach(cls => {
+                    const start = cls.h * 60;
+                    const end = start + 60;
+                    const openMinutes = start - 10;
+                    const li = document.createElement('li');
+                    li.className = 'class-item';
+                    if(currentTotal >= start && currentTotal < end) {
+                        li.classList.add('active');
+                        li.innerHTML = `<span>${cls.h}:00 - ${cls.name}</span> <span class="live-tag">ROLANDO</span>`;
+                        status = "active";
+                        activeName = cls.name;
+                    } else { li.innerHTML = `<span>${cls.h}:00 - ${cls.name}</span>`; }
+                    todayList.appendChild(li);
+                    if (status !== "active" && currentTotal >= openMinutes && currentTotal < start) { status = "opening"; activeName = cls.name; }
+                });
+            } else { todayList.innerHTML = "<li style='text-align:center; color:#999; padding:10px;'>Sem aulas hoje.</li>"; }
 
-                if(textEl) {
-                    textEl.innerText = label;
-                    textEl.style.color = color;
-                }
-                if(dotEl) dotEl.style.backgroundColor = color;
+            topDot.className = "live-dot";
+            if(modalDot) modalDot.className = "live-dot";
 
-            } catch(e) {
-                if(document.getElementById('status-text')) {
-                    document.getElementById('status-text').innerText = "Bem-vindo";
-                }
+            if (status === "active") { statusMessage = "Rolando Agora: " + activeName; topDot.classList.add('active'); if(modalDot) modalDot.classList.add('active'); }
+            else if (status === "opening") { statusMessage = "Abrindo para: " + activeName; topDot.classList.add('opening'); if(modalDot) modalDot.classList.add('opening'); }
+            else if (h >= 8 && h <= 22) { statusMessage = "Academia Aberta"; topDot.classList.add('active'); if(modalDot) modalDot.classList.add('active'); }
+            else { topDot.classList.add('closed'); if(modalDot) modalDot.classList.add('closed'); }
+
+            if(topText) topText.innerText = statusMessage;
+            if(modalText) modalText.innerText = statusMessage;
+        }
+
+        function updateModalView() {
+            const val = document.getElementById('modalScheduleSelect').value;
+            const fullContainer = document.getElementById('modalFullScheduleContainer');
+            const todayContainer = document.getElementById('today-list');
+
+            if(val === 'today') { fullContainer.style.display = 'none'; todayContainer.style.display = 'block'; }
+            else {
+                todayContainer.style.display = 'none'; fullContainer.style.display = 'block';
+                const data = fullScheduleText[val];
+                let html = "";
+                if(data) {
+                    data.forEach(group => {
+                        html += `<div class="full-grade-group"><span class="full-grade-title">${group.title}</span><div class="full-grade-times">`;
+                        group.times.forEach(time => { html += `<div class="time-badge">${time}</div>`; });
+                        html += `</div></div>`;
+                    });
+                } else { html = "<p style='text-align:center; color:#999;'>Horários não disponíveis.</p>"; }
+                fullContainer.innerHTML = html;
             }
         }
 
-        update();
-        setInterval(update, 60000);
+        // --- SISTEMA DE ABAS (PLANO DE AULA) ---
+        function openPlanTab(tabName) {
+            const contents = document.getElementsByClassName('tab-content');
+            const buttons = document.getElementsByClassName('tab-btn');
+            
+            for(let content of contents) content.classList.remove('active');
+            for(let btn of buttons) btn.classList.remove('active');
+
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // --- CONTROLE MODAL & POPUP ---
+        function openModal(id) { 
+            document.getElementById(id).style.display = 'block'; 
+            document.body.style.overflow = 'hidden';
+            if(id === 'calendarModal') renderCalendar();
+        }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
+        window.onclick = function(e) { if(e.target.className === 'modal') closeModal(e.target.id); }
+
+        // AUTOMACAO CLUBE+ POPUP
+        let exitEventAdded = false;
+        setTimeout(() => { if(!sessionStorage.getItem('clubePopupShown')) { openModal('clubeModal'); sessionStorage.setItem('clubePopupShown', 'true'); }}, 3000);
+        
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0 && !exitEventAdded && !sessionStorage.getItem('clubeExitShown')) {
+                openModal('clubeModal');
+                exitEventAdded = true;
+                sessionStorage.setItem('clubeExitShown', 'true');
+            }
+        });
+
+        updateSchedule();
+        setInterval(updateSchedule, 30000);
     </script>
 </body>
 </html>
