@@ -222,7 +222,7 @@
         .comp-tag.fpjj { background: rgba(255,0,0,0.1); color: red; }
         .comp-tag.soon { background: var(--warning); color: #fff; margin-left: 5px; animation: pulse 2s infinite; }
 
-        /* ESTILO PLANO DE AULA (ABAS & ACORDEÃO) */
+        /* ESTILO PLANO DE AULA (ABAS & ACORDEÃO & FILTRO) */
         .modal-tabs { display: flex; border-bottom: 1px solid #eee; margin-bottom: 20px; }
         .tab-btn { flex: 1; padding: 15px; text-align: center; background: none; border: none; font-weight: 700; color: #aaa; cursor: pointer; border-bottom: 3px solid transparent; }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
@@ -230,8 +230,11 @@
         .tab-content.active { display: block; }
 
         .plan-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
-        .plan-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 5px; }
-        .plan-month { border-left: 4px solid #ddd; padding: 15px; background: #f9f9f9; border-radius: 0 10px 10px 0; margin-bottom: 15px; }
+        .plan-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.3s; opacity: 1; }
+        .plan-badge:hover { transform: scale(1.05); }
+        .plan-badge.faded { opacity: 0.2; } /* Classe para filtro inativo */
+
+        .plan-month { border-left: 4px solid #ddd; padding: 15px; background: #f9f9f9; border-radius: 0 10px 10px 0; margin-bottom: 15px; transition: 0.3s; }
         .plan-month h5 { margin: 0 0 5px 0; text-transform: uppercase; font-size: 0.9rem; color: #333; }
         .plan-month p { font-size: 0.85rem; color: #666; margin: 0; line-height: 1.4; }
         
@@ -508,7 +511,7 @@
                 <strong><i class="fas fa-door-open"></i> 2. Ao Entrar e Sair</strong>
                 <ul class="rules-sub-list">
                     <li><b>Cumprimente (Reverência):</b> Faça uma saudação (bow) ao entrar e sair do tatame.</li>
-                    <li><b>Permissão:</b> Se chegar atrasado, aguarde a permissão do professor (Sensei/Mestre) antes de subir no tatame.</li>
+                    <li><b>Permissão:</b> Se chegar atrasado, aguarde a permissão do professor antes de subir.</li>
                     <li><b>Ordem:</b> Cumprimente o professor e, em seguida, os alunos por ordem de faixa.</li>
                 </ul>
             </div>
@@ -679,29 +682,35 @@
 
             <div id="tab-cronograma" class="tab-content active">
                 <div class="plan-legend">
-                    <span class="plan-badge bg-blue"><i class="fas fa-lightbulb"></i> CRIAR</span>
-                    <span class="plan-badge bg-yellow"><i class="fas fa-ruler-combined"></i> ALINHAR</span>
-                    <span class="plan-badge bg-green"><i class="fas fa-random"></i> DESCONSTRUIR</span>
-                    <span class="plan-badge bg-red"><i class="fas fa-check-double"></i> REVISÃO</span>
+                    <span class="plan-badge bg-blue" onclick="filterPlan('blue')"><i class="fas fa-lightbulb"></i> CRIAR</span>
+                    <span class="plan-badge bg-yellow" onclick="filterPlan('yellow')"><i class="fas fa-ruler-combined"></i> ALINHAR</span>
+                    <span class="plan-badge bg-green" onclick="filterPlan('green')"><i class="fas fa-random"></i> DESCONSTRUIR</span>
+                    <span class="plan-badge bg-red" onclick="filterPlan('red')"><i class="fas fa-check-double"></i> REVISÃO</span>
                 </div>
 
-                <h4 style="border-bottom:2px solid #333; margin-top:30px;">DE LA RIVA (Jan - Abr)</h4>
-                <div class="plan-month bc-blue"><h5>JANEIRO (Criar)</h5><p>Fundamentos, entrada na guarda, movimentação para De La Riva invertida.</p></div>
-                <div class="plan-month bc-yellow"><h5>FEVEREIRO (Alinhar)</h5><p>Ajustes em transições: Invertida para profunda, preparação para raspagens.</p></div>
-                <div class="plan-month bc-green"><h5>MARÇO (Desconstruir)</h5><p>Erros comuns em raspagens e controle de quadril na profunda.</p></div>
-                <div class="plan-month bc-red"><h5>ABRIL (Revisão)</h5><p>Revisão de movimentos: aplicação de raspagens e transições para lateral.</p></div>
+                <div class="plan-section">
+                    <h4 style="border-bottom:2px solid #333; margin-top:30px;">DE LA RIVA (Jan - Abr)</h4>
+                    <div class="plan-month bc-blue blue"><h5>JANEIRO (Criar)</h5><p>Fundamentos, entrada na guarda, movimentação para De La Riva invertida.</p></div>
+                    <div class="plan-month bc-yellow yellow"><h5>FEVEREIRO (Alinhar)</h5><p>Ajustes em transições: Invertida para profunda, preparação para raspagens.</p></div>
+                    <div class="plan-month bc-green green"><h5>MARÇO (Desconstruir)</h5><p>Erros comuns em raspagens e controle de quadril na profunda.</p></div>
+                    <div class="plan-month bc-red red"><h5>ABRIL (Revisão)</h5><p>Revisão de movimentos: aplicação de raspagens e transições para lateral.</p></div>
+                </div>
 
-                <h4 style="border-bottom:2px solid #333; margin-top:30px;">GUARDA-ARANHA (Mai - Ago)</h4>
-                <div class="plan-month bc-blue"><h5>MAIO (Criar)</h5><p>Controle com pegadas nas mangas, movimentação e entradas na guarda laçada.</p></div>
-                <div class="plan-month bc-yellow"><h5>JUNHO (Alinhar)</h5><p>Ajustes na transição Aranha x Laçada, foco em raspagens e manutenção.</p></div>
-                <div class="plan-month bc-green"><h5>JULHO (Desconstruir)</h5><p>Erros comuns na guarda laçada: ajuste de postura, manutenção da pegada.</p></div>
-                <div class="plan-month bc-red"><h5>AGOSTO (Revisão)</h5><p>Revisão das guardas: transições, raspagens e controle avançado.</p></div>
+                <div class="plan-section">
+                    <h4 style="border-bottom:2px solid #333; margin-top:30px;">GUARDA-ARANHA (Mai - Ago)</h4>
+                    <div class="plan-month bc-blue blue"><h5>MAIO (Criar)</h5><p>Controle com pegadas nas mangas, movimentação e entradas na guarda laçada.</p></div>
+                    <div class="plan-month bc-yellow yellow"><h5>JUNHO (Alinhar)</h5><p>Ajustes na transição Aranha x Laçada, foco em raspagens e manutenção.</p></div>
+                    <div class="plan-month bc-green green"><h5>JULHO (Desconstruir)</h5><p>Erros comuns na guarda laçada: ajuste de postura, manutenção da pegada.</p></div>
+                    <div class="plan-month bc-red red"><h5>AGOSTO (Revisão)</h5><p>Revisão das guardas: transições, raspagens e controle avançado.</p></div>
+                </div>
 
-                <h4 style="border-bottom:2px solid #333; margin-top:30px;">GUARDA-ABERTA (Set - Dez)</h4>
-                <div class="plan-month bc-blue"><h5>SETEMBRO (Criar)</h5><p>Fundamentos: manutenção, pegadas e movimentações básicas.</p></div>
-                <div class="plan-month bc-yellow"><h5>OUTUBRO (Alinhar)</h5><p>Técnicas de reposição (Kids) e transições para ataques específicos (Adultos).</p></div>
-                <div class="plan-month bc-green"><h5>NOVEMBRO (Desconstruir)</h5><p>Correção de pegadas inconsistentes e defesa sob pressão.</p></div>
-                <div class="plan-month bc-red"><h5>DEZEMBRO (Revisão)</h5><p>Aplicação completa de técnicas básicas e avançadas.</p></div>
+                <div class="plan-section">
+                    <h4 style="border-bottom:2px solid #333; margin-top:30px;">GUARDA-ABERTA (Set - Dez)</h4>
+                    <div class="plan-month bc-blue blue"><h5>SETEMBRO (Criar)</h5><p>Fundamentos: manutenção, pegadas e movimentações básicas.</p></div>
+                    <div class="plan-month bc-yellow yellow"><h5>OUTUBRO (Alinhar)</h5><p>Técnicas de reposição (Kids) e transições para ataques específicos (Adultos).</p></div>
+                    <div class="plan-month bc-green green"><h5>NOVEMBRO (Desconstruir)</h5><p>Correção de pegadas inconsistentes e defesa sob pressão.</p></div>
+                    <div class="plan-month bc-red red"><h5>DEZEMBRO (Revisão)</h5><p>Aplicação completa de técnicas básicas e avançadas.</p></div>
+                </div>
 
                 <div class="cycle-restart">
                     <i class="fas fa-sync-alt"></i>
@@ -915,10 +924,23 @@
             topDot.className = "live-dot";
             if(modalDot) modalDot.className = "live-dot";
 
-            if (status === "active") { statusMessage = "Rolando Agora: " + activeName; topDot.classList.add('active'); if(modalDot) modalDot.classList.add('active'); }
-            else if (status === "opening") { statusMessage = "Abrindo para: " + activeName; topDot.classList.add('opening'); if(modalDot) modalDot.classList.add('opening'); }
-            else if (h >= 8 && h <= 22) { statusMessage = "Academia Aberta"; topDot.classList.add('active'); if(modalDot) modalDot.classList.add('active'); }
-            else { topDot.classList.add('closed'); if(modalDot) modalDot.classList.add('closed'); }
+            // LOGICA REFINADA DE STATUS
+            if (d === 0 || d === 6) { // Sábado (6) ou Domingo (0)
+                statusMessage = "Academia Fechada";
+                topDot.className = "live-dot closed";
+            } 
+            else if (status === "active") {
+                statusMessage = "Rolando Agora: " + activeName;
+                topDot.className = "live-dot active";
+            }
+            else if (status === "opening") {
+                statusMessage = "Abrindo para: " + activeName;
+                topDot.className = "live-dot opening";
+            }
+            else { // Dia de semana, fora de horário
+                statusMessage = "Academia Fechada";
+                topDot.className = "live-dot closed";
+            }
 
             if(topText) topText.innerText = statusMessage;
             if(modalText) modalText.innerText = statusMessage;
@@ -955,6 +977,30 @@
 
             document.getElementById('tab-' + tabName).classList.add('active');
             event.currentTarget.classList.add('active');
+        }
+
+        // --- FILTRO DE CORES PLANO DE AULA ---
+        let activeColor = null;
+        function filterPlan(color) {
+            const allMonths = document.querySelectorAll('.plan-month');
+            const allBadges = document.querySelectorAll('.plan-badge');
+
+            // Toggle
+            if (activeColor === color) {
+                activeColor = null; // Reset
+                allMonths.forEach(el => el.style.display = 'block');
+                allBadges.forEach(el => el.classList.remove('faded'));
+            } else {
+                activeColor = color;
+                allMonths.forEach(el => {
+                    if (el.classList.contains(color)) el.style.display = 'block';
+                    else el.style.display = 'none';
+                });
+                allBadges.forEach(el => {
+                    if (el.classList.contains('bg-' + color)) el.classList.remove('faded');
+                    else el.classList.add('faded');
+                });
+            }
         }
 
         // --- CONTROLE MODAL & POPUP ---
