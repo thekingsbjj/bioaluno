@@ -43,6 +43,7 @@
         .btn-primary { background: var(--primary); color: white; border: none; box-shadow: 0 4px 15px rgba(243, 125, 29, 0.3); }
         .btn-outline { border: 2px solid var(--dark); color: var(--dark); }
         .btn-success { background: var(--success); color: white; border: none; box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3); }
+        .btn-dark { background: #000; color: white; border: 1px solid #333; }
 
         .top-status-bar { background: var(--dark); color: white; padding: 10px 0; text-align: center; font-size: 0.75rem; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .live-dot { height: 8px; width: 8px; border-radius: 50%; background: #555; transition: 0.3s; }
@@ -91,12 +92,20 @@
         .invest-card {
             background: linear-gradient(135deg, #fff 0%, #fff5ed 100%);
             border-color: #27ae60;
-            grid-column: span 2;
+            grid-column: span 2; /* Mobile: Ocupa a linha final inteira */
         }
         .invest-card i { color: #27ae60; }
 
         .clube-btn-card { border-color: var(--success); }
         .clube-btn-card i { color: var(--success); }
+
+        .regulamento-btn-card { border-color: var(--dark); }
+        .regulamento-btn-card i { color: var(--dark); }
+
+        @media (min-width: 768px) {
+            .guides-grid { grid-template-columns: repeat(4, 1fr); gap: 25px; }
+            .invest-card { grid-column: 3 / 5; /* PC: Ocupa as ultimas 2 colunas */ }
+        }
 
         .student-panel { background: #151515; color: white; padding: 60px 0; position: relative; }
         .student-panel::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary), #d35400); }
@@ -135,7 +144,7 @@
         .methodology-section { margin: 0 5% 60px; max-width: 1000px; margin-left: auto; margin-right: auto; }
         .method-grid { 
             display: grid; 
-            grid-template-columns: 1fr; /* Mobile: 1 Coluna (Correção UX) */
+            grid-template-columns: 1fr; /* Mobile: 1 Coluna */
             gap: 20px; 
         }
         .method-card { background: #fdfdfd; padding: 25px; border-radius: 16px; border-left: 5px solid #ccc; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
@@ -143,8 +152,6 @@
         .age-badge { font-size: 0.7rem; padding: 4px 8px; border-radius: 6px; font-weight: 700; color: white; white-space: nowrap; }
 
         @media (min-width: 768px) {
-            .guides-grid { grid-template-columns: repeat(4, 1fr); gap: 25px; }
-            .invest-card { grid-column: 2 / 4; }
             .method-grid { grid-template-columns: 1fr 1fr; } /* PC: 2 Colunas */
         }
 
@@ -219,7 +226,20 @@
         .details-content ul { padding-left: 20px; margin-top: 5px; }
 
         .rules-list-item { margin-bottom: 20px; border-left: 3px solid var(--primary); padding-left: 15px; }
-        .rules-list-item strong { color: var(--primary); display: block; font-size: 0.95rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; }
+        /* CORREÇÃO DO BUG DE FORMATAÇÃO: strong dentro do texto agora é inline */
+        .rules-list-item strong { color: #000; font-weight: 700; }
+        
+        /* NOVA CLASSE PARA TÍTULOS DE REGRAS */
+        .rules-title {
+            color: var(--primary);
+            display: block; /* Pula linha apenas aqui */
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+        }
+
         .rules-sub-list { list-style: none; padding: 0; }
         .rules-sub-list li { margin-bottom: 5px; font-size: 0.85rem; color: #555; position: relative; padding-left: 15px; line-height: 1.4; }
         .rules-sub-list li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
@@ -294,10 +314,10 @@
     </div>
 
     <section class="guides-grid">
-        <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" rel="noopener noreferrer" class="special-card">
+        <div class="special-card" onclick="openModal('downloadModal')">
             <i class="fas fa-mobile-alt"></i>
             <h3>Check-in App</h3>
-        </a>
+        </div>
 
         <div class="special-card" onclick="openModal('tatameRulesModal')">
             <i class="fas fa-book-reader"></i>
@@ -317,6 +337,11 @@
         <div class="special-card clube-btn-card" onclick="openModal('clubeModal')">
             <i class="fas fa-crown"></i>
             <h3>CLUBE+</h3>
+        </div>
+
+        <div class="special-card regulamento-btn-card" onclick="openModal('termModal')">
+            <i class="fas fa-file-contract"></i>
+            <h3>Regulamento</h3>
         </div>
 
         <div class="special-card invest-card" onclick="openModal('investimentosModal')">
@@ -367,8 +392,8 @@
                 <div class="tools-box">
                     <span class="tool-label">FERRAMENTAS</span>
                     <div class="app-grid">
-                        <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" rel="noopener noreferrer" class="app-btn"><i class="fab fa-apple"></i> Check-in iOS</a>
-                        <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" rel="noopener noreferrer" class="app-btn"><i class="fab fa-android"></i> Check-in Android</a>
+                        <button onclick="openModal('downloadModal')" class="app-btn"><i class="fab fa-apple"></i> Check-in iOS</button>
+                        <button onclick="openModal('downloadModal')" class="app-btn"><i class="fab fa-android"></i> Check-in Android</button>
                     </div>
                     <button onclick="openModal('calendarModal')" class="app-btn" style="width:100%; margin-top:10px; background:rgba(243, 125, 29, 0.2); border-color:var(--primary); color:var(--primary);"><i class="fas fa-calendar-star"></i> Campeonatos 2026</button>
                 </div>
@@ -407,7 +432,7 @@
                     <div class="docs-list" style="background:rgba(255,255,255,0.05); border-radius:10px;">
                         <a href="#" onclick="openModal('competitionModal'); return false;"><i class="fas fa-trophy"></i> Regras de Campeonatos</a>
                         <a href="#" onclick="openModal('tatameRulesModal'); return false;"><i class="fas fa-tshirt"></i> Regras de Vestimentas</a>
-                        <a href="#" style="color:#999; cursor:not-allowed;"><i class="fas fa-book"></i> Regras de Conduta (Em Breve)</a>
+                        <a href="#" onclick="openModal('termModal'); return false;"><i class="fas fa-file-contract"></i> Termo de Responsabilidade</a>
                         <a href="https://drive.google.com/drive/folders/163w9vgQTpDoezlB69J9eIFki2b7RdlIM" target="_blank" rel="noopener noreferrer"><i class="fas fa-shield-alt"></i> The Kings x Bullying</a>
                     </div>
                 </div>
@@ -453,6 +478,27 @@
         </div>
     </div>
 
+    <div id="downloadModal" class="modal">
+        <div class="modal-content" style="text-align:center;">
+            <button class="close-modal" onclick="closeModal('downloadModal')">×</button>
+            <h2 style="font-family:'Montserrat'; margin-bottom:10px;">Baixe o App do Aluno</h2>
+            <p style="color:#666; font-size:0.9rem; margin-bottom:25px;">
+                Para fazer check-in nas aulas, baixe o app <strong>"Next Fit"</strong>.<br><br>
+                <strong>Login:</strong> Utilize o seu CPF.<br>
+                <strong>Senha:</strong> Se for o primeiro acesso, clique em "Recuperar/Criar Senha".
+            </p>
+            
+            <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+                <a href="https://apps.apple.com/br/app/next-fit/id1360859531" target="_blank" class="btn btn-dark">
+                    <i class="fab fa-apple" style="font-size:1.2rem; margin-right:5px;"></i> App Store
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=br.com.fitastic.appaluno" target="_blank" class="btn btn-dark">
+                    <i class="fab fa-google-play" style="font-size:1.1rem; margin-right:5px;"></i> Google Play
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div id="tatameRulesModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('tatameRulesModal')">×</span>
@@ -482,15 +528,15 @@
                 <div class="rule-card" style="border-color:#00b894; background:rgba(0,184,148,0.05);">
                     <span style="color:#00b894; font-weight:800; font-size:0.75rem; display:block; margin-bottom:5px;">PERMITIDO</span>
                     <div class="rule-img-container">
-                        <img class="slide" src="https://photos.google.com/photo/AF1QipN_Db2alZS_jy3xcgfCV770IkBCOWvyVfX-NYjy">
-                        <img class="slide" src="https://photos.google.com/photo/AF1QipPmGW_40nMmO4HFEoJ9-DUyEx9nbAx4pwaSaELy">
+                        <img class="slide" src="https://photos.google.com/share/AF1QipPzn3Uz4_WKWanrGsKl3Ycw93jdFCaohEtjmnC3b_UfEE7OASZJfuTnYZE5rawvxQ/photo/AF1QipPYXyOHiGmPV_f2UuQ3o4GhsB67lB7bAsw_xiga?key=RGRwX0xuTGhXaldIcmlRdnl4T2Jsd2xaeE14S213">
+                        <img class="slide" src="https://photos.google.com/share/AF1QipPPAhhB1WFmMUCQ9tvWsBfUeCmJM98RtEH-Gg_TJ1TvoDAMWmWJyezKNRBQY7UByg/photo/AF1QipMmiO6ZS2P1p8_eyyWBvCOf4as70vic3NCz3y6t?key=NlJieldNZnRZSFZPaFdheU9JbldRajVxMl9YX3dn">
                     </div>
                 </div>
                 <div class="rule-card" style="border-color:#ff7675; background:rgba(255,118,117,0.05);">
                     <span style="color:#ff7675; font-weight:800; font-size:0.75rem; display:block; margin-bottom:5px;">PROIBIDO</span>
                     <div class="rule-img-container">
-                        <img class="slide" src="https://photos.google.com/photo/AF1QipOCwQbdQM3gnPVaM3d9N9cuaBKxZUzGLyByKCSu">
-                        <img class="slide" src="https://photos.google.com/photo/AF1QipM86J0bg5BfP4p3gO-aqDAUuqHN5YkZgqezD7OF">
+                        <img class="slide" src="https://photos.google.com/share/AF1QipO-kRE8A2_SxINgtFCj8axdY1IwTlM3vaTgEsPN8KGOxvqL3UCYCH6jV5QBdky2tg/photo/AF1QipMuT_vGOkR9aurWXNvR9oIBzRl0_CQZ9QjgrxBc?key=cGV4R2VQVXh5NFV3Vm9heEtFblF5dVE0WERmaTdn">
+                        <img class="slide" src="https://photos.google.com/share/AF1QipNuR43ulQxiX7yHdjvCJYiUlCfs9pQWzdZwT15NtbO4R7mUKC6YPSRjcrqSLq3uSA/photo/AF1QipN9yjI2oljwgYbjn5VwdFwcdaIUofIs46w8MICk?key=OFFKZF9QNjRUYWx3UUZhTnBrQVNtYW5wM0l6RWtB">
                     </div>
                 </div>
             </div>
@@ -646,6 +692,44 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="termModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('termModal')">×</span>
+            <h2 style="font-family:'Montserrat'; margin-bottom:20px;">Termo de Responsabilidade</h2>
+            
+            <div class="rules-list-item">
+                <p style="font-size:0.9rem; color:#333; margin-bottom:20px;">
+                    Eu, na qualidade de aluno(a) ou responsável legal pelo(a) menor matriculado(a), declaro para os devidos fins de direito que tenho pleno conhecimento dos termos abaixo:
+                </p>
+
+                <span class="rules-title">1. DECLARAÇÃO DE SAÚDE</span>
+                <p style="font-size:0.9rem; color:#555; margin-bottom:15px;">
+                    Declaro estar em perfeitas condições de saúde física e mental para a prática de artes marciais. Atesto que fui submetido a avaliação médica (ou assumo a responsabilidade por não tê-la feito) e isento a <strong>The Kings Academy</strong> de responsabilidade sobre o agravamento de lesões ou condições preexistentes não informadas.
+                </p>
+
+                <span class="rules-title">2. CIÊNCIA DOS RISCOS (ALTO CONTATO)</span>
+                <p style="font-size:0.9rem; color:#555; margin-bottom:10px;">
+                    Estou ciente de que a prática de artes marciais (incluindo <strong>Jiu-Jitsu</strong>, <strong>Muay Thai</strong> e <strong>Boxe</strong>) é uma atividade física de contato que envolve riscos inerentes, tais como:
+                </p>
+                <ul class="rules-sub-list">
+                    <li>Lesões musculares e articulares.</li>
+                    <li>Contusões, hematomas e escoriações.</li>
+                    <li>Riscos de queda e impacto.</li>
+                </ul>
+                <p style="font-size:0.9rem; color:#555; margin-top:10px; margin-bottom:15px;">
+                    Entendo que, mesmo com o uso correto dos equipamentos e supervisão do <strong>Professor Jonathan Willy</strong>, o risco não pode ser totalmente anulado, e aceito participar voluntariamente.
+                </p>
+
+                <span class="rules-title">3. CONDUTA E SEGURANÇA</span>
+                <p style="font-size:0.9rem; color:#555;">
+                    Comprometo-me a seguir rigorosamente as orientações do professor, utilizar os equipamentos de proteção obrigatórios e manter uma conduta respeitosa, preservando a integridade física dos meus colegas de treino.
+                </p>
+            </div>
+
+            <button class="btn btn-primary" onclick="closeModal('termModal')" style="width:100%; margin-top:10px;">LI E ESTOU CIENTE</button>
         </div>
     </div>
 
