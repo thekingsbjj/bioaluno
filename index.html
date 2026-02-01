@@ -56,14 +56,17 @@
         .lock-subtitle { color: #888; font-size: 0.9rem; margin-bottom: 30px; text-align: center; }
         
         .cpf-input-group { width: 100%; max-width: 350px; position: relative; }
+        
+        /* Campo CPF Oculto (Senha) */
         .cpf-input { 
             width: 100%; padding: 15px; 
             border-radius: 12px; border: 2px solid #333; 
             background: #1e1e1e; color: white; 
-            font-size: 1.2rem; text-align: center; letter-spacing: 2px; outline: none;
+            font-size: 1.2rem; text-align: center; letter-spacing: 4px; outline: none;
             font-family: 'Montserrat', sans-serif; transition: 0.3s;
         }
         .cpf-input:focus { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+        .cpf-input::placeholder { letter-spacing: normal; font-size: 0.9rem; opacity: 0.5; }
         
         .lock-btn { 
             width: 100%; max-width: 350px; margin-top: 20px; 
@@ -174,9 +177,11 @@
 
         .clube-card { background: linear-gradient(145deg, #222, #1a1a1a); border: 2px solid var(--primary); border-radius: 20px; padding: 30px 25px; display: flex; flex-direction: column; justify-content: space-between; flex:1; }
         .clube-title { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; color: white; margin-bottom: 0; }
+        
+        /* AJUSTE FONTE PREÇO (ADULTO IGUAL KIDS) */
         .price-highlight-box { text-align:center; background:#f8f9fa; padding:20px; border-radius:12px; margin:20px 0; border: 2px solid var(--primary); }
         .price-kids { display:block; font-size:2.5rem; font-weight:900; color:var(--primary); line-height: 1.1; margin-top:5px; }
-        .price-adult { display:block; font-size:1.4rem; font-weight:700; color:#444; margin-top: 5px; }
+        .price-adult { display:block; font-size:2.5rem; font-weight:900; color:var(--primary); line-height: 1.1; margin-top:5px; }
         .price-label { text-transform:uppercase; font-size:0.8rem; font-weight:700; letter-spacing:1px; color:#888; }
         .price-note { font-size:0.7rem; color:#888; display: block; margin-top: 15px; font-style: italic; }
         .baby-note { background: rgba(243, 125, 29, 0.1); color: #f39c12; padding: 10px; border-radius: 8px; font-size: 0.8rem; margin-bottom: 20px; border-left: 3px solid #f39c12; }
@@ -325,7 +330,7 @@
         <p class="lock-subtitle">Digite seu CPF para acessar a plataforma.</p>
         
         <div class="cpf-input-group">
-            <input type="tel" id="cpfInput" class="cpf-input" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)">
+            <input type="password" inputmode="numeric" id="cpfInput" class="cpf-input" placeholder="Digite apenas números" maxlength="11">
         </div>
         
         <div class="remember-box">
@@ -769,7 +774,7 @@
 
                 <span class="rules-title">2. CIÊNCIA DOS RISCOS (ALTO CONTATO)</span>
                 <p style="font-size:0.9rem; color:#555; margin-bottom:10px;">
-                    Estou ciente de que a prática de artes marciais (incluindo <strong>Jiu-Jitsu</strong>, <strong>Muay Thai</strong> e <strong>Boxe</strong>) é uma atividade física de contato que envolve riscos inerentes, tais como:
+                    Estou ciente de que a prática de artes marciais (incluindo <strong>Jiu-Jitsu</strong>, <strong>NoGi</strong>, <strong>Muay Thai</strong> e <strong>Boxe</strong>) é uma atividade física de contato que envolve riscos inerentes, tais como:
                 </p>
                 <ul class="rules-sub-list">
                     <li>Lesões musculares e articulares.</li>
@@ -1151,7 +1156,7 @@
         const fullScheduleText = {
             jiujitsu: [
                 { title: "Segunda / Quarta", times: ["08:00 - Kids", "09:00 - Adulto", "19:00 - Kids", "20:00 - Adulto"] },
-                { title: "Terça / Quinta", times: ["19:00 - Baby (3-5 anos)"] },
+                { title: "Terça / Quinta", times: ["19:00 - Baby (04 a 07 anos)"] },
                 { title: "Sexta (NoGi)", times: ["08:00 - Kids", "09:00 - Adulto", "19:00 - Kids", "20:00 - Adulto"] }
             ],
             muaythai: [{ title: "Seg/Qua/Sex", times: ["18:00 - Misto"] }, { title: "Ter/Qui", times: ["20:00 - Kids", "21:00 - Adulto"] }],
