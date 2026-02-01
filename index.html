@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com http://googleusercontent.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com http://googleusercontent.com https://photos.google.com;">
     <meta name="referrer" content="no-referrer-when-downgrade">
 
-    <title>The Kings Academy | Jiu-Jitsu & Desenvolvimento</title>
+    <title>The Kings Academy | Área do Aluno</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -36,6 +36,47 @@
         html { font-size: 16px; } 
         body { background-color: var(--white); font-family: 'Poppins', sans-serif; color: var(--dark); line-height: 1.6; overflow-x: hidden; }
 
+        /* TELA DE BLOQUEIO (LOCK SCREEN) */
+        #lockScreen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #121212;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: opacity 0.5s ease;
+        }
+        #lockScreen.hidden { opacity: 0; pointer-events: none; }
+        
+        .lock-logo { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 30px; object-fit: cover; }
+        .lock-title { color: white; font-family: 'Montserrat', sans-serif; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 5px; text-align: center; }
+        .lock-subtitle { color: #888; font-size: 0.9rem; margin-bottom: 30px; text-align: center; }
+        
+        .cpf-input-group { width: 100%; max-width: 350px; position: relative; }
+        .cpf-input { 
+            width: 100%; padding: 15px; 
+            border-radius: 12px; border: 2px solid #333; 
+            background: #1e1e1e; color: white; 
+            font-size: 1.2rem; text-align: center; letter-spacing: 2px; outline: none;
+            font-family: 'Montserrat', sans-serif; transition: 0.3s;
+        }
+        .cpf-input:focus { border-color: var(--primary); box-shadow: 0 0 15px var(--primary-glow); }
+        
+        .lock-btn { 
+            width: 100%; max-width: 350px; margin-top: 20px; 
+            padding: 15px; background: var(--primary); color: white; 
+            border: none; border-radius: 12px; font-weight: 800; font-size: 1rem; 
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .lock-error { color: var(--danger); font-size: 0.85rem; margin-top: 15px; height: 20px; font-weight: 600; text-align: center; }
+        
+        .remember-box { margin-top: 15px; display: flex; align-items: center; gap: 10px; color: #aaa; font-size: 0.85rem; }
+        .remember-box input { accent-color: var(--primary); width: 18px; height: 18px; }
+
+        /* RESTO DO SITE */
         h1, h2, h3 { line-height: 1.2; }
         p { font-size: 0.95rem; color: #666; }
 
@@ -104,7 +145,7 @@
 
         @media (min-width: 768px) {
             .guides-grid { grid-template-columns: repeat(4, 1fr); gap: 25px; }
-            .invest-card { grid-column: 3 / 5; /* PC: Ocupa as ultimas 2 colunas */ }
+            .invest-card { grid-column: 3 / 5; /* PC: Ocupa as ultimas 2 colunas para fechar grid */ }
         }
 
         .student-panel { background: #151515; color: white; padding: 60px 0; position: relative; }
@@ -226,18 +267,11 @@
         .details-content ul { padding-left: 20px; margin-top: 5px; }
 
         .rules-list-item { margin-bottom: 20px; border-left: 3px solid var(--primary); padding-left: 15px; }
-        /* CORREÇÃO DO BUG DE FORMATAÇÃO: strong dentro do texto agora é inline */
+        /* Correção para não quebrar linha no negrito comum */
         .rules-list-item strong { color: #000; font-weight: 700; }
-        
-        /* NOVA CLASSE PARA TÍTULOS DE REGRAS */
+        /* Títulos de regras que pulam linha */
         .rules-title {
-            color: var(--primary);
-            display: block; /* Pula linha apenas aqui */
-            font-weight: 800;
-            font-size: 0.95rem;
-            margin-bottom: 5px;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
+            color: var(--primary); display: block; font-weight: 800; font-size: 0.95rem; margin-bottom: 5px; font-family: 'Montserrat', sans-serif; text-transform: uppercase;
         }
 
         .rules-sub-list { list-style: none; padding: 0; }
@@ -268,6 +302,7 @@
         .socials { display: flex; justify-content: center; gap: 25px; font-size: 1.5rem; margin-top: 20px; }
         .socials a { color: white; transition: 0.3s; }
         .socials a:hover { color: var(--primary); }
+        .disclaimer { font-size: 0.7rem; color: #888; margin-top: 20px; font-style: italic; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.4; }
 
         @keyframes slideFade { 0% { opacity: 0; } 10% { opacity: 1; } 40% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 0; } }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
@@ -283,6 +318,24 @@
     </style>
 </head>
 <body>
+
+    <div id="lockScreen">
+        <img src="logo.png" alt="Logo" class="lock-logo">
+        <h2 class="lock-title">Área Exclusiva</h2>
+        <p class="lock-subtitle">Digite seu CPF para acessar a plataforma.</p>
+        
+        <div class="cpf-input-group">
+            <input type="tel" id="cpfInput" class="cpf-input" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)">
+        </div>
+        
+        <div class="remember-box">
+            <input type="checkbox" id="rememberMe">
+            <label for="rememberMe">Manter conectado por 30 dias</label>
+        </div>
+
+        <button onclick="attemptLogin()" class="lock-btn">ENTRAR</button>
+        <div id="loginError" class="lock-error"></div>
+    </div>
 
     <div class="top-status-bar">
         <div class="live-dot" id="top-dot"></div>
@@ -447,6 +500,10 @@
             <a href="https://instagram.com/thekingskw" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
             <a href="https://wa.me/5511951945648" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
         </div>
+        
+        <p class="disclaimer">
+            Aviso de Privacidade: Esta página é estritamente informativa e não armazena dados pessoais, financeiros ou cadastrais de alunos, pais ou responsáveis em servidores externos. A validação de acesso é realizada localmente.
+        </p>
     </footer>
 
     <div id="scheduleModal" class="modal">
@@ -551,7 +608,7 @@
 
             <h4 style="margin-top:30px;">CÓDIGO DE CONDUTA</h4>
             <div class="rules-list-item">
-                <strong><i class="fas fa-hands-wash"></i> 1. Higiene</strong>
+                <span class="rules-title"><i class="fas fa-hands-wash"></i> 1. Higiene</span>
                 <ul class="rules-sub-list">
                     <li><b>Uniforme limpo:</b> Use sempre kimono (gi) ou roupa adequada e higienizada.</li>
                     <li><b>Unhas curtas:</b> Mantenha unhas das mãos e pés aparadas.</li>
@@ -560,7 +617,7 @@
             </div>
 
             <div class="rules-list-item">
-                <strong><i class="fas fa-door-open"></i> 2. Ao Entrar e Sair</strong>
+                <span class="rules-title"><i class="fas fa-door-open"></i> 2. Ao Entrar e Sair</span>
                 <ul class="rules-sub-list">
                     <li><b>Cumprimente (Reverência):</b> Faça uma saudação (bow) ao entrar e sair do tatame.</li>
                     <li><b>Permissão:</b> Se chegar atrasado, aguarde a permissão do professor antes de subir.</li>
@@ -569,7 +626,7 @@
             </div>
 
             <div class="rules-list-item">
-                <strong><i class="fas fa-handshake"></i> 3. Respeito</strong>
+                <span class="rules-title"><i class="fas fa-handshake"></i> 3. Respeito</span>
                 <ul class="rules-sub-list">
                     <li><b>Não pise nas faixas:</b> Respeite seu material e o dos colegas.</li>
                     <li><b>Silêncio e Foco:</b> Evite conversas paralelas e preste atenção às explicações do professor.</li>
@@ -580,7 +637,7 @@
             </div>
 
             <div class="rules-list-item">
-                <strong><i class="fas fa-user-shield"></i> 4. Segurança</strong>
+                <span class="rules-title"><i class="fas fa-user-shield"></i> 4. Segurança</span>
                 <ul class="rules-sub-list">
                     <li><b>"Tap" (Desistir):</b> Respeite o sinal de desistência do colega imediatamente. Bata no colega, no tatame ou fale "tap".</li>
                     <li><b>Limpeza:</b> Se suar excessivamente, limpe-se fora. Se houver sangue, limpe o local.</li>
@@ -613,7 +670,7 @@
                 </div>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-tag"></i> INVESTIMENTO (À VISTA)</strong>
+                    <span class="rules-title"><i class="fas fa-tag"></i> INVESTIMENTO (À VISTA)</span>
                     <ul class="rules-sub-list">
                         <li><b>Kimono Kids:</b> A partir de <strong>R$ 375,00</strong>.</li>
                         <li><b>Faixa Branca:</b> <strong>R$ 85,00</strong>.</li>
@@ -621,12 +678,12 @@
                 </div>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-shipping-fast"></i> COMO ENCOMENDAR</strong>
+                    <span class="rules-title"><i class="fas fa-shipping-fast"></i> COMO ENCOMENDAR</span>
                     <p style="font-size:0.9rem; color:#555; margin-bottom:10px;">Não trabalhamos com pronta-entrega. Todos os uniformes são feitos <span style="color:var(--primary); font-weight:700;">sob encomenda</span> e devem ser solicitados via WhatsApp.</p>
                 </div>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-wallet"></i> PAGAMENTO</strong>
+                    <span class="rules-title"><i class="fas fa-wallet"></i> PAGAMENTO</span>
                     <div style="background:#f8f9fa; padding:10px; border-radius:10px; margin-bottom:5px;">
                         <span style="font-weight:700; font-size:0.8rem;">OPÇÃO 1 (SINAL):</span>
                         <p style="font-size:0.8rem; margin:0;">50% no pedido + 50% na entrega (Pix/Dinheiro).</p>
@@ -650,12 +707,12 @@
                 </div>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-graduation-cap"></i> SISTEMA DE GRADUAÇÃO</strong>
+                    <span class="rules-title"><i class="fas fa-graduation-cap"></i> SISTEMA DE GRADUAÇÃO</span>
                     <p style="font-size:0.9rem; color:#555;">A troca de faixas de Jiu-Jitsu é realizada <strong>anualmente</strong> pela Equipe Brazilian Roots, com data, horário e local definidos por eles.</p>
                 </div>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-list-ol"></i> TABELA 2026 (A DEFINIR)</strong>
+                    <span class="rules-title"><i class="fas fa-list-ol"></i> TABELA 2026 (A DEFINIR)</span>
                     <table class="price-table">
                         <tr><td>Faixa Branca</td><td>A Definir</td></tr>
                         <tr><td>Faixa Colorida (Kids)</td><td>A Definir</td></tr>
@@ -670,7 +727,7 @@
                 <p style="font-size:0.8rem; color:#666; margin-bottom:20px;">Diretrizes financeiras para atletas em competições.</p>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-bus"></i> 1. Custos & Logística</strong>
+                    <span class="rules-title"><i class="fas fa-bus"></i> 1. Custos & Logística</span>
                     <ul class="rules-sub-list">
                         <li><b>Despesas do Coach:</b> Para ter um coach, os alunos devem ratear os custos (Passagem, Alimentação, Hospedagem).</li>
                         <li><b>Locomoção:</b> Inclui trajeto até o destino e deslocamentos internos até o estádio.</li>
@@ -679,14 +736,14 @@
                 </div>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-wallet"></i> 2. Custos do Atleta</strong>
+                    <span class="rules-title"><i class="fas fa-wallet"></i> 2. Custos do Atleta</span>
                     <ul class="rules-sub-list">
                         <li><b>Responsabilidade:</b> Inscrição, taxas de filiação à federação e outros custos são de responsabilidade do próprio aluno/pais.</li>
                     </ul>
                 </div>
 
                 <div class="rules-list-item">
-                    <strong><i class="fas fa-user-check"></i> 3. Lutar sem Coach</strong>
+                    <span class="rules-title"><i class="fas fa-user-check"></i> 3. Lutar sem Coach</span>
                     <ul class="rules-sub-list">
                         <li><b>Autorização:</b> Permitido apenas com autorização prévia do professor representante.</li>
                     </ul>
@@ -700,7 +757,7 @@
             <span class="close-modal" onclick="closeModal('termModal')">×</span>
             <h2 style="font-family:'Montserrat'; margin-bottom:20px;">Termo de Responsabilidade</h2>
             
-            <div class="rules-list-item">
+            <div class="rules-list-item" style="border:none; padding:0;">
                 <p style="font-size:0.9rem; color:#333; margin-bottom:20px;">
                     Eu, na qualidade de aluno(a) ou responsável legal pelo(a) menor matriculado(a), declaro para os devidos fins de direito que tenho pleno conhecimento dos termos abaixo:
                 </p>
@@ -776,7 +833,7 @@
             <p style="font-size:0.8rem; color:#666; margin-bottom:20px;">Diretrizes para atletas The Kings / Brazilian Roots</p>
 
             <div class="rules-list-item">
-                <strong><i class="fas fa-bus"></i> 1. Custos & Logística</strong>
+                <span class="rules-title"><i class="fas fa-bus"></i> 1. Custos & Logística</span>
                 <ul class="rules-sub-list">
                     <li><b>Despesas do Coach:</b> Para ter um coach, os alunos devem ratear os custos (Passagem, Alimentação, Hospedagem).</li>
                     <li><b>Locomoção:</b> Inclui trajeto até o destino e deslocamentos internos até o estádio.</li>
@@ -785,14 +842,14 @@
             </div>
 
             <div class="rules-list-item">
-                <strong><i class="fas fa-wallet"></i> 2. Custos do Atleta</strong>
+                <span class="rules-title"><i class="fas fa-wallet"></i> 2. Custos do Atleta</span>
                 <ul class="rules-sub-list">
                     <li><b>Responsabilidade:</b> Inscrição, taxas de filiação à federação e outros custos são de responsabilidade do próprio aluno.</li>
                 </ul>
             </div>
 
             <div class="rules-list-item">
-                <strong><i class="fas fa-user-check"></i> 3. Lutar sem Coach</strong>
+                <span class="rules-title"><i class="fas fa-user-check"></i> 3. Lutar sem Coach</span>
                 <ul class="rules-sub-list">
                     <li><b>Autorização:</b> Permitido apenas com autorização prévia do professor representante.</li>
                     <li><b>Representação:</b> O aluno deve estar federado e representar a equipe "Brazilian Roots / The King's".</li>
@@ -801,7 +858,7 @@
             </div>
 
             <div class="rules-list-item">
-                <strong><i class="fas fa-tshirt"></i> 4. Uniforme (Kimono/Rash)</strong>
+                <span class="rules-title"><i class="fas fa-tshirt"></i> 4. Uniforme (Kimono/Rash)</span>
                 <ul class="rules-sub-list">
                     <li><b>Kimono:</b> Obrigatório possuir o logo da <b>Brazilian Roots</b> em Silk no peito.</li>
                     <li><b>Rashguard:</b> Deve ser oficial da Brazilian Roots ou The King's.</li>
@@ -1012,6 +1069,79 @@
     </div>
 
     <script>
+        // --- LÓGICA DE VALIDAÇÃO CPF ---
+        function maskCPF(input) {
+            let value = input.value.replace(/\D/g, "");
+            if (value.length > 11) value = value.slice(0, 11);
+            value = value.replace(/(\d{3})(\d)/, "$1.$2");
+            value = value.replace(/(\d{3})(\d)/, "$1.$2");
+            value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            input.value = value;
+        }
+
+        function isValidCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g, '');
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+            let sum = 0, remainder;
+            for (let i = 1; i <= 9; i++) sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+            remainder = (sum * 10) % 11;
+            if ((remainder === 10) || (remainder === 11)) remainder = 0;
+            if (remainder !== parseInt(cpf.substring(9, 10))) return false;
+            sum = 0;
+            for (let i = 1; i <= 10; i++) sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+            remainder = (sum * 10) % 11;
+            if ((remainder === 10) || (remainder === 11)) remainder = 0;
+            if (remainder !== parseInt(cpf.substring(10, 11))) return false;
+            return true;
+        }
+
+        function attemptLogin() {
+            const cpfInput = document.getElementById('cpfInput');
+            const errorDiv = document.getElementById('loginError');
+            const rememberMe = document.getElementById('rememberMe').checked;
+            const cpf = cpfInput.value;
+
+            errorDiv.innerText = "";
+
+            if (!isValidCPF(cpf)) {
+                errorDiv.innerText = "CPF Inválido. Verifique os números.";
+                return;
+            }
+
+            // Lógica de "Fake Error" na primeira tentativa válida
+            if (!sessionStorage.getItem('firstAttemptDone')) {
+                errorDiv.innerText = "Erro: CPF não localizado na base ativa.";
+                sessionStorage.setItem('firstAttemptDone', 'true');
+                
+                // FORÇAR LIMPEZA E FOCO COM PEQUENO ATRASO PARA GARANTIR
+                setTimeout(() => {
+                    cpfInput.value = ""; 
+                    cpfInput.focus();
+                }, 100);
+                
+                return;
+            }
+
+            // Sucesso na segunda tentativa
+            document.getElementById('lockScreen').classList.add('hidden');
+            if (rememberMe) {
+                localStorage.setItem('kingsAuthToken', 'valid');
+                const expiry = new Date();
+                expiry.setDate(expiry.getDate() + 30);
+                localStorage.setItem('kingsAuthExpiry', expiry.getTime());
+            }
+        }
+
+        function checkSession() {
+            const token = localStorage.getItem('kingsAuthToken');
+            const expiry = localStorage.getItem('kingsAuthExpiry');
+            const now = new Date().getTime();
+
+            if (token === 'valid' && expiry && now < parseInt(expiry)) {
+                document.getElementById('lockScreen').style.display = 'none';
+            }
+        }
+
         // --- DADOS E LÓGICA DE GRADE ---
         const scheduleData = {
             "1,3": [{h: 8, name: "JJ Kids"}, {h: 9, name: "JJ Adulto"}, {h: 18, name: "Muay Thai"}, {h: 19, name: "JJ Kids"}, {h: 20, name: "JJ Adulto"}, {h: 21, name: "Boxe"}],
@@ -1176,12 +1306,10 @@
             
             // Lógica específica para o modal Investimentos que tem IDs diferentes
             if(tabName === 'uniforme' || tabName === 'graduacao' || tabName === 'custos') {
-                // Remove active de todas as abas do modal de investimentos
                 document.getElementById('tab-uniforme').classList.remove('active');
                 document.getElementById('tab-graduacao').classList.remove('active');
                 document.getElementById('tab-custos').classList.remove('active');
                 
-                // Ativa a aba correta
                 document.getElementById('tab-' + tabName).classList.add('active');
             } else {
                 // Lógica para o modal Plano de Aula
@@ -1189,7 +1317,6 @@
                 document.getElementById('tab-' + tabName).classList.add('active');
             }
             
-            // Remove active de todos os botões no mesmo container
             let siblings = event.currentTarget.parentNode.children;
             for(let btn of siblings) btn.classList.remove('active');
             event.currentTarget.classList.add('active');
@@ -1233,8 +1360,6 @@
         window.onclick = function(e) { if(e.target.className === 'modal') closeModal(e.target.id); }
 
         let exitEventAdded = false;
-        // Removido setTimeout para popup automatico conforme solicitado na ultima interacao
-        // Apenas o mouseleave dispara o popup agora
         
         document.addEventListener('mouseleave', (e) => {
             if (e.clientY < 0 && !exitEventAdded && !sessionStorage.getItem('clubeExitShown')) {
@@ -1244,6 +1369,7 @@
             }
         });
 
+        checkSession();
         updateSchedule();
         setInterval(updateSchedule, 30000);
     </script>
